@@ -1,0 +1,323 @@
+<div id="wirelessContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header">Basic Security Settings</div>
+      <div class="softTxt">
+        Instructions for setting up a wireless network using basic WEP wireless security are set out below. However, we recommend that you establish stronger security using the Advanced Security Settings. To establish stronger security, select "OFF" in Step 4, click on APPLY and then go to Advanced Security Settings to setup security.
+      </div>
+      <p>&nbsp;</p>
+      <p ng-show="dontShow">Saving Settings.....</p>
+      <section ng-hide="dontShow">
+      <div class="bold">1. Turn Wireless On</div>
+      <table class="dark-table narrower">
+        <tbody>
+          <tr class="shaded">
+            <th>2.4 GHz Wireless:</th>
+            <td>
+              <label>
+                <input type="radio" ng-model="wirelessA.radioEnabled" ng-value="true"/>
+                On
+              </label>
+            </td>
+            <td>
+              <label>
+                <input type="radio" ng-model="wirelessA.radioEnabled" ng-value="false"/>
+                Off
+              </label>
+            </td>
+            <th>5 GHz Wireless:</th>
+            <td>
+              <label>
+                <input type="radio" ng-model="wirelessB.radioEnabled" ng-value="true"/>
+                On
+              </label>
+            </td>
+            <td>
+              <label>
+                <input type="radio" ng-model="wirelessB.radioEnabled" ng-value="false"/>
+                Off
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="heading bold">2. Change the SSID setting to any name or code you want</div>
+      <div class="softTxt">
+        (SSID is the same thing as the name of your Wireless Network.)
+      </div>
+      <table class="dark-table narrower">
+        <tbody>
+          <tr class="shaded">
+            <th>2.4 GHz SSID:</th>
+            <td>
+              <input type="text" ng-model="wirelessA.ssid" maxLength="64" ng-disabled="!wirelessA.radioEnabled"/>
+            </td>
+            <th>5 GHz SSID:</th>
+            <td>
+              <input type="text" ng-model="wirelessB.ssid" maxLength="64" ng-disabled="!wirelessB.radioEnabled"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="heading bold">3. Channel</div>
+      <div class="softTxt">
+        To change the channel of the frequency band at which the Router communicates, please enter it below. Then click apply to save your settings:
+      </div>
+      <table class="dark-table narrower">
+        <tbody>
+          <tr class="shaded">
+            <th>2.4 GHz Channel:</th>
+            <td>
+              <select ng-model="wirelessA.channelDesired" ng-disabled="!wirelessA.radioEnabled">
+                <option value="0">Automatic</option>
+                <option ng-repeat="n in [1,11] | makeRange">{{n}}</option>
+              </select>
+            </td>
+            <th>5 GHz Channel:</th>
+            <td>
+              <select ng-model="wirelessB.channelDesired" ng-disabled="!wirelessB.radioEnabled">
+                <option value="0">Automatic</option>
+                <option>36</option>
+                <option>40</option>
+                <option>44</option>
+                <option>48</option>
+                <option>149</option>
+                <option>153</option>
+                <option>157</option>
+                <option>161</option>
+                <option>165</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <label>
+          <input type="checkbox" ng-model="saveChannel"/>
+          Keep my channel selection during power cycle.
+        </label><br>
+      </div>
+      <div class="heading bold">4. Click on the button next to WEP</div>
+      <div class="softTxt">
+        WEP prevents unintentional connections to your wireless home network. For greater protection against hacking and security breaches, see Advanced Security Settings.
+      </div>
+      <table class="dark-table narrower">
+        <tbody>
+          <tr class="shaded">
+            <th>2.4 GHz WEP</th>
+            <td>
+              <label>
+                <input type="radio" ng-model="wAtype" ng-value="0" ng-disabled="!wirelessA.radioEnabled"/>
+                WEP
+              </label>
+            </td>
+            <td>
+              <label>
+                <input type="radio" ng-model="wAtype" ng-value="1" ng-disabled="!wirelessA.radioEnabled"/>
+                Off
+              </label>
+            </td>
+            <th></th>
+            <td>
+            </td>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="heading bold">5. Select a WEP Key</div>
+      <ul class="softTxt">
+        <li>To create a 64/40 WEP Hex Key, you need to enter a combination of 10 digits. You can choose any letter from A-F or any number from 0-9. Sample HEX WEP Key: 0FB310FF28.</li>
+        
+        <li>To create a 64/40 WEP ASCII, you need to enter a combination of 5 ASCII characters. Sample ASCII WEP Key: hello.</li>
+        <li>To create a 128/104 WEP Hex Key, you need to enter a combination of 26 digits. You can choose any letter from A-F or any number from 0-9. Sample HEX WEP Key: 0FB310FF280FB310FF28123456.</li>
+        
+        <li>To create a 128/104 WEP ASCII, you need to enter a combination of 13 ASCII characters. Sample ASCII WEP Key: hellohello123.</li>
+      </ul>
+      <div class="heading bold">Password Tips: </div>
+      <p class="softTxt">Use a mix of letters and numbers.
+      Don’t use personal information that could be guessed or easily discovered (for example, names of family members, birthdates, phone numbers)</p>
+
+      <table class="dark-table narrower">
+        <tbody>
+          <tr class="shaded">
+            <th>2.4 GHz Wireless</th>
+            <td></td>
+            <th></th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Select a WEP Key:</th>
+            <td>
+              <select class="input-medium" ng-model="wepA.keyLength" ng-change="wepChanged(wepA)" ng-disabled="!wirelessA.radioEnabled || wAtype != 0">
+                <option value="0">64/40 bit</option>
+                <option value="1">128/104 bit</option>
+              </select>
+              <select class="input-small" ng-model="wepA.entryMethod" ng-change="wepChanged(wepA)" ng-disabled="!wirelessA.radioEnabled || wAtype != 0">
+                <option value="0">HEX</option>
+                <option value="1">ASCII</option>
+              </select>
+            </td>
+            <th></th>
+            <td>
+            </td>
+          </tr>
+          <tr class="shaded">
+            <th>Key Code:</th>
+            <td>
+              <input type="text" ng-model="wepA.key" ng-change="wepChanged(wepA)" ng-disabled="!wirelessA.radioEnabled || wAtype != 0"/>
+              <div>{{wepA.charactersLeft}} Digits Left</div>
+            </td>
+            <th></th>
+            <td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="heading bold">6. Write down wireless settings.</div>
+      <div class="softTxt">
+        In order for every computer to connect to this Router wirelessly, you need to make sure that the wireless setup for each computer uses the SAME settings listed below. Please make sure that you write down all of the values set on this screen.
+      </div>
+
+      <div class="shaded_area">
+        <div class="header">2.4 GHz Wireless Status</div>
+        <table class="clearTable1">
+          <tbody>
+            <tr>
+              <th>Wireless:</th>
+              <td ng-switch on="wirelessA.radioEnabled">
+                <div class="green-text" ng-switch-when="true">On</div>
+                <div class="red-text" ng-switch-default>Off</div>
+              </td>
+            </tr>
+            <tr>
+              <th>SSID:</th>
+              <td>{{wirelessA.ssid}}</td>
+            </tr>
+            <tr>
+              <th ng-show="wepA.keyLength==0">64-BIT WEP:</th>
+              <th ng-show="wepA.keyLength==1">128-BIT WEP:</th>
+              <td ng-switch on="wAtype">
+                <div class="green-text" ng-switch-when="0">On</div>
+                <div class="red-text" ng-switch-default>Off</div>
+              </td>
+            </tr>
+            <tr>
+              <th ng-show="wepA.keyLength==0">64-BIT WEP Key:</th>
+              <th ng-show="wepA.keyLength==1">128-BIT WEP Key:</th>
+              <td>{{wepA.key}}</td>
+            </tr>
+            <tr>
+              <th>Channel:</th>
+              <td ng-switch on="wirelessA.channelDesired">
+                <div ng-switch-when="0">Automatic</div>
+                <div ng-switch-default>{{wirelessA.channelDesired}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th>SSID Broadcast:</th>
+              <td ng-switch on="wirelessA.ssidBroadcast">
+                <div ng-switch-when="true" class="green-text">Enabled</div>
+                <div ng-switch-default class="red-text">Disabled</div>
+              </td>
+            </tr>
+            <tr>
+              <th>MAC Authentication:</th>
+              <td ng-switch on="wirelessA.macAuthentication">
+                <div ng-switch-when="true">Enabled</div>
+                <div ng-switch-default>Disabled</div>
+              </td>
+            </tr>
+            <tr>
+              <th>Wireless Mode:</th>
+              <td ng-switch on="wirelessA.mode">
+                <div ng-switch-when="8">Compatibility Mode(802.11b/g/n)</div>
+                <div ng-switch-when="4">Legacy Mode(802.11b/g)</div>
+                <div ng-switch-when="1">Performance Mode(802.11n)</div>
+                <div ng-switch-default>Unknown</div>
+              </td>
+            </tr>
+            <tr ng-show="wirelessA.radioEnabled">
+              <th>Packets Sent:</th>
+              <td>{{wirelessA.txPackets}}</td>
+            </tr>
+            <tr ng-show="wirelessA.radioEnabled">
+              <th>Packets Received:</th>
+              <td>{{wirelessA.rxPackets}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="shaded_area">
+        <div class="header">5 GHz Wireless Status</div>
+        <table class="clearTable2">
+          <tbody>
+            <tr>
+              <th>Wireless:</th>
+              <td ng-switch on="wirelessB.radioEnabled">
+                <div class="green-text" ng-switch-when="true">On</div>
+                <div class="red-text" ng-switch-default>Off</div>
+              </td>
+            </tr>
+            <tr>
+              <th>SSID:</th>
+              <td>{{wirelessB.ssid}}</td>
+            </tr>
+            <tr>
+              <th>Channel:</th>
+              <td ng-switch on="wirelessB.channelDesired">
+                <div ng-switch-when="0">Automatic</div>
+                <div ng-switch-default>{{wirelessB.channelDesired}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th>SSID Broadcast:</th>
+              <td ng-switch on="wirelessB.ssidBroadcast">
+                <div ng-switch-when="true" class="green-text">Enabled</div>
+                <div ng-switch-default class="red-text">Disabled</div>
+              </td>
+            </tr>
+            <tr>
+              <th>MAC Authentication:</th>
+              <td ng-switch on="wirelessB.macAuthentication">
+                <div ng-switch-when="true">Enabled</div>
+                <div ng-switch-default>Disabled</div>
+              </td>
+            </tr>
+            <tr>
+              <th>Wireless Mode:</th>
+              <td ng-switch on="wirelessB.mode">
+                <div ng-switch-when="1">N Only Mode(802.11n)</div>
+                <div ng-switch-when="16">N and AC Mode(802.11n/ac)</div>
+                <div ng-switch-when="2">AC Only Mode(802.11ac)</div>
+                <div ng-switch-default>Unknown</div>
+              </td>
+            </tr>
+            <tr ng-show="wirelessB.radioEnabled">
+              <th>Packets Sent:</th>
+              <td>{{wirelessB.txPackets}}</td>
+            </tr>
+            <tr ng-show="wirelessB.radioEnabled">
+              <th>Packets Received:</th>
+              <td>{{wirelessB.rxPackets}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="centerme">
+        <button class="btn" ng-click="save()">Apply</button>
+      </div>
+    </section>
+    </div>
+    <div ng-include src="'partials/error.html'"></div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+</div>

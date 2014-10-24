@@ -1,0 +1,162 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html'"></div>
+    <div ng-include src="'partials/error.html'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header">IPv6 Configuration Control</div>
+      <div class="enable_ip">
+        <p class="bold heading">1. Enable IPv6 Support</p>
+
+        <label>
+          <input type="radio" ng-model="ipv6.enabled" ng-value="true"/>
+          Enabled
+        </label>
+
+        <label>
+          <input type="radio" ng-model="ipv6.enabled" ng-value="false"/>
+          Disabled
+        </label>
+      </div>
+
+      <div class="ip_method">
+        <p class="bold heading_10">
+          2. Specify the method to be used to obtain your WAN IPv6 Address
+        </p>
+  
+
+        <table class="IP_config">
+          <tbody>
+            <tr>
+              <td>IPv6 WAN Configuration:</td>
+              <td>
+                <select ng-model="ipv6.mode" ng-disabled="!ipv6.enabled">
+                  <option value="0">None</option>
+                  <option value="2">Static</option>
+                  <option value="1">DHCPv6</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ip_method" ng-show="ipv6.mode == 1">
+          <label>
+            <input type="radio" ng-model="autoDns" value="0" ng-disabled="!ipv6.enabled"/>
+            Obtain IPv6 DNS Server address automatically
+          </label>
+          <label>
+            <input type="radio" ng-model="autoDns" value="1" ng-disabled="!ipv6.enabled"/>
+            Use the following IPv6 DNS Server addresses
+          </label>
+        </div>
+        <table class="IP_config">
+          <tbody>
+            <tr ng-show="ipv6.mode == 2">
+              <td>IPv6 WAN Address:</td>
+              <td>
+                <input type="text" ng-model="ipv6.staticAddress" ng-disabled="!ipv6.enabled"/>
+              </td>
+            </tr>
+            <tr ng-show="ipv6.mode == 2">
+              <td>Prefix Length:</td>
+              <td>
+                <input type="text" ng-model="ipv6.staticPrefixLength" ng-disabled="!ipv6.enabled"/>
+              </td>
+            </tr>
+            <tr ng-show="ipv6.mode == 2">
+              <td>Default Gateway:</td>
+              <td>
+                <input type="text" ng-model="ipv6.staticDefaultGateway" ng-disabled="!ipv6.enabled"/>
+              </td>
+            </tr>
+            <tr ng-show="ipv6.mode == 2 || (ipv6.mode == 1 && autoDns==1)">
+              <td>Primary DNS Server:</td>
+              <td>
+                <input type="text" ng-model="ipv6.staticPrimaryDns" ng-disabled="!ipv6.enabled"/>
+              </td>
+            </tr>
+            <tr ng-show="ipv6.mode == 2 || (ipv6.mode == 1 && autoDns==1)">
+              <td>Secondary DNS Server:</td>
+              <td>
+                <input type="text" ng-model="ipv6.staticSecondaryDns" ng-disabled="!ipv6.enabled"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="bold heading_10">
+        3. Specify the method to be used to assign LAN IPv6 addresses
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <td>IPv6 LAN Configuration:</td>
+            <td>
+              <select ng-model="ipv6.lanMode" ng-disabled="!ipv6.enabled">
+                <option value="1">Stateful (DHCPv6)</option>
+                <option value="0">Stateless</option>
+              </select>
+            </td>
+          </tr>
+          <tr ng-show="ipv6.mode != 0">
+            <td>LAN Prefix:</td>
+            <td>
+              <input type="text" ng-show="ipv6.mode==2" ng-model="ipv6.lanPrefix" ng-disabled="!ipv6.enabled"/>
+              <span ng-show="ipv6.mode == 1">{{ipv6.lanPrefix}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="text_line">LAN IPv6 Link Local Address:</td>
+            <td>{{ipv6.localLinkAddress}}</td>
+          </tr>
+          <tr ng-show="ipv6.lanMode == 1">
+            <td>LAN IPv6 Address Range:</td>
+            <td>
+              <input type="text" ng-model="ipv6.addressStart" ng-disabled="!ipv6.enabled"/>
+              -
+              <input type="text" ng-model="ipv6.addressEnd" ng-disabled="!ipv6.enabled"/>
+            </td>
+          </tr>
+          <tr>
+            <td>Router Advertisement Lifetime:</td>
+            <td>
+              <input type="text" ng-model="ipv6.advertisementLifetime" ng-disabled="!ipv6.enabled" maxLength="3"/>
+              minutes (0-150)
+            </td>
+          </tr>
+          <tr ng-show="ipv6.mode != 0 && ipv6.lanMode == 1">
+            <td>IPv6 Address Lifetime:</td>
+            <td>
+              <input type="text" ng-model="ipv6.addressLifetime" ng-disabled="!ipv6.enabled"/>
+              minutes (3-150)
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <th>Interfaces</th>
+          </tr>
+          <tr ng-repeat="inter in ipv6.interfaces">
+            <td>
+              <input type="checkbox" ng-model="inter.enabled" ng-disabled="!ipv6.enabled">{{inter.name}} IPv6 Enabled
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+        <a href="#/advanced" class="btn dark-btn">Cancel</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

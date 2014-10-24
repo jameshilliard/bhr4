@@ -1,0 +1,185 @@
+<div>
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/network/nav.html'"></div>
+    <div class="span9 content-panel-with-header">
+      <div class="header">Network Connections</div>
+      <table class="dark-table smallfont">
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td ng-repeat="connection in connections">
+              <a href="#/network/connections/{{connection.connectionId}}">{{connection.displayName}}</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Status</td>
+            <td ng-repeat="connection in connections" ng-switch on="connection.status">
+              <div ng-show="connection.connectionId != 1 || connection.protocolUsed != 1">
+                <div ng-show="connection.connectionId != 5">
+                  <div ng-show="connection.status == 0 && connection.enabled">
+                    <div ng-show="connection.connectionId == 2 || connection.connectionId == 3 || connection.connectionId == 4">
+                      <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
+                      <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
+                    </div>
+                    <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">
+                    <div ng-show="connection.protocolUsed == 0">
+                      <div ng-switch on="connection.status">
+                      <div ng-switch-when="0">
+                        <div ng-show="connection.dhcpStatus == 0" class="red-text">No Connection</div>
+                        <div ng-show="connection.dhcpStatus == 1" class="red-text">No Connection</div>
+                        <div ng-show="connection.dhcpStatus == 2" class="green-text">Connected</div>
+                        <div ng-show="connection.dhcpStatus == 3" class="red-text">No Connection</div>
+                      </div>
+                      <div class="red-text" ng-switch-default>No Connection</div>
+                    </div>
+                    </div>
+                    <div ng-show="connection.protocolUsed != 0">
+                      <div class="green-text">Connected</div>
+                    </div>
+                  </div>
+                  </div>
+                  <div ng-show="connection.status != 0 && connection.enabled"><span ng-show="connection.connectionId == 1">Cable </span>Disconnected</div>
+                  <div ng-show="!connection.enabled">Disabled</div>
+                </div>
+                <div ng-show="connection.connectionId == 5">
+                  <div class="green-text" ng-show="connection.status == 0 && connection.coaxConnected && connection.coaxEnabled">Connected</div>
+                  <div ng-show="connection.status == 0 && !connection.coaxConnected && connection.coaxEnabled">Cable </span>Disconnected</div>
+                  <div ng-show="connection.status != 0 && connection.coaxEnabled"><span ng-show="connection.connectionId == 1">Cable </span>Disconnected</div>
+                  <div ng-show="!connection.coaxEnabled">Disabled</div>
+                </div>
+              </div>
+              <div ng-show="connection.connectionId == 1 && connection.protocolUsed == 1">
+                <div ng-show="connection.connectionId != 5">
+                  <div ng-show="connection.status == 0 && connection.enabled">
+                    <div ng-show="connection.dhcpStatus == 3">No Connection</div>
+                    <div ng-show="connection.dhcpStatus == 2">
+                      <div ng-show="connection.connectionId == 2 || connection.connectionId == 3 || connection.connectionId == 4">
+                        <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
+                        <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
+                      </div>
+                      <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">Connected</div>
+                    </div>
+                    <div ng-show="connection.dhcpStatus == 1">Connected (Renewing DHCP Lease)</div>
+                    <div ng-show="connection.dhcpStatus == 0">DHCP IP Address Released</div>
+                  </div>
+                  <div ng-show="connection.status != 0 && connection.enabled">Cable Disconnected</div>
+                  <div ng-show="!connection.enabled">Disabled</div>
+                </div>
+                <div ng-show="connection.connectionId == 5">
+                  <div ng-show="connection.status == 0 && connection.coaxEnabled">
+                    <div ng-show="connection.dhcpStatus == 3">No Connection</div>
+                    <div class="green-text" ng-show="connection.dhcpStatus == 2 && connection.coaxConnected">Connected</div>
+                    <div ng-show="connection.dhcpStatus == 2 && !connection.coaxConnected">Cable Disconnected</div>
+                    <div ng-show="connection.dhcpStatus == 1">Connected (Renewing DHCP Lease)</div>
+                    <div ng-show="connection.dhcpStatus == 0">DHCP IP Address Released</div>
+                  </div>
+                  <div ng-show="connection.status != 0 && connection.coaxEnabled">Cable Disconnected</div>
+                  <div ng-show="!connection.coaxEnabled">Disabled</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Network</td>
+            <td ng-repeat="connection in connections" ng-switch on="connection.networkType">
+              <span ng-switch-when="0">Broadband Connection</span>
+              <span ng-switch-when="1">Network (Home/Office)</span>
+              <span ng-switch-when="2">DMZ</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Underlying Device</td>
+            <td ng-repeat="connection in connections">
+              <div ng-repeat="device in connection.underlyingDevicesTempList">
+                <a href="#/network/connections/{{device}}">{{connections[device].displayName}}</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Connection type</td>
+            <td ng-repeat="connection in connections">{{connection.connectionType}}</td>
+          </tr>
+          <tr>
+            <td>MAC Address</td>
+            <td ng-repeat="connection in connections">{{connection.mac}}</td>
+          </tr>
+          <tr>
+            <td>IP Address</td>
+            <td ng-repeat="connection in connections"><span ng-show="(connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">{{connection.ipAddress}}</span></td>
+          </tr>
+          <tr>
+            <td>Subnet Mask</td>
+            <td ng-repeat="connection in connections"><span ng-show="(connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">{{connection.subnetMask}}</span></td>
+          </tr>
+          <tr>
+            <td>Default Gateway</td>
+            <td ng-repeat="connection in connections"><span ng-show="(connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">{{connection.defaultGateway}}</span></td>
+          </tr>
+          <tr>
+            <td>DNS Server</td>
+            <td ng-repeat="connection in connections">
+              <span ng-show="(connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))"><div>{{connection.primaryDnsServer}}</div>
+              <div>{{connection.secondaryDnsServer}}</div></span>
+            </td>
+          </tr>
+          <tr>
+            <td>IP Address Distribution</td>
+            <td ng-repeat="connection in connections" ng-switch on="connection.dhcpSettings.mode">
+              <div ng-switch-when="2">DHCP Server</div>
+              <div ng-switch-when="1">DHCP Relay</div>
+              <div ng-switch-default>Disabled</div>
+            </td>
+          </tr>
+          <tr>
+            <td>Received Packets</td>
+            <td ng-repeat="connection in connections">{{connection.rxPackets}}</td>
+          </tr>
+          <tr>
+            <td>Sent Packets</td>
+            <td ng-repeat="connection in connections">{{connection.txPackets}}</td>
+          </tr>
+          <tr>
+            <td>Received Bytes</td>
+            <td ng-repeat="connection in connections">{{connection.rxBytes}}</td>
+          </tr>
+          <tr>
+            <td>Sent Bytes</td>
+            <td ng-repeat="connection in connections">{{connection.txBytes}}</td>
+          </tr>
+          <tr>
+            <td>Receive Errors</td>
+            <td ng-repeat="connection in connections">{{connection.rxErrors}}</td>
+          </tr>
+          <tr>
+            <td>Receive Drops</td>
+            <td ng-repeat="connection in connections">{{connection.rxDropped}}</td>
+          </tr>
+          <tr>
+            <td>Time Span</td>
+            <td ng-repeat="connection in connections">{{connection.timeSpan}}</td>
+          </tr>
+          <tr>
+            <td>Coax Channel</td>
+            <td ng-repeat="connection in connections">
+              <div ng-show="connection.coaxChannel != null" ng-switch on="connection.coaxConnected">
+                <div ng-switch-when="false">Cable Disconnected</div>
+                <div ng-switch-default>{{connection.coaxChannel}}</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <a href="#/network/connections" class="btn dark-btn">Close</a>
+        <button class="btn dark-btn" ng-click="toggleAutoRefresh()" ng-show="!autoRefresh">Automatic Refresh On</button>
+        <button class="btn dark-btn" ng-click="toggleAutoRefresh()" ng-show="autoRefresh">Automatic Refresh Off</button>
+        <button class="btn dark-btn" ng-click="resetStatistics()">Reset Statistics</button>
+        <button class="btn dark-btn" ng-click="refresh()">Refresh</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container ng-controller="GuestPassWifiCtrl">
+    <div class="content span9" ng-show="(pageToShow == 0)">
+
+        <div class="theWifiHead2" ng-show="!editingGuest">
+            <div class="fLeft"><strong>Guest Pass Wi-Fi</strong>
+                <button class="wpstoggle" ng-click="toggleOnOffSave()"><span>OFF</span>
+                    <img src="img_wh/slider_off.png" ng-show="!guestPassWifi.enabled">
+                    <img src="img_wh/slider_on.png" ng-show="guestPassWifi.enabled"><span>ON</span>
+                </button>
+            </div>
+            <div class="softTxt bGuestInfo italics11" ng-show="warningFlag"><img src="img_wh/info_icon.png" class="mRight10">Enabling Guest Pass Wi-Fi will disable Basic Guest Wi-Fi</div>
+        </div>
+
+        <div class="theWifiHead2" ng-show="editingGuest">
+        </div>
+
+        <div ng-show="!editingGuest && !showErrorPage">
+            <div class="softTxt">
+              <div class="mTop5"><img src="img_wh/info_icon.png"/></div>
+              <i class="italics13 mLeft30 guestLink guestLinkPos">Guest Pass Wi-Fi requires the <a href="http://www.verizon.com/support/residential/internet/fiosinternet/general+support/top+questions/questionsone/130318.htm?spterm=myfios" target="_blank">Verizon My FiOS Mobile App.</a></i>
+              <p class="mLeft30 guestLinkPos1"><i class="italics13">It uses open Wi-Fi with no encryption security.</i></p>
+            </div>
+
+            <div class="softTxt mTop20">SSID</div>
+            <div class="mTop10"><strong>{{guestPassWifi.ssid}}</strong></div>
+
+
+            <div class="softTxt mTop20">GUEST PASSES</div>
+            <div class="mTop10"><strong>Assigned</strong><strong class="mRight10 mLeft10">:</strong><strong ng-show="guestPassWifi.enabled">{{guestPassWifi.passes.length}}</strong></div>
+            <div class="mTop10"><strong>In Use</strong><strong class="mRight10 mLeft10">:</strong><strong ng-show="guestPassWifi.enabled">{{guestDevices.length}}</strong></div>
+            <div class="softTxt italics11 mTop10" ng-show="!guestPassWifi.enabled">Active passes are shown when basic guest pass Wi-Fi is enabled.</div>
+
+            <div class="mTop20" style="">
+                <button class="btn dark-btn" ng-click="editWifiSettings()">Edit</button>
+            </div>
+        </div>
+
+        <div ng-show="editingGuest && !showErrorPage">
+            <div class="softTxt">
+              <div class="mTop5"><img src="img_wh/info_icon.png"/></div>
+              <i class="italics13 mLeft30 guestLink guestLinkPos">Guest Pass Wi-Fi requires the <a href="http://www.verizon.com/support/residential/internet/fiosinternet/general+support/top+questions/questionsone/130318.htm?spterm=myfios" target="_blank">Verizon My FiOS Mobile App.</a></i>
+              <p class="mLeft30 guestLinkPos1"><i class="italics13">It uses open Wi-Fi with no encryption security.</i></p>
+            </div>
+
+            <div class="softTxt mTop20">SSID</div>
+            <div class="mTop10"><input type="text" ng-model="guestPassWifi.ssid" ng-change="change()"  maxlength="64"/></div>
+
+            <div class="softTxt mTop20">GUEST PASSES</div>
+            <div class="mTop10"><strong>Assigned</strong><strong class="mRight10 mLeft10">:</strong><strong ng-show="guestPassWifi.enabled">{{guestPassWifi.passes.length}}</strong></div>
+            <div class="mTop10"><strong>In Use</strong><strong class="mRight10 mLeft10">:</strong><strong ng-show="guestPassWifi.enabled">{{guestDevices.length}}</strong></div>
+            <div class="softTxt italics11 mTop10" ng-show="!guestPassWifi.enabled">Active passes are shown when basic guest pass Wi-Fi is enabled.</div>
+
+            <div class="mTop20" style="">
+                <button class="btn dark-btn" ng-click="saveWifiSettings()">Save</button>
+                <button class="btn dark-btn" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
