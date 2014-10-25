@@ -1,0 +1,97 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.125'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/igmp/nav.html?v=v1.0.125'"></div>
+    <div ng-include src="'partials/error.html?v=v1.0.125'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header">IGMP Proxy</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>IGMP Proxy (Enable/Disable):</th>
+            <td>
+              <select ng-model="igmp.enabled">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">Querier Configuration</th>
+          </tr>
+          <tr>
+            <th>IGMP Version:</th>
+            <td>
+              <select ng-model="igmp.version">
+                <option value="1">IGMPv1</option>
+                <option value="2">IGMPv2</option>
+                <option value="3">IGMPv3</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>Fast Leave:</th>
+            <td>
+              <select ng-model="igmp.fastLeave">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>Robustness (>= 1):</th>
+            <td>
+              <input type="text" maxLength="5" ng-model="igmp.robustness"/>
+            </td>
+          </tr>
+          <tr>
+            <th>Query Interval (>= 1 second):</th>
+            <td>
+              <input type="text" maxLength="5" ng-model="igmp.queryInterval"/>
+            </td>
+          </tr>
+          <tr>
+            <th>Query Response Interval (>= 1 second):</th>
+            <td>
+              <input type="text" maxLength="5" ng-model="igmp.queryResponseInterval"/>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">Client (Host) Configuration</th>
+          </tr>
+          <tr>
+            <th>Unsolicited Report Interval (1 to 25 seconds):</th>
+            <td>
+              <input type="text" ng-model="igmp.reportInterval"/>
+            </td>
+          </tr>
+          <tr>
+            <th>Persistent Join</th>
+            <td>
+              0
+            </td>
+          </tr>
+          <tr>
+            <th>Persistent Join Interval:</th>
+            <td>
+              n/a
+            </td>
+          </tr>
+          <tr>
+            <th>Persistent Join Timeout:</th>
+            <td>
+              n/a
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button ng-click="save()" class="btn dark-btn">Apply</button>
+        <a href="#/advanced" class="btn dark-btn">Cancel</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

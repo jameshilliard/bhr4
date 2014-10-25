@@ -1,0 +1,76 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.125'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v=v1.0.125'" ng-hide="warning"></div>
+    <div class="content-panel-with-header span9" ng-show="warning">
+      <div class="header">Warning</div>
+      <p>Any changes made in this section may affect your router's performance and configuration.</p>
+    <p>Do you want to proceed?</p>
+      <div class="centerme">
+        <button class="btn dark-btn" ng-click="acceptWarning()">Yes</button>
+        <a href="#/main" class="btn dark-btn">No</a>
+      </div>
+    </div>
+    <div class="round-panel-box span9" ng-show="!warning">
+      <div class="row-fluid">
+        <div class="three_col">
+          <div class="round-panel">
+            <div class="sectitle utilities">Utilities</div>
+            <div><a href="#/advanced/diagnostics">Diagnostics</a></div>
+            <div><a href="#/advanced/defaults">Restore Defaults</a></div>
+            <div><a href="#/advanced/reboot">Reboot Router</a></div>
+            <div><a href="#/advanced/maccloning">MAC Cloning</a></div>
+            <div><a href="#/advanced/arptable">ARP Table</a></div>
+            <div><a href="#/advanced/users">Users</a></div>
+            <div><a href="#/advanced/localadmin">Local Administration</a></div>
+            <div><a href="#/advanced/remoteadmin">Remote Administration</a></div>
+          </div>
+      
+          <div class="round-panel">
+             <div class="sectitle dns">DNS Settings</div>
+              <div><a href="#/advanced/dynamicdns">Dynamic DNS</a></div>
+            <div><a href="#/advanced/dnsserver">DNS Server</a></div>
+          </div>
+        </div>
+
+        <div class="three_col">
+           <div class="round-panel bubble-spaceing-advanced">
+            <div class="sectitle network">Network Settings</div>
+            <div><a href="#/advanced/networkobjects">Network Objects</a></div>
+            <div><a href="#/advanced/upnp">Universal Plug and Play</a></div>
+            <div><a href="#/advanced/portforward">Port Forwarding Rules</a>
+          </div>
+          </div>
+            <div class="round-panel bubble-spaceing-advanced">
+            <div class="sectitle routing">Routing</div>
+            <div><a href="#/advanced/ipv6">IPv6</a></div>
+            <div><a href="#/advanced/routing">Routing</a></div>
+            <div><a href="#/advanced/dhcp?from=advanced">IP Address Distribution</a></div>
+          </div>
+        </div>
+
+        <div class="three_col">
+          <div class="round-panel date bubble-spaceing-advanced">
+            <div class="sectitle date">Date & Time</div>
+            <div><a href="#/advanced/datetime">Date and Time</a></div>
+            <div><a href="#/advanced/scheduler">Scheduler Rules</a></div>
+          </div>
+           <div class="round-panel">
+            <div class="sectitle config">Configuration Settings</div>
+            <div><a href="#/advanced/configfile">Configuration File</a></div>
+            <div><a href="#/advanced/settings">System Settings</a></div>
+            <div><a href="#/advanced/portconfig">Port Configuration</a></div>
+          </div>
+          <div class="round-panel" ng-show="false">
+            <div class="sectitle firmware">Firmware Upgrade</div>
+            <div><a href="#/advanced/fwupgrade">Firmware Upgrade</a></div>
+            <div><a href="#/advanced/fwrestore">Firmware Restore</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>
