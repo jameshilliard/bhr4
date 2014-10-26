@@ -1,0 +1,111 @@
+<div class="column1 magicCol">
+  <div class="header1">Status</div>
+  <div class="clearfix1"></div>
+  <div class="clearfix">
+    <div class="routerImg">
+      <img src="img_wh/router.png" border="0" alt=""/>
+    </div>
+    <div class="broadBand">
+    <div ng-show="broadband.protocolUsed == 1 && broadband != null" class="routerTxt bold heading" ng-switch on="broadband.connectionUsed">
+    <p class="routerStatus">Router Status:</p>
+    <p ng-switch-when="0" class="routerStatus smaller">
+      <span class="softTxt">Ethernet Status:</span>
+      <span ng-switch on="broadband.dhcpStatus" >
+        <span class="red-text" ng-switch-when="3">No Connection</span>
+        <span class="red-text" ng-switch-when="0">No Connection</span>
+        <span class="green-text" ng-switch-when="2">Connected</span>
+        <span ng-switch-default>Connecting...</span>
+      </span>
+    </p>
+    <p ng-switch-when="1" class="routerStatus smaller">
+      <span class="softTxt">Coax Status:</span>
+      <span ng-switch on="broadband.dhcpStatus">
+        <span class="red-text" ng-switch-when="3">No Connection</span>
+        <span class="red-text" ng-switch-when="0">No Connection</span>
+        <span class="green-text" ng-switch-when="2">Connected</span>
+        <span ng-switch-default>Connecting...</span>
+      </span>
+    </p>
+    <p ng-switch-default class="routerStatus red-text smaller">
+      <span class="softTxt">Ethernet/Coax Status:</span>
+      <span class="red-text">No Connection</span>
+    </p>
+  </div>
+  <div ng-show="broadband.protocolUsed != 1 && broadband != null" class="routerTxt bold heading" ng-switch on="broadband.connectionUsed">
+    <p class="routerStatus">Router Status:</p>
+    <p ng-switch-when="0" class="routerStatus smaller">
+      <span class="softTxt">Ethernet Status:</span>
+      <span ng-switch on="broadband.status">
+        <span class="green-text" ng-switch-when="0">Connected</span>
+        <span class="red-text" ng-switch-default>No Connection</span>
+      </span>
+    </p>
+    <p ng-switch-when="1" class="routerStatus smaller">
+      <span class="softTxt">Coax Status:</span>
+      <span ng-switch on="broadband.status">
+        <span class="green-text" ng-switch-when="0">Connected</span>
+        <span class="red-text" ng-switch-default>No Connection</span>
+      </span>
+    </p>
+    <p ng-switch-default class="routerStatus smaller">
+      <span class="softTxt">Ethernet/Coax Status:</span>
+      <span class="red-text">No Connection</span>
+    </p>
+  </div>
+  <div ng-show="broadband == null" class="routerTxt bold heading">
+    <p class="routerStatus">Router Status:</p>
+    <p class="routerStatus smaller">
+      <span class="softTxt">Ethernet/Coax Status:</span>
+      <span class="red-text"></span>
+    </p>
+  </div>
+    <p ng-show="broadband.dhcpStatus == 2 || broadband.protocolUsed != 1" class="routerStatus smaller" ng-switch on="broadband.protocolUsed">Connection Type:
+    <span ng-switch-when="1">DHCP</span>
+    <span ng-switch-when="2">Static</span>
+    <span ng-switch-when="0">No IP Address</span>
+  </p>
+  <p ng-show="broadband.dhcpStatus == 2 || broadband.protocolUsed == 2" class="routerStatus smaller">IP Address: {{broadband.ipAddress}}</p>
+  <p class="routerStatus smaller" ng-show="broadband.ipv6Address != '::' && broadband.ipv6Address != ''">IPv6 Address: {{ArrStr[3]}} <span class="ipString">{{ipString2}}</span></p>
+    </div>
+  </div>
+  <div class="clearfix1"></div>
+
+  <div class="quick header1">Quick Links</div>
+  <div class="midTxtBB">
+     <div class="leftImgGlobe">
+      <a href="#/monitoring/fullstatus?frommain=true">
+        <img src="img_wh/goto_internet_link.png" border="0" alt=""/>
+      </a>
+  </div>
+    <div class="internet bold heading rightImgGlobe">
+      <a href="#/monitoring/fullstatus?frommain=true">Broadband Connection</a>
+    </div>
+
+  <div class="clearfix1"></div>
+    <div class="vertical-separator2"></div>
+ <div class="row2">
+    <a ng-show="broadband.dhcpStatus == 2" target="_blank" href="http://www.verizon.com/Support/Residential/Internet/fiosinternet/networking/user+guides/user+guides.htm">User Guide</a>
+    <a ng-show="broadband.dhcpStatus != 2" href="" ng-click="noConnection()">User Guide</a>
+  </div>
+  
+  <div class="row2">
+    <a href="#/wireless/basic">Change Wireless Settings</a>
+  </div>
+  <div class="row2">
+    <a href="#/advanced/users?edit=true&frommain=true">Change Admin Password</a>
+  </div>
+  <div class="row2">
+    <a href="#/firewall/portforward">Port Forwarding</a>
+  </div>
+  
+   <div class="row2">
+    <a href="https://gnu.org/licenses/old-licenses/gpl-2.0.txt" target="blank">GNU General Public License</a>
+  </div>
+  <div class="row2">
+    <a href="http://www.verizon.com/Support/Residential/Internet/fiosinternet.htm" target="_blank">Verizon Help</a>
+  </div>
+  <div class="row2">
+    <a href="#/logout">Logout</a>
+  </div>
+  </div>
+</div>

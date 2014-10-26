@@ -1,0 +1,24 @@
+<div class="span3">
+  <div class="content-panel">
+    <ul class="sidenav">
+      <li>
+        <a href="#/main">Main</a>
+      </li>
+      <li ng-class="section == 'status' && 'active' || ''">
+        <a href="#/wireless">Wireless Status</a>
+      </li>
+      <li ng-class="section == 'basic' && 'active' || ''">
+        <a href="#/wireless/basic">Basic Security Settings</a>
+      </li>
+      <li ng-class="section == 'advanced' && 'active' || ''">
+        <a href="#/wireless/advanced">Advanced Security Settings</a>
+      </li>
+      <li ng-class="section == 'wifiSetup' && 'active' || ''">
+        <a href="#/wireless/wifiSetup">Wi-Fi Protected Setup (WPS)</a>
+      </li>
+      <li>
+        <a href="#/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</div>

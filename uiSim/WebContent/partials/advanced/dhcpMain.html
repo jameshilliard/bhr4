@@ -1,0 +1,46 @@
+<div>
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html'"></div>
+    <div class="content-panel-with-header span9">
+      <div class="header">IP Address Distribution</div>
+      <span>
+        IP Address Distribution provides the ability to allocate IP addresses and configuration parameters to selected hosts
+      </span>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Service</th>
+            <th>Subnet Mask</th>
+            <th>Dynamic IP Range</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>
+              <a href="#/advanced/dhcp/edit">{{dhcpSettings.connection.displayName}}</a>
+            </td>
+            <td ng-switch on="dhcpSettings.mode">
+              <span ng-switch-when="2">DHCP Server</span>
+              <span ng-switch-default>Disabled</span>
+            </td>
+            <td><span ng-show="dhcpSettings.mode == 2">{{dhcpSettings.connection.subnetMask}}</span></td>
+            <td><span ng-show="dhcpSettings.mode == 2">{{dhcpSettings.startIpAddress}}-{{dhcpSettings.endIpAddress}}</span></td>
+            <td class="actions">
+              <a href="#/advanced/dhcp/edit" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <a class="btn dark-btn" href="{{returnLink}}">Close</a>
+        <a class="btn dark-btn" href="#/advanced/dhcp/connections">Connection List</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>
