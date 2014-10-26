@@ -36,7 +36,7 @@
           <a href="#/monitoring/advanced" class="btn dark-btn">Close</a>
           <button class="btn dark-btn" ng-click="clearLogger(true)" ng-show="canClearLog && sysSettings.warnBeforeChanges">Clear Log</button>
           <button class="btn dark-btn" ng-click="clearLog()" ng-show="canClearLog && !sysSettings.warnBeforeChanges">Clear Log</button>
-          <a href="/uiSim/api/settings/savelog/{{logId}}" class="btn dark-btn">Save Log</a>
+          <a href="api/settings/savelog/{{logId}}" class="btn dark-btn">Save Log</a>
           <button class="btn dark-btn" ng-click="refresh()">Refresh</button>
         </div>
         <ul class="logs" ng-switch on="logOpts" ng-hide="isOK || showOpts" >

@@ -58,14 +58,7 @@ tr.shaded {background-color:#e0e0e0 !important;}
 
 .shaded_area {background-color:#e5e3e3 !important; padding: 5px 5px 10px 10px; margin:15px 0 15px 0;}
 
-select, input[type='text'], input[type='number'], input[type='password'] {-moz-box-shadow: 2px 2px 3px #666 inset; -webkit-box-shadow: 2px 2px 3px #666 inset; box-shadow: 2px 2px 3px #666 inset; border:1px solid #F4F4F4;}
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    ::i-block-chrome, select {
-      border: 1px solid #333;
-      outline: 1px solid #FFF;
-    }
-}
+select, input[type='text'], input[type='number'], input[type='password'] {box-shadow: 2px 2px 3px #666 inset; border:none;}
 
 .heading {margin-bottom: -1px;}
 
@@ -175,11 +168,6 @@ height: 119px;
  background-position: 0 0;
   height:42px;
 }
-.logo_img img{display: none;}
-@media print {
-    .hyperlink{display: none;}
-    .logo_img img{display:inline; position: absolute; top: 5px; height:104px;width: 104px}
-}
 
 .plainlower {margin-top:64px;}
 .login_button {margin-top:18px;}
@@ -206,9 +194,7 @@ height: 119px;
 
 .line-height-small
 {
-    line-height: 22px !important;
-    height: auto !important;
-
+    line-height: 23px !important;
 }
 
 .nas-image {
@@ -224,39 +210,17 @@ height: 119px;
   bottom: 32px;
 }
 
-.nas-image.blocked {
-    background: url(../img_wh/nas_device_icon_blocked.png);
-    background-repeat: no-repeat;
-    bottom: 32px;
-}
-
-.nas-image.inact.blocked {
-  background: url(../img_wh/nas_device_icon_offline_blocked.png);
-  background-repeat: no-repeat;
-  bottom: 32px;
-}
 
 
 .computer-image {
   background: url(../img_wh/computer_icon.png);
   background-repeat: no-repeat;
   bottom: 32px;
+
 }
 
 .computer-image.inact {
   background: url(../img_wh/computer_icon_offline.png);
-  background-repeat: no-repeat;
-  bottom: 32px;
-}
-
-.computer-image.blocked {
-    background: url(../img_wh/computer_icon_blocked.png);
-    background-repeat: no-repeat;
-    bottom: 32px;
-}
-
-.computer-image.inact.blocked {
-  background: url(../img_wh/computer_icon_offline_blocked.png);
   background-repeat: no-repeat;
   bottom: 32px;
 }
@@ -274,18 +238,6 @@ height: 119px;
   bottom: 32px;
 }
 
-.tablet-image.blocked {
-    background: url(../img_wh/tabletPc_icon_blocked.png);
-    background-repeat: no-repeat;
-    bottom: 32px;
-}
-
-.tablet-image.inact.blocked {
-  background: url(../img_wh/tabletPc_icon_offline_blocked.png);
-  background-repeat: no-repeat;
-  bottom: 32px;
-}
-
 .camera-image {
   background: url(../img_wh/networkCamera_icon.png);
   background-repeat: no-repeat;
@@ -295,18 +247,6 @@ height: 119px;
 
 .camera-image.inact {
   background: url(../img_wh/networkCamera_icon_offline.png);
-  background-repeat: no-repeat;
-  bottom: 32px;
-}
-
-.camera-image.blocked {
-    background: url(../img_wh/networkCamera_icon_blocked.png);
-    background-repeat: no-repeat;
-    bottom: 32px;
-}
-
-.camera-image.inact.blocked {
-  background: url(../img_wh/networkCamera_icon_offline_blocked.png);
   background-repeat: no-repeat;
   bottom: 32px;
 }
@@ -324,18 +264,6 @@ height: 119px;
   bottom: 32px;
 }
 
-.phone-image.blocked {
-    background: url(../img_wh/phone_icon_blocked.png);
-    background-repeat: no-repeat;
-    bottom: 32px;
-}
-
-.phone-image.inact.blocked {
-  background: url(../img_wh/phone_icon_offline_blocked.png);
-  background-repeat: no-repeat;
-  bottom: 32px;
-}
-
 .printer-image {
   background: url(../img_wh/printServer_icon.png);
   background-repeat: no-repeat;
@@ -349,19 +277,6 @@ height: 119px;
   bottom: 32px;
 }
 
-.printer-image.blocked {
-    background: url(../img_wh/printServer_icon_blocked.png);
-    background-repeat: no-repeat;
-    bottom: 32px;
-}
-
-.printer-image.inact.blocked {
-  background: url(../img_wh/printServer_icon_offline_blocked.png);
-  background-repeat: no-repeat;
-  bottom: 32px;
-}
-
-
 .ip-stb-image {
   background: url(../img_wh/ipSetTopBox_icon.png);
   background-repeat: no-repeat;
@@ -374,19 +289,6 @@ height: 119px;
   background-repeat: no-repeat;
   bottom: 32px;
 }
-
-.ip-stb-image.blocked {
-    background: url(../img_wh/ipSetTopBox_icon_blocked.png);
-    background-repeat: no-repeat;
-    bottom: 32px;
-}
-
-.ip-stb-image.inact.block {
-  background: url(../img_wh/ipSetTopBox_icon_offline_blocked.png);
-  background-repeat: no-repeat;
-  bottom: 32px;
-}
-
 
 .bandwidthSelect {margin-left:60px !important;}
 
@@ -592,16 +494,6 @@ input.right_space {margin-right:5px;}
   background-repeat: no-repeat;
 }
 
-.unknown-image.blocked {
-  background: url(../img_wh/unknown_device_blocked.png);
-  background-repeat: no-repeat;
-}
-
-.unknown-image.inact.blocked {
-  background: url(../img_wh/unknown_device_offline_blocked.png);
-  background-repeat: no-repeat;
-}
-
 .vertical-separator {
   background: #DDDDDD;
   border-bottom: 1px solid #777777;
@@ -677,7 +569,7 @@ th.wpa_label_wider {
   background: none repeat scroll 0 0 #666666 !important;
 }
 
-.get_started_buttons.personalize {bottom: 41px; right: 18px;}
+.get_started_buttons.personalize {bottom: 41px; right: 8px;}
 
 .round{
    background-color: rgba(0,0,0,0.5);
@@ -807,10 +699,6 @@ margin-top: 20px; padding:10px; border: thin solid #ccc; border-radius:8px; -web
   background: url(../img_wh/coax_icon.png) no-repeat;
 }
 
-.cross-browser-change{
-  border-left: none;
-}
-
 .spacePrivacyPassword{
     height: 29px;
     vertical-align: middle;
@@ -823,21 +711,4 @@ margin-top: 20px; padding:10px; border: thin solid #ccc; border-radius:8px; -web
 
 .spacePrivacyPassword2{
     vertical-align: middle;
-}
-
- button.wpstoggle:focus {outline:0;}
-
- button.dmztoggle img {position:relative;top:-2px; left:1px;}
- button.dmztoggle {padding:3px 9px 2px 9px; color:#666666; font-weight: bold; margin-left:1px; border:none; background:none;}
- button.dmztoggle:focus {outline:0;}
-
-.computer-image.blocked.device, .computer-image.inact.blocked.device,
-.tablet-image.blocked.device, .tablet-image.inact.blocked.device,
-.nas-image.blocked.device, .nas-image.inact.blocked.device,
-.camera-image.blocked.device, .camera-image.inact.blocked.device,
-.phone-image.blocked.device, .phone-image.inact.blocked.device,
-.printer-image.blocked.device, .printer-image.inact.blocked.device,
-.ip-stb-image.blocked.device, .ip-stb-image.inact.blocked.device,
-.unknown-image.blocked.device, .unknown-image.inact.blocked.device {
-    bottom: 0px;
 }

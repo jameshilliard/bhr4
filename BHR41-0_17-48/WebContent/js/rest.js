@@ -1,4 +1,4 @@
-var API_BASE_PATH = '/uiSim/api';
+var API_BASE_PATH = 'api';
 
 angular.module('devices', ['ngResource']).
   factory('Devices', function($resource) {

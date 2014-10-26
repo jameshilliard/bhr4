@@ -28,10 +28,7 @@
             <a href="" ng-click="editAddress($index)">
               <div ng-show="rule.networkObjType == 0">{{rule.ipAddress}}</div>
               <div ng-show="rule.networkObjType == 1">{{rule.ipSubnet}} / {{rule.subnetMask}}</div>
-              <div ng-show="rule.networkObjType == 2">
-                <div ng-show="rule.ipStart == rule.ipEnd">{{rule.ipStart}}</div>
-                <div ng-show="rule.ipStart != rule.ipEnd">{{rule.ipStart}} - {{rule.ipEnd}}</div>
-              </div>
+              <div ng-show="rule.networkObjType == 2">{{rule.ipStart}} - {{rule.ipEnd}}</div>
               <div ng-show="rule.networkObjType == 3">{{rule.mac}}/{{rule.macMask}}</div>
               <div ng-show="rule.networkObjType == 4">{{rule.hostname}}</div>
               <div ng-show="rule.networkObjType == 5" ng-switch on="rule.dhcpType">
@@ -72,7 +69,7 @@
     <table class="dark-table">
       <tbody>
         <tr>
-          <td>Network Object Type:</td>
+          <td>Network Object Type</td>
           <td>
             <select ng-model="rule.networkObjType">
               <option value="0">IP Address</option>
@@ -83,7 +80,7 @@
               <option value="5">DHCP Option</option>
             </select>
             <select ng-model="rule.dhcpType" ng-show="rule.networkObjType == 5">
-              <option value="0">Vendor Class ID</option>
+              <option value="0">Vendor Class Id</option>
               <option value="1">Client ID</option>
               <option value="2">User Class ID</option>
             </select>
@@ -106,7 +103,7 @@
 
         <!-- IP Subnet -->
         <tr ng-show="rule.networkObjType == 1">
-          <td>Subnet IP Address:</td>
+          <td>Subnet IP Address</td>
           <td>
             <input type="text" class="input-ip ipInput" ng-model="rule.ip[0]" maxlength="3"/>
             <span style="vertical-align:bottom;">.</span>
@@ -203,7 +200,7 @@
 
         <!-- Host Name -->
         <tr ng-show="rule.networkObjType == 4">
-          <td>Host Name:</td>
+          <td>Host Name</td>
           <td>
             <input type="text" ng-model="rule.hostname"/>
           </td>
@@ -219,7 +216,7 @@
 
         <!-- DHCP Option: Client ID -->
         <tr ng-show="rule.networkObjType == 5 && rule.dhcpType == 1">
-          <td>Client ID:</td>
+          <td>Client ID</td>
           <td>
             <input type="text" ng-model="rule.hostname"/>
           </td>

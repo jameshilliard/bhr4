@@ -1,4 +1,4 @@
-<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+<div>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -19,15 +19,15 @@
 
       <div class="steps">
         <p> <strong><span class= "step_heading">Step 1.</span></strong> 
-          Select the Primary/Guest Network Device for this Allow or Block Rule.
+          Select the Networked Computer/Device for this Allow or Block Rule.
         </p>
       </div>
 
       <div class="select_device">
         <div class="left">
           <a class="what_this" href="partials/parental/deviceHelp.html" target="blank"> <span class="help-icon"></span>What's this?</a>
-          <p class="bold">Primary Network & Guest Network Device List:</p>
-          <select class="multi_selector left" ng-model="selectedAvailable" size="6" ng-options="dev for dev in availableDevices" multiple></select>
+          <p class="bold">Networked Computer/Device:</p>
+          <select class="multi_selector" ng-model="selectedAvailable" size="6" ng-options="dev for dev in availableDevices" multiple></select>
         </div>
 
         <div class="right">

@@ -1,4 +1,4 @@
-<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+<div>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -37,22 +37,7 @@
                   <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
                   <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
                 </div>
-                <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">
-                  <div ng-show="connection.protocolUsed == 0">
-                    <div ng-switch on="connection.status">
-                    <div ng-switch-when="0">
-                      <div ng-show="connection.dhcpStatus == 0" class="red-text">No Connection</div>
-                      <div ng-show="connection.dhcpStatus == 1" class="red-text">No Connection</div>
-                      <div ng-show="connection.dhcpStatus == 2" class="green-text">Connected</div>
-                      <div ng-show="connection.dhcpStatus == 3" class="red-text">No Connection</div>
-                    </div>
-                    <div class="red-text" ng-switch-default>No Connection</div>
-                  </div>
-                  </div>
-                  <div ng-show="connection.protocolUsed != 0">
-                    <div class="green-text">Connected</div>
-                  </div>
-                </div>
+                <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">Connected</div>
               </div>
               <div ng-show="connection.status != 0 && connection.enabled"><span ng-show="connection.connectionId == 1">Cable </span>Disconnected</div>
               <div ng-show="!connection.enabled">Disabled</div>
@@ -105,9 +90,9 @@
           <tr ng-show="connection.underlyingDevices">
             <th>Underlying Device:</th>
             <td>
-              <div ng-repeat="device in connection.underlyingDevices | filter:showBridgeDeviceList">
+              <div ng-repeat="device in connection.underlyingDevices">
                 <div>
-                  <a href="#/network/connections/{{device}}{{connFromString}}">{{findDeviceNames(device)}}</a>
+                  <a href="#/network/connections/{{device}}{{connFromString}}">{{deviceNames[$index]}}</a>
                 </div>
               </div>
             </td>
@@ -120,19 +105,19 @@
             <th>MAC Address:</th>
             <td>{{connection.mac}}</td>
           </tr>
-          <tr ng-show="connection.status == 0 && connection.ipAddress && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+          <tr ng-show="connection.status == 0 && connection.ipAddress">
             <th>IP Address:</th>
             <td>{{connection.ipAddress}}</td>
           </tr>
-          <tr ng-show="connection.status == 0 && connection.subnetMask && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+          <tr ng-show="connection.status == 0 && connection.subnetMask">
             <th>Subnet Mask:</th>
             <td>{{connection.subnetMask}}</td>
           </tr>
-          <tr ng-show="connection.networkType == 0 && connection.status == 0 && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+          <tr ng-show="connection.networkType == 0 && connection.status == 0">
             <th>Default Gateway:</th>
             <td>{{connection.defaultGateway}}</td>
           </tr>
-          <tr ng-show="connection.type == 1 && connection.dnsMode != 2 && connection.status == 0 && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+          <tr ng-show="connection.type == 1 && connection.dnsMode != 2 && connection.status == 0">
             <th>DNS Servers:</th>
             <td>
               <div ng-show="connection.primaryDnsServer != '0.0.0.0'">{{connection.primaryDnsServer}}</div>
