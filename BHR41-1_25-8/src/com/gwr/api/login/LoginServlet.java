@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gwr.api.settings.SystemServlet;
 import com.gwr.session.SessionConstants;
 import com.gwr.session.SessionLoader;
 import com.gwr.util.JsonProperties;
@@ -57,12 +58,15 @@ public class LoginServlet extends HttpServlet {
 		if (password.equals(PASSWORD)) {
 			
 			// create a session for this flow
-			request.getSession().setAttribute("loginTry", new Integer(0));
 			request.getSession().setAttribute("loginOk", new Boolean(true));
 
 			// load up all of the JSON for the various screens at the start
 			logger.debug("Login ok " + password + " compare to " + PASSWORD);
+			//logger.debug("Session is " + request.getSession().getId());
 			loadDeafult(request);
+			Integer loginTry = (Integer) request.getSession().getAttribute("loginTry");
+
+			setPreviousLoginTry(request, loginTry.intValue());
 			ServletRequestUtilities.sendJSONResponse("", response);
 		} else {
 			logger.debug("Login failed " + password + " compare to " + PASSWORD);
@@ -72,12 +76,22 @@ public class LoginServlet extends HttpServlet {
 				loginTry = 0;
 			loginTry +=1;
 			request.getSession().setAttribute("loginTry", loginTry);
-
+			logger.debug(loginTry + "" + " times " + request.getSession().getId());
 			ServletRequestUtilities.reponse401(response, loginTry);
 
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	private void setPreviousLoginTry(HttpServletRequest request, int trytime){
+		String systemJson = (String)request.getSession().getAttribute(SystemServlet.class.getSimpleName());
+		@SuppressWarnings("rawtypes")
+		Map map = (Map)SimpleJson.getJsonObject(systemJson);
+		map.put("previousFailedLogins", trytime+"");
+		String newJson = SimpleJson.toJsonText(map);
+		request.getSession().setAttribute(SystemServlet.class.getSimpleName(), newJson);
+
+	}
 	/**
 	 * 
 	 */
