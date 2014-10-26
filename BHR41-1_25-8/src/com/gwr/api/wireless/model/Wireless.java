@@ -102,4 +102,27 @@ public class Wireless {
 		thisOne.putAll(mapBy);
 	}
 
+	
+	@SuppressWarnings("rawtypes")
+	public Map getByListIndex(String idx) {
+		int id = Integer.parseInt(idx);
+		if(maps.size() > id)
+			return maps.get(id);
+		return null;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public String getJsonByListIndex(String idx) {
+		
+		Map p = getByListIndex(idx);
+		return SimpleJson.toJsonText(p);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void replaceByListIndex(String idx, String jsonText) {
+		Map thisOne = getByListIndex(idx);
+		Map mapBy = SimpleJson.getJsonObject(jsonText);
+		thisOne.putAll(mapBy);
+	}
+
 }

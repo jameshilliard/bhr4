@@ -86,6 +86,9 @@ public class JsonProperties {
 	public static String getWirelessWpsJSON() {
 		return properties.getProperty("wireless.wps.json");
 	}
+	public static String getWireless2WpaJSON() {
+		return properties.getProperty("wireless.2.wpa.json");
+	}
 
 	public static String getSettingsLocalAdminJSON() {
 		return properties.getProperty("settings.localadmin.json");
@@ -191,6 +194,10 @@ public class JsonProperties {
 
 	public static String getFirewallStaticNatJSON() {
 		return properties.getProperty("firewall.staticnat.json");
+	}
+	
+	public static String getFirewallDMZHostJSON() {
+		return properties.getProperty("firewall.dmzhost.json");
 	}
 
 	public static String getFirewallLogSettingsJSON() {

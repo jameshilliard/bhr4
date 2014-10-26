@@ -9,6 +9,7 @@ import com.gwr.api.devices.DevicesServlet;
 import com.gwr.api.dhcp.DHCPServlet;
 import com.gwr.api.diagnostics.DiagnosticsServlet;
 import com.gwr.api.firewall.AccessControlServlet;
+import com.gwr.api.firewall.DMZHostServlet;
 import com.gwr.api.firewall.FirewallServlet;
 import com.gwr.api.firewall.LogSettingsServlet;
 import com.gwr.api.firewall.PortForwardServlet;
@@ -104,6 +105,10 @@ public class SessionLoader {
 		// wireless
 		this.loadListJSON(WirelessServlet.class.getSimpleName(),
 				JsonProperties.getWirelessJSON());
+		
+		this.loadJSON("wireless.2.wpa",
+				JsonProperties.getWireless2WpaJSON());
+		
 		// each only has 0/1 device
 		this.loadJSON(WirelessServlet.TRAKEY + "0",
 				JsonProperties.getWirelessTransmission0JSON());
@@ -191,6 +196,8 @@ public class SessionLoader {
 				JsonProperties.getFirewallStaticNatJSON());
 		this.loadJSON(LogSettingsServlet.class.getSimpleName(),
 				JsonProperties.getFirewallLogSettingsJSON());
+		this.loadJSON(DMZHostServlet.class.getSimpleName(),
+				JsonProperties.getFirewallDMZHostJSON());
 
 		// parental
 		this.loadListJSON(ParentalServlet.class.getSimpleName(),

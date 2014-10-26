@@ -73,10 +73,16 @@ public class WirelessServlet extends HttpServlet {
 			json = wireless.getWepJson(id);
 		} else if (uri.endsWith(WPA)) {
 			String id = StringUtil.retrieveId(uri, WPA);
-			String js = (String) request.getSession().getAttribute(
-					getClass().getSimpleName());
-			Wireless wireless = new Wireless(js);
-			json = wireless.getWpaJson(id);
+			if (id.equals("2")) {
+				json = (String) request.getSession().getAttribute(
+						"wireless.2.wpa");
+
+			} else {
+				String js = (String) request.getSession().getAttribute(
+						getClass().getSimpleName());
+				Wireless wireless = new Wireless(js);
+				json = wireless.getWpaJson(id);
+			}
 		} else if (uri.endsWith(MACFILTER)) {
 			String id = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
 			String def = JsonProperties.getWirelessMacfilterJSON();
@@ -86,9 +92,22 @@ public class WirelessServlet extends HttpServlet {
 			String def = JsonProperties.getWirelessWpsJSON();
 			json = HttpSessionUtil.getSessionAttribute(request, id, def);
 		} else {
-			 json = ServletRequestUtilities.getMapFromJSONArrayByID(idName,
-			 null, request.getContextPath() + "/api/wireless",
-			 getClass().getSimpleName(), request, response);
+
+			String id = request.getRequestURI().substring(
+					request.getRequestURI().lastIndexOf("/") + 1);
+
+			if (id.equals("2") || id.equals("3")) {
+				String js = (String) request.getSession().getAttribute(
+						getClass().getSimpleName());
+				Wireless wireless = new Wireless(js);
+				json = wireless.getJsonByListIndex(id);
+
+			} else {
+				json = ServletRequestUtilities.getMapFromJSONArrayByID(idName,
+						null, request.getContextPath() + "/api/wireless",
+						getClass().getSimpleName(), request, response);
+			}
+
 		}
 		ServletRequestUtilities.sendJSONResponse(json, response);
 	}
@@ -110,11 +129,11 @@ public class WirelessServlet extends HttpServlet {
 
 		if (uri.endsWith(TRANSMISSION)) {
 			key = TRAKEY + StringUtil.retrieveId(uri, TRANSMISSION);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
+			finalJson = HttpSessionUtil.replaceAttributes(key, in, request);
 			returnJson = finalJson;
 		} else if (uri.endsWith(QOS)) {
 			key = QOSKEY + StringUtil.retrieveId(uri, QOS);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
+			finalJson = HttpSessionUtil.replaceAttributes(key, in, request);
 			returnJson = finalJson;
 		} else if (uri.endsWith(WEP)) {
 			String id = StringUtil.retrieveId(uri, WEP);
@@ -125,18 +144,31 @@ public class WirelessServlet extends HttpServlet {
 			finalJson = wireless.getJson();
 		} else if (uri.endsWith(WPA)) {
 			String id = StringUtil.retrieveId(uri, WPA);
-			String js = (String) request.getSession().getAttribute(
-					getClass().getSimpleName());
-			Wireless wireless = new Wireless(js);
-			wireless.replaceWpa(id, in);
-			finalJson = wireless.getJson();
+			if (id.equals("2")) {
+				String nowJson = (String) request.getSession().getAttribute(
+						"wireless.2.wpa");
+				SimpleJson.replaceJsonFields(nowJson, in);
+				request.getSession().setAttribute("wireless.2.wpa", nowJson);
+				finalJson = (String) request.getSession().getAttribute(
+						"wireless.2.wpa");
+				key = "wireless.2.wpa";
+
+			} else {
+
+				String js = (String) request.getSession().getAttribute(
+						getClass().getSimpleName());
+
+				Wireless wireless = new Wireless(js);
+				wireless.replaceWpa(id, in);
+				finalJson = wireless.getJson();
+			}
 		} else if (uri.endsWith(MACFILTER)) {
 			key = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
+			finalJson = HttpSessionUtil.replaceAttributes(key, in, request);
 			returnJson = finalJson;
 		} else if (uri.endsWith(WPS)) {
 			key = WPSKEY + StringUtil.retrieveId(uri, WPS);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
+			finalJson = HttpSessionUtil.replaceAttributes(key, in, request);
 			returnJson = finalJson;
 		} else {
 			String id = StringUtil.retrieveLastId(request.getRequestURI(),
@@ -145,16 +177,22 @@ public class WirelessServlet extends HttpServlet {
 				String js = (String) request.getSession().getAttribute(
 						getClass().getSimpleName());
 				Wireless wireless = new Wireless(js);
-				wireless.replaceByIndex(id, in);
-				finalJson = wireless.getJson();
-				// return this
-				returnJson = wireless.getJsonByIndex(id);
+				if (id.equals("2") || id.equals("3")) {
+					wireless.replaceByListIndex(id, in);
+					finalJson = wireless.getJson();
+					returnJson = wireless.getJsonByListIndex(id);
+				} else {
+					wireless.replaceByIndex(id, in);
+					finalJson = wireless.getJson();
+					// return this
+					returnJson = wireless.getJsonByIndex(id);
+				}
 			}
 
 		}
 
 		request.getSession().setAttribute(key, finalJson);
-		//logger.debug("Wirelss put return: " + returnJson);
+		// logger.debug("Wirelss put return: " + returnJson);
 		ServletRequestUtilities.sendJSONResponse(returnJson, response);
 	}
 
@@ -167,7 +205,8 @@ public class WirelessServlet extends HttpServlet {
 		logger.info("Wireless put: " + uri);
 		if (uri.endsWith(MACFILTER)) {
 			String key = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
-			ServletRequestUtilities.addToJSONArrayByID(idName, key, request, response);
+			ServletRequestUtilities.addToJSONArrayByID(idName, key, request,
+					response);
 		}
 	}
 

@@ -31,7 +31,6 @@ public class LoginFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpSession session = request.getSession(false);
-System.out.println(request.getContextPath());
 		if (SessionCounterListener.getTotalActiveSession() > 150) {
 			logger.error("too many users");
 			if (null != session)
