@@ -1,4 +1,4 @@
-var API_BASE_PATH = 'api';
+var API_BASE_PATH = '/uiSim/api';
 
 angular.module('devices', ['ngResource']).
   factory('Devices', function($resource) {
@@ -204,10 +204,6 @@ angular.module('firewall', ['ngResource'])
     return $resource(API_BASE_PATH + '/firewall',
       {}, { "update": {method: "PUT"}});
   })
-  .factory('FirewallDMZ', function($resource) {
-    return $resource(API_BASE_PATH + '/firewall/dmzhost',
-      {}, { "update": {method: "PUT"}});
-  })
   .factory('AccessControl', function($resource) {
     return $resource(API_BASE_PATH + '/firewall/accesscontrol/:id',
       {id: "@id"}, { "update": {method: "PUT"}});
@@ -249,14 +245,4 @@ angular.module('parental', ['ngResource'])
   .factory('Parental', function($resource) {
     return $resource(API_BASE_PATH + '/parental/:id',
       {id: "@id"}, { "update": {method: "PUT"}});
-  });
-
-angular.module('guestWifi',['ngResource'])
-  .factory('GuestDevices',function($resource){
-    return $resource(API_BASE_PATH+'/wireless/2/devices/:id',
-      {id: "@id"},{"update": {method: "PUT"}})
-  })
-  .factory('GuestPassDevices', function($resource) {
-    return $resource(API_BASE_PATH + '/wireless/3/devices/:id',
-    {id: "@id"}, {"update": {method: "PUT"}})
   });

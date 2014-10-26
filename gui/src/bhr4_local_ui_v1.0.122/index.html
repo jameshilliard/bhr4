@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="vzui">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <title>Verizon Router</title>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/wh_skin.css"/>
+      <!--[if lte IE 7]>
+        <script>
+          document.createElement('ng-include');
+          window.onload = function() {
+            // init angular
+            angular.bootstrap(document)
+          };
+        </script>
+      <![endif]-->
+      <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/IE8.css"/>
+      <![endif]-->
+
+      <!--[if IE 9]>
+        <link rel="stylesheet" href="css/IE9.css"/>
+      <![endif]-->
+
+
+  </head>
+  <body>
+    <div id="bgimage" class="container" ng-view></div>
+    <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.min.js"></script>
+    <script src="lib/angular/angular-resource.min.js"></script>
+    <script src="lib/angular/ui-bootstrap-tpls-0.3.0.min.js"></script>
+    <script src="js/sha512.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/rest.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/parentalControllers.js"></script>
+    <script src="js/networkControllers.js"></script>
+    <script src="js/wirelessControllers.js"></script>  
+    <script src="js/advancedControllers.js"></script>
+    <script src="js/mainControllers.js"></script>
+    <script src="js/firewallControllers.js"></script>
+    <script src="js/systemControllers.js"></script>
+    <script src="js/igmpControllers.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/firewallUtil.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/moment-timezone.min.js"></script>
+  </body>
+</html>

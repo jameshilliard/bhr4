@@ -1,0 +1,210 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/network/nav.html'"></div>
+    <div ng-include src="'partials/error.html'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header line-height-small">{{name}} Properties</div>
+      <div>Note: Only advanced technical users should use this feature.</div>
+      <table class="dark-table" ng-show="connection != undefined" alt-style>
+        <tbody>
+          <tr ng-show="connection.connectionId != 4 && connection.connectionId != 0 && connection.connectionId != 5">
+            <td></td>
+            <td ng-switch on="connection.enabled">
+              <button ng-switch-when="true" class="btn dark-btn" ng-click="toggleEnabled()">Disable</button>
+              <button ng-switch-default class="btn dark-btn" ng-click="toggleEnabled()">Enable</button>
+            </td>
+          </tr>
+          <tr ng-show="connection.connectionId == 5">
+            <td></td>
+            <td ng-switch on="connection.coaxEnabled">
+              <button ng-switch-when="true" class="btn dark-btn" ng-click="toggleCoaxEnabled()">Disable</button>
+              <button ng-switch-default class="btn dark-btn" ng-click="toggleCoaxEnabled()">Enable</button>
+            </td>
+          </tr>
+          <tr>
+            <th>Name:</th>
+            <th>
+              <input type="text" ng-model="name" class="dark-table-input-small" maxLength="64" />
+            </th>
+          </tr>
+          <tr ng-show="connection.connectionId != 1 || connection.protocolUsed != 1" >
+            <th>Status:</th>
+            <td ng-show="connection.connectionId != 5">
+              <div ng-show="connection.status == 0 && connection.enabled">
+                <div ng-show="connection.connectionId == 2 || connection.connectionId == 3 || connection.connectionId == 4">
+                  <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
+                  <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
+                </div>
+                <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">
+                  <div ng-show="connection.protocolUsed == 0">
+                    <div ng-switch on="connection.status">
+                    <div ng-switch-when="0">
+                      <div ng-show="connection.dhcpStatus == 0" class="red-text">No Connection</div>
+                      <div ng-show="connection.dhcpStatus == 1" class="red-text">No Connection</div>
+                      <div ng-show="connection.dhcpStatus == 2" class="green-text">Connected</div>
+                      <div ng-show="connection.dhcpStatus == 3" class="red-text">No Connection</div>
+                    </div>
+                    <div class="red-text" ng-switch-default>No Connection</div>
+                  </div>
+                  </div>
+                  <div ng-show="connection.protocolUsed != 0">
+                    <div class="green-text">Connected</div>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="connection.status != 0 && connection.enabled"><span ng-show="connection.connectionId == 1">Cable </span>Disconnected</div>
+              <div ng-show="!connection.enabled">Disabled</div>
+            </td>
+            <td ng-show="connection.connectionId == 5">
+              <div class="green-text" ng-show="connection.status == 0 && connection.coaxConnected && connection.coaxEnabled">Connected</div>
+              <div ng-show="connection.status == 0 && !connection.coaxConnected && connection.coaxEnabled">Cable </span>Disconnected</div>
+              <div ng-show="connection.status != 0 && connection.coaxEnabled"><span ng-show="connection.connectionId == 1">Cable </span>Disconnected</div>
+              <div ng-show="!connection.coaxEnabled">Disabled</div>
+            </td>
+          </tr>
+          <tr ng-show="connection.connectionId == 1 && connection.protocolUsed == 1">
+            <th>Status:</th>
+            <td ng-show="connection.connectionId != 5">
+              <div ng-show="connection.status == 0 && connection.enabled">
+                <div ng-show="connection.dhcpStatus == 3">No Connection</div>
+                <div ng-show="connection.dhcpStatus == 2">
+                  <div ng-show="connection.connectionId == 2 || connection.connectionId == 3 || connection.connectionId == 4">
+                    <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
+                    <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
+                  </div>
+                  <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">Connected</div>
+                </div>
+                <div ng-show="connection.dhcpStatus == 1">Connected (Renewing DHCP Lease)</div>
+                <div ng-show="connection.dhcpStatus == 0">DHCP IP Address Released</div>
+              </div>
+              <div ng-show="connection.status != 0 && connection.enabled">Cable Disconnected</div>
+              <div ng-show="!connection.enabled">Disabled</div>
+            </td>
+            <td ng-show="connection.connectionId == 5">
+              <div ng-show="connection.status == 0 && connection.coaxEnabled">
+                <div ng-show="connection.dhcpStatus == 3">No Connection</div>
+                <div class="green-text" ng-show="connection.dhcpStatus == 2 && connection.coaxConnected">Connected</div>
+                <div ng-show="connection.dhcpStatus == 2 && !connection.coaxConnected">Cable Disconnected</div>
+                <div ng-show="connection.dhcpStatus == 1">Connected (Renewing DHCP Lease)</div>
+                <div ng-show="connection.dhcpStatus == 0">DHCP IP Address Released</div>
+              </div>
+              <div ng-show="connection.status != 0 && connection.coaxEnabled">Cable Disconnected</div>
+              <div ng-show="!connection.coaxEnabled">Disabled</div>
+            </td>
+          </tr>
+          <tr>
+            <th>Network:</th>
+            <td ng-switch on="connection.networkType">
+              <div ng-switch-when="0">Broadband Connection</div>
+              <div ng-switch-when="1">Network (Home/Office)</div>
+              <div ng-switch-default>DMZ</div>
+            </td>
+          </tr>
+          <tr ng-show="connection.underlyingDevices">
+            <th>Underlying Device:</th>
+            <td>
+              <div ng-repeat="device in connection.underlyingDevices | filter:showBridgeDeviceList">
+                <div>
+                  <a href="#/network/connections/{{device}}{{connFromString}}">{{findDeviceNames(device)}}</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>Connection Type:</th>
+            <td>{{connection.connectionType}}</td>
+          </tr>
+          <tr ng-show="connection.mac">
+            <th>MAC Address:</th>
+            <td>{{connection.mac}}</td>
+          </tr>
+          <tr ng-show="connection.status == 0 && connection.ipAddress && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+            <th>IP Address:</th>
+            <td>{{connection.ipAddress}}</td>
+          </tr>
+          <tr ng-show="connection.status == 0 && connection.subnetMask && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+            <th>Subnet Mask:</th>
+            <td>{{connection.subnetMask}}</td>
+          </tr>
+          <tr ng-show="connection.networkType == 0 && connection.status == 0 && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+            <th>Default Gateway:</th>
+            <td>{{connection.defaultGateway}}</td>
+          </tr>
+          <tr ng-show="connection.type == 1 && connection.dnsMode != 2 && connection.status == 0 && (connection.connectionId != 1 || (connection.connectionId == 1 && connection.protocolUsed != 0))">
+            <th>DNS Servers:</th>
+            <td>
+              <div ng-show="connection.primaryDnsServer != '0.0.0.0'">{{connection.primaryDnsServer}}</div>
+              <div ng-show="connection.secondaryDnsServer != '0.0.0.0'">{{connection.secondaryDnsServer}}</div>
+            </td>
+          </tr>
+          <tr ng-show="connection.type != 2">
+            <td>
+              <a class="bold" href="#/advanced/dhcp?from=network_connections_{{connection.connectionId}}">IP Address Distribution:</a>
+            </td>
+            <td ng-switch on="connection.dhcpSettings.mode">
+              <div ng-switch-when="2">DHCP Server</div>
+              <div ng-switch-when="1">DHCP Relay</div>
+              <div ng-switch-default>Disabled</div>
+            </td>
+          </tr>
+          <tr ng-show="showIpv6">
+            <th>IPv6 WAN Address:</th>
+            <td>{{connection.ipv6Address}}</td>
+          </tr>
+          <tr ng-show="showIpv6">
+            <th>IPv6 Link Local Address:</th>
+            <td>{{connection.ipv6LocalLinkAddress}}</td>
+          </tr>
+          <tr ng-show="showIpv6">
+            <th>IPv6 DNS Address 1:</th>
+            <td>{{connection.primaryIpv6DnsServer}}</td>
+          </tr>
+          <tr ng-show="showIpv6">
+            <th>IPv6 DNS Address 2:</th>
+            <td>{{connection.secondaryIpv6DnsServer}}</td>
+          </tr>
+          <tr ng-show="connection.type != 2 && connection.status == 0 && connection.connectionId != 5">
+            <th>Received Packets:</th>
+            <td>{{connection.rxPackets}}</td>
+          </tr>
+          <tr ng-show="connection.type != 2 && connection.status == 0 && connection.connectionId != 5">
+            <th>Sent Packets:</th>
+            <td>{{connection.txPackets}}</td>
+          </tr>
+          <tr ng-show="connection.type != 2 && connection.status == 0 && connection.connectionId != 5">
+            <th>Time Span:</th>
+            <td>{{connection.timeSpan}}</td>
+          </tr>
+          <tr ng-show="connection.type != 2 && connection.status == 0 && connection.connectionId == 5 && connection.coaxEnabled">
+            <th>Received Packets:</th>
+            <td>{{connection.rxPackets}}</td>
+          </tr>
+          <tr ng-show="connection.type != 2 && connection.status == 0 && connection.connectionId == 5 && connection.coaxEnabled">
+            <th>Sent Packets:</th>
+            <td>{{connection.txPackets}}</td>
+          </tr>
+          <tr ng-show="connection.type != 2 && connection.status == 0 && connection.connectionId == 5 && connection.coaxEnabled">
+            <th>Time Span:</th>
+            <td>{{connection.timeSpan}}</td>
+          </tr>
+          <tr ng-show=" 0 <= connection.coaxChannel">
+            <th>Coax Channel:</th>
+            <td ng-switch on="connection.coaxConnected">
+              <div ng-switch-when="false">Cable Disconnected</div>
+              <div ng-switch-default>{{connection.coaxChannel}}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center">
+        <button class="btn dark-btn" ng-click="saveName(connection)">Apply</button>
+        <button class="btn dark-btn" ng-click="cancelBtn()">Cancel</button>
+        <a class="btn dark-btn" href="#/network/connections/{{connection.connectionId}}/edit{{fromString}}">Settings</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

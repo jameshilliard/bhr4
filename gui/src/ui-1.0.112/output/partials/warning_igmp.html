@@ -1,0 +1,13 @@
+<div class="content-panel-with-header span9 attn" ng-show="showIGMPwarning">
+  <div class="header">Attention</div>
+  <table class="dark-table">
+    <tbody>
+      <tr ng-repeat="mess in errorMessages">
+        <td>{{mess}} <a href="#/network/connections/0">{{warningMsgGen()}}.</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="conf">Press <strong>Apply</strong> to confirm</p>
+  <button class="btn dark-btn" ng-click="errorIGMPPageOk()">Apply</button>
+  <button class="btn dark-btn" ng-click="errorIGMPPageNo()">Cancel</button>
+</div>

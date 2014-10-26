@@ -17,7 +17,7 @@
           To Save the Router's current configuration in your hard drive, click the "Save Configuration File" button.
         </p>
         <div class="centerme">
-          <a href="api/settings/configfile.bin" class="btn dark-btn">Save Configuration File</a>
+          <a href="/api/settings/configfile.bin" class="btn dark-btn">Save Configuration File</a>
         </div>
 
       </div>
@@ -50,7 +50,7 @@
         Browse to locate file, then press Apply to begin the configuration file uploading process.
       </div>
       <div ng-show="loadFile">
-        <form action="api/settings/configfile" enctype="multipart/form-data" target="hidden_upload" method="post">
+        <form action="/api/settings/configfile" enctype="multipart/form-data" target="hidden_upload" method="post">
           <iframe id='hidden_upload' name='hidden_upload' src='' 
                     onLoad='uploadDone()' style='width:0;height:0;border:0px solid #fff'></iframe>
           <div class="load_config">

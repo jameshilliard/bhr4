@@ -1,4 +1,4 @@
-<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+<div>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -21,29 +21,29 @@
       <div style="text-align: center;">
         <a class="btn semi" href="#/firewall">Close</a>
         <button class="btn semi" ng-click="clearLogScreen()">Clear Log</button>
-        <a href="api/settings/savelog/1" class="btn semi">Save Log</a>
+        <a href="/uiSim/api/settings/savelog/1" class="btn semi">Save Log</a>
         <button class="btn semi" ng-click="togglePage(1)">Hazard</button>
         <button class="btn semi" ng-click="togglePage(2)">Settings</button>
         <button class="btn semi" ng-click="refresh()">Refresh</button>
       </div>
+
       <p class="bold margin_up">Press the Refresh button to update the data.</p>
-        <ul class="logs">
-          <li class="head">
-            <span class="b1">Time</span>
-            <span class="b2">Event-Type</span>
-            <span class="b3">Log Level</span>
-            <span class="b4">Details</span>
-          </li>
-          <li>
-            <div class="zeb" ng-repeat="event in items | limitTo:FDisplayNum">
-              <span class="b1">{{event.time}}</span>
-              <span class="b2">{{event.event}}</span>
-              <span class="b3">{{event.type}}</span>
-              <span class="b4">{{event.details}}</span>
-            </div>
-          </li>
-        </ul>
-        <span class="attn"><button class="btn" ng-click="loadMore()" ng-hide="FDisplayNum > items.length">Load more</button></span>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Time</th>
+            <th>Event-Type</th>
+            <th>Log Level</th>
+            <th>Details</th>
+          </tr>
+          <tr ng-repeat="event in items">
+            <td>{{event.time}}</td>
+            <td>{{event.event}}</td>
+            <td>{{event.type}}</td>
+            <td>{{event.details}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Hazard  TODO - buttons? -->
@@ -57,23 +57,22 @@
       </div>
 
       <div>Press the Refresh button to update the data.</div>
-      <ul class="logs">
-        <li class="head">
-          <span class="b1">Time</span>
-          <span class="b2">Event</span>
-          <span class="b3b">Event-Type</span>
-          <span class="b4b">Details</span>
-        </li>
-        <li>
-          <div class="zeb" ng-repeat="event in securityHazard | limitTo:FDisplayNum">
-            <span class="b1">{{getTime(event.time)}}</span>
-            <span class="b2">{{event.event}}</span>
-            <span class="b3">{{event.eventType}}</span>
-            <span class="b4">{{event.details}}</span>
-          </div>
-        </li>
-      </ul>
-      <span class="attn"><button class="btn" ng-click="loadMore()" ng-hide="FDisplayNum > items.length">Load more</button></span>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Time</th>
+            <th>Event</th>
+            <th>Event-Type</th>
+            <th>Details</th>
+          </tr>
+          <tr ng-repeat="event in securityHazard">
+            <td>{{getTime(event.time)}}</td>
+            <td>{{event.event}}</td>
+            <td>{{event.eventType}}</td>
+            <td>{{event.details}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Settings -->

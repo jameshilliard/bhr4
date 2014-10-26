@@ -1,0 +1,82 @@
+<div>
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/igmp/nav.html'"></div>
+    <div ng-include src="'partials/error.html'"></div>
+
+    <div class="content-panel-with-header span9" ng-show="!editing && !showErrorPage">
+      <div class="header">Host Multicast Filtering</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Host IP Address</th>
+            <th>STB</th>
+            <th>IGMP Allowed</th>
+            <th>Max Channel Allowed</th>
+            <th>Action</th>
+          </tr>
+          <tr ng-repeat="dev in hosts">
+            <td>{{dev.ip}}</td>
+            <td>
+              <div class="check-mark-small" ng-show="dev.isStb"></div>
+              <div class="x-mark-small" ng-show="!dev.isStb"></div>
+            </td>
+            <td>
+              <div class="check-mark-small" ng-show="dev.igmpAllowed"></div>
+              <div class="x-mark-small" ng-show="!dev.igmpAllowed"></div>
+            </td>
+            <td ng-show="dev.maxConn != -1">{{dev.maxConn}}</td>
+            <td ng-show="dev.maxConn == -1">N/A</td>
+            <td class="actions">
+              <a ng-click="editHost($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <a href="#/advanced" class="btn dark-btn">Close</a>
+      </div>
+    </div>
+    <div class="content-panel-with-header span9" ng-show="editing && !showErrorPage">
+      <div class="header">Host Entry</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>IP Address:</td>
+            <td>{{editDev.ip}}</td>
+          </tr>
+          <tr>
+            <td>STB:</td>
+            <td>
+              <div class="check-mark-small" ng-show="editDev.isStb"></div>
+              <div class="x-mark-small" ng-show="!editDev.isStb"></div>
+            </td>
+          </tr>
+          <tr>
+            <td>IGMP Allowed:</td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="editDev.igmpAllowed"/>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>Max Channel Allowed:</td>
+            <td>
+              <input type="text" ng-model="editDev.maxConn"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button ng-click="applyEdit()" class="btn dark-btn">Apply</button>
+        <a href="" ng-click="cancel()" class="btn dark-btn">Cancel</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

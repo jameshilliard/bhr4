@@ -1,0 +1,10 @@
+js/advancedControllers.js:          window.location="/api/settings/configfile";
+js/advancedControllers.js:          window.location="/api/settings/configfile";
+js/rest.js:var API_BASE_PATH = '/uiSim/api';
+js/util.js:      $http.get('/api/settings/log/' + $scope.logId).success(function(data, status, headers, config) {
+partials/advanced/configfile.html:          <a href="/api/settings/configfile.bin" class="btn dark-btn">Save Configuration File</a>
+partials/advanced/configfile.html:        <form action="/api/settings/configfile" enctype="multipart/form-data" target="hidden_upload" method="post">
+partials/advanced/defaults.html:            <a href="/api/settings/configfile.bin" class="btn dark-btn">Save Configuration File</a>
+partials/advanced/fwupgrade.html:          <form action="/api/upgrade_firmware" enctype="multipart/form-data" target="hidden_upload" method="post">
+partials/firewall/securityLog.html:        <a href="/api/settings/savelog/1" class="btn semi">Save Log</a>
+partials/system/log.html:          <a href="/api/settings/savelog/{{logId}}" class="btn dark-btn">Save Log</a>

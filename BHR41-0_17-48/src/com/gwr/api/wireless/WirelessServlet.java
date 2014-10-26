@@ -87,7 +87,7 @@ public class WirelessServlet extends HttpServlet {
 			json = HttpSessionUtil.getSessionAttribute(request, id, def);
 		} else {
 			 json = ServletRequestUtilities.getMapFromJSONArrayByID(idName,
-			 null, request.getContextPath() + "/api/wireless",
+			 null, "/" + GlobalConstants.CONTEXT + "/api/wireless",
 			 getClass().getSimpleName(), request, response);
 		}
 		ServletRequestUtilities.sendJSONResponse(json, response);

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gwr.api.logout.LogoutServlet;
+import com.gwr.util.ServletRequestUtilities;
+
 /**
  * 
  * @author jerry skidmore

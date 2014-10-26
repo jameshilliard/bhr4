@@ -1,0 +1,253 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/advanced/nav.html'"></div>
+      <div ng-include src="'partials/error.html'"></div>
+      <!-- START: Port Forwarding Rules -->
+      <div class="content-panel-with-header span9" ng-show="pageToShow == 0 && !showErrorPage">
+        <div class="header">Port Forwarding Rules</div>
+
+        <div>
+          Below is a list of currently configured Protocols that are implemented in the Wireless Broadband Router.
+        </div>
+
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <th>Protocols</th>
+              <th>Ports</th>
+              <th>Action</th>
+            </tr>
+            <tr ng-repeat="rule in portForwardRules" ng-show="rule.name.indexOf('PortForward_') != 0">
+              <td>
+                <a href="" ng-click="editPortForwardRule($index)">{{rule.name}}</a>
+              </td>
+              <td>
+                <div ng-repeat="part in printProtArr[$index]">{{part}}</div>
+              </td>
+              <td class="actions">
+                <a ng-click="editPortForwardRule($index)" title="Edit">
+                  <div class="edit-icon"></div>
+                </a>
+                <a ng-click="removePortForwardRule($index)" title="Remove">
+                  <div class="remove-icon"></div>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <button class="btn dark-btn" ng-click="togglePage(3)">Add</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <a href="#/advanced" class="btn dark-btn">Close</a>
+        </div>
+      </div>
+      <!-- END: Port Forwarding Rules -->
+
+      <!-- Start: Service -->
+
+      <!-- Start: Edit Service -->
+      <div class="content-panel-with-header span9" ng-show="pageToShow == 3 && !showErrorPage">
+        <div class="header">Edit Service</div>
+
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <th>Service Name:</th>
+              <td>
+                <input class="text" ng-model="tempPortForward.name"/>
+              </td>
+            </tr>
+            <tr>
+              <th>Service Description:</th>
+              <td>
+                <input class="text" ng-model="tempPortForward.description"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>&nbsp;</p>
+        <p class="bold">Server Ports</p>
+
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <th>Protocol</th>
+              <th>Server Ports</th>
+              <th>Action</th>
+            </tr>
+            <tr ng-repeat="prot in tempPortForward.protocols">
+              <td>
+                <span ng-show="prot.protocolExclude">~</span>
+                <a href="" ng-click="editProtocol($index)">
+                  <span ng-switch on="prot.protocol">
+                    <span ng-switch-when="1">TCP</span>
+                    <span ng-switch-when="2">UDP</span>
+                    <span ng-switch-when="3">ICMP</span>
+                    <span ng-switch-when="4">GRE</span>
+                    <span ng-switch-when="5">ESP</span>
+                    <span ng-switch-when="0">
+                      <span ng-show="prot.protocolNumber == 0">Protocol Any</span>
+                      <span ng-show="prot.protocolNumber != 0">Protocol {{prot.protocolNumber}}</span>
+                    </span>
+                    <span ng-switch-default>AH</span>
+                  </span>
+                </a>
+              </td>
+              <td>{{printPortsArr[$index]}}</td>
+              <td class="actions">
+                <a ng-click="editProtocol($index)" title="Edit">
+                  <div class="edit-icon"></div>
+                </a>
+                <a ng-click="removeProtocol($index)" title="Remove">
+                  <div class="remove-icon"></div>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <button class="btn dark-btn" ng-click="togglePage(4)">Add Server Ports</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <button class="btn dark-btn" ng-click="applyPortForwardRule()">Apply</button>
+          <button class="btn dark-btn" ng-click="cancelPortForwardRule()">Cancel</button>
+        </div>
+      </div>
+      <!-- End: Edit Service -->
+
+      <!-- Start: Edit Service Server Ports -->
+      <div class="content-panel-with-header span9" ng-show="pageToShow == 4 && !showErrorPage">
+        <div class="header">Edit Service Server Ports</div>
+
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <th>Protocol</th>
+              <td>
+                <select ng-model="protocols.protocol">
+                  <option value="1">TCP</option>
+                  <option value="2">UDP</option>
+                  <option value="3">ICMP</option>
+                  <option value="4">GRE</option>
+                  <option value="5">ESP</option>
+                  <option value="6">AH</option>
+                  <option value="0">Other</option>
+                </select>
+              </td>
+              <td>
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="protocols.protocolExclude"/>
+                  Exclude
+                </label>
+              </td>
+            </tr>
+
+            <!-- TCP & UDP-->
+            <tr ng-show="protocols.protocol == 1 || protocols.protocol == 2">
+              <th>Source Ports:</th>
+              <td>
+                <select ng-model="protocols.incomingPorts" >
+                  <option value="0" selected>Any</option>
+                  <option value="1">Single</option>
+                  <option value="2">Range</option>
+                </select>
+                <input type="number" class="input-mini" ng-model="protocols.incomingPortStart" ng-show="protocols.incomingPorts != 0" maxlength="5" input-max-length-number/>
+                <span style="vertical-align:center;" ng-show="protocols.incomingPorts == 2">-</span>
+                <input type="number" class="input-mini" ng-model="protocols.incomingPortEnd" ng-show="protocols.incomingPorts == 2" maxlength="5" input-max-length-number/>
+              </td>
+              <td>
+                <label class="checkbox" ng-show="protocols.incomingPorts != 0">
+                  <input type="checkbox" ng-model="protocols.incomingExclude"/>
+                  Exclude
+                </label>
+              </td>
+            </tr>
+            <tr ng-show="protocols.protocol == 1 || protocols.protocol == 2">
+              <th>Destination Ports:</th>
+              <td>
+                <select ng-model="protocols.outgoingPorts" >
+                  <option value="0">Any</option>
+                  <option value="1">Single</option>
+                  <option value="2">Range</option>
+                </select>
+                <input type="number" class="input-mini" ng-model="protocols.outgoingPortStart" ng-show="protocols.outgoingPorts != 0" maxlength="5" input-max-length-number/>
+                <span style="vertical-align:center;" ng-show="protocols.outgoingPorts == 2">-</span>
+                <input type="number" class="input-mini" ng-model="protocols.outgoingPortEnd" ng-show="protocols.outgoingPorts == 2" maxlength="5" input-max-length-number/>
+              </td>
+              <td>
+                <label class="checkbox" ng-show="protocols.outgoingPorts != 0">
+                  <input type="checkbox" ng-model="protocols.outgoingExclude"/>
+                  Exclude
+                </label>
+              </td>
+            </tr>
+
+            <!-- ICMP -->
+            <tr ng-show="protocols.protocol == 3">
+              <td>ICMP Message:</td>
+              <td colspan="2">
+                <select ng-model="protocols.icmpMessage" class="input-xlarge">
+                  <option value="0">Echo Reply</option>
+                  <option value="1">Network Unreachable</option>
+                  <option value="2">Host Unreachable</option>
+                  <option value="3">Protocol Unreachable</option>
+                  <option value="4">Port Unreachable</option>
+                  <option value="5">Destination Network Unknown</option>
+                  <option value="6">Destination Host Unknown</option>
+                  <option value="7">Redirect for Network</option>
+                  <option value="8">Redirect for Host</option>
+                  <option value="9">Echo Request</option>
+                  <option value="10">Other</option>
+                </select>
+              </td>
+            </tr>
+            <tr ng-show="protocols.protocol == 3 && protocols.icmpMessage == 10">
+              <td>ICMP Type:</td>
+              <td colspan="2">
+                <input type="number" class="input-mini" ng-model="protocols.icmpType" maxlength="3" input-max-length-number/>
+              </td>
+            </tr>
+            <tr ng-show="protocols.protocol == 3 && protocols.icmpMessage == 10">
+              <td>ICMP Code:</td>
+              <td colspan="2">
+                <input type="number" class="input-mini" ng-model="protocols.icmpCode" maxlength="3" input-max-length-number/>
+              </td>
+            </tr>
+
+            <!-- GRE   - NOTHING HERE -->
+
+            <!-- ESP   - NOTHING HERE -->
+
+            <!-- AH    - NOTHING HERE -->
+
+            <!-- Other -->
+            <tr ng-show="protocols.protocol == 0">
+              <th>Protocol Number:</th>
+              <td colspan="2">
+                <input type="number" class="input-mini" ng-model="protocols.protocolNumber" maxlength="3" input-max-length-number/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <button class="btn dark-btn" ng-click="applyProtocol()">Apply</button>
+          <button class="btn dark-btn" ng-click="cancelProtocol()">Cancel</button>
+        </div>
+      </div>
+      <!-- End: Edit Service Server Ports -->
+
+      <!-- End: Service -->
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
