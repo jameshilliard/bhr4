@@ -75,7 +75,7 @@ public class WirelessServlet extends HttpServlet {
 			String id = StringUtil.retrieveId(uri, WPA);
 			if (id.equals("2")) {
 				json = (String) request.getSession().getAttribute(
-						"wireless.2.wpa");
+						GlobalConstants.WPA2Key);
 
 			} else {
 				String js = (String) request.getSession().getAttribute(
@@ -146,12 +146,12 @@ public class WirelessServlet extends HttpServlet {
 			String id = StringUtil.retrieveId(uri, WPA);
 			if (id.equals("2")) {
 				String nowJson = (String) request.getSession().getAttribute(
-						"wireless.2.wpa");
+						GlobalConstants.WPA2Key);
 				SimpleJson.replaceJsonFields(nowJson, in);
-				request.getSession().setAttribute("wireless.2.wpa", nowJson);
+				request.getSession().setAttribute(GlobalConstants.WPA2Key, nowJson);
 				finalJson = (String) request.getSession().getAttribute(
-						"wireless.2.wpa");
-				key = "wireless.2.wpa";
+						GlobalConstants.WPA2Key);
+				key = GlobalConstants.WPA2Key;
 
 			} else {
 

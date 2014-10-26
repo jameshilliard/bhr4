@@ -87,7 +87,7 @@ public class JsonProperties {
 		return properties.getProperty("wireless.wps.json");
 	}
 	public static String getWireless2WpaJSON() {
-		return properties.getProperty("wireless.2.wpa.json");
+		return properties.getProperty(GlobalConstants.WPA2Key);
 	}
 
 	public static String getSettingsLocalAdminJSON() {

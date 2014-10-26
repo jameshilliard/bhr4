@@ -41,6 +41,7 @@ import com.gwr.api.settings.SystemServlet;
 import com.gwr.api.settings.UPNPServlet;
 import com.gwr.api.users.UsersServlet;
 import com.gwr.api.wireless.WirelessServlet;
+import com.gwr.util.GlobalConstants;
 import com.gwr.util.JsonProperties;
 import com.gwr.util.json.SimToUIJSONModelListResponse;
 import com.gwr.util.json.SimToUIJSONModelResponse;
@@ -106,7 +107,7 @@ public class SessionLoader {
 		this.loadListJSON(WirelessServlet.class.getSimpleName(),
 				JsonProperties.getWirelessJSON());
 		
-		this.loadJSON("wireless.2.wpa",
+		this.loadJSON(GlobalConstants.WPA2Key,
 				JsonProperties.getWireless2WpaJSON());
 		
 		// each only has 0/1 device
