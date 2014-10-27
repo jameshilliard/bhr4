@@ -158,5 +158,14 @@ public class SimpleJson {
 		}
 
 	}
+	
+	public static void main(String arg[]){
+		
+		String nowJson = "{\"wpaShowKeyInUI\":true,\"type\":1,\"key\":\"\"}";
+		String in = "{\"type\":1,\"encryptionAlgorithm\":null,\"key\":\"thinkgreen\"}";
+				
+		String s = replaceJsonFields(nowJson, in);
+		System.out.println(s);
+	}
 
 }

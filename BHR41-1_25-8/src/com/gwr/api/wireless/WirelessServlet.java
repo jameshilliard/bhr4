@@ -142,15 +142,13 @@ public class WirelessServlet extends HttpServlet {
 			Wireless wireless = new Wireless(js);
 			wireless.replaceWep(id, in);
 			finalJson = wireless.getJson();
+			key = getClass().getSimpleName();
 		} else if (uri.endsWith(WPA)) {
 			String id = StringUtil.retrieveId(uri, WPA);
 			if (id.equals("2")) {
 				String nowJson = (String) request.getSession().getAttribute(
 						GlobalConstants.WPA2Key);
-				SimpleJson.replaceJsonFields(nowJson, in);
-				request.getSession().setAttribute(GlobalConstants.WPA2Key, nowJson);
-				finalJson = (String) request.getSession().getAttribute(
-						GlobalConstants.WPA2Key);
+				finalJson = SimpleJson.replaceJsonFields(nowJson, in);
 				key = GlobalConstants.WPA2Key;
 
 			} else {
@@ -161,6 +159,7 @@ public class WirelessServlet extends HttpServlet {
 				Wireless wireless = new Wireless(js);
 				wireless.replaceWpa(id, in);
 				finalJson = wireless.getJson();
+				key = getClass().getSimpleName();
 			}
 		} else if (uri.endsWith(MACFILTER)) {
 			key = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
