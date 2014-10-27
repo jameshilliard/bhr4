@@ -66,8 +66,8 @@ public class LoginServlet extends HttpServlet {
 			logger.debug("Session is " + request.getSession().getId());
 			loadDeafult(request);
 			Integer loginTry = (Integer) request.getSession().getAttribute("loginTry");
-
-			setPreviousLoginTry(request, loginTry.intValue());
+			if(loginTry != null)
+				setPreviousLoginTry(request, loginTry.intValue());
 			ServletRequestUtilities.sendJSONResponse("", response);
 		} else {
 			logger.debug("Login failed " + password + " compare to " + PASSWORD);
