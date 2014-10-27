@@ -24,12 +24,10 @@ public class LoginFilter implements Filter {
 	private final static Logger logger = LoggerFactory
 			.getLogger(LoginFilter.class);
 
-	@Override
 	public void destroy() {
 
 	}
 
-	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
 
@@ -48,7 +46,6 @@ public class LoginFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 
-	@Override
 	public void init(FilterConfig arg0) throws ServletException {
 
 	}
