@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,11 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gwr.session.SessionConstants;
 import com.gwr.session.SessionLoader;
-import com.gwr.util.JsonProperties;
 import com.gwr.util.ServletRequestUtilities;
-import com.gwr.util.StringUtil;
 import com.gwr.util.json.SimpleJson;
 
 /**
