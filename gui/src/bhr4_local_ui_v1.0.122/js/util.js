@@ -606,7 +606,7 @@ function setupLoggingCtrl($scope, id, $http, Log) {
   $scope.refresh = function() {
     $scope.FDisplayNum = 50;
     if($scope.enableLogging){
-      $http.get('/api/settings/log/' + $scope.logId).success(function(data, status, headers, config) {
+      $http.get('api/settings/log/' + $scope.logId).success(function(data, status, headers, config) {
         $scope.items = [];
         $scope.log = data;
         $scope.index = 0;
