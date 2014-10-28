@@ -12,177 +12,177 @@ angular.module('vzui', ['ngRoute', 'vzui.filters', 'vzui.services',
     'wireless', 'advanced', 'firewall', 'parental', 'igmp','guestWifi']).
 config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
-  $routeProvider.when('/login', {templateUrl: 'partials/login.html?v=v1.0.125', controller: 'LoginCtrl'});
-  $routeProvider.when('/logout', {templateUrl: 'partials/logout.html?v=v1.0.125', controller: 'LogoutCtrl'});
+  $routeProvider.when('/login', {templateUrl: 'partials/login.html?v=v1.0.124', controller: 'LoginCtrl'});
+  $routeProvider.when('/logout', {templateUrl: 'partials/logout.html?v=v1.0.124', controller: 'LogoutCtrl'});
 
-  $routeProvider.when('/main', {templateUrl: 'partials/main.html?v=v1.0.125', controller: 'MainCtrl', tab: 'main'});
+  $routeProvider.when('/main', {templateUrl: 'partials/main.html?v=v1.0.124', controller: 'MainCtrl', tab: 'main'});
 
-  $routeProvider.when('/wireless', {templateUrl: 'partials/wireless/main.html?v=v1.0.125', controller: 'WirelessCtrl',
+  $routeProvider.when('/wireless', {templateUrl: 'partials/wireless/main.html?v=v1.0.124', controller: 'WirelessCtrl',
     tab: 'wireless', section: 'status'});
-  $routeProvider.when('/wireless/basic', {templateUrl: 'partials/wireless/basic.html?v=v1.0.125', controller: 'WirelessBasicCtrl',
+  $routeProvider.when('/wireless/basic', {templateUrl: 'partials/wireless/basic.html?v=v1.0.124', controller: 'WirelessBasicCtrl',
     tab: 'wireless', section: 'basic'});
-  $routeProvider.when('/wireless/advanced', {templateUrl: 'partials/wireless/advanced.html?v=v1.0.125', controller: 'WirelessAdvanceCtrl',
+  $routeProvider.when('/wireless/advanced', {templateUrl: 'partials/wireless/advanced.html?v=v1.0.124', controller: 'WirelessAdvanceCtrl',
     tab: 'wireless', section: 'advanced'});
-  $routeProvider.when('/wireless/wep/:id', {templateUrl: 'partials/wireless/wep.html?v=v1.0.125', controller: 'WirelessWEPCtrl',
+  $routeProvider.when('/wireless/wep/:id', {templateUrl: 'partials/wireless/wep.html?v=v1.0.124', controller: 'WirelessWEPCtrl',
     tab: 'wireless', section: 'advanced'});
-  $routeProvider.when('/wireless/wpa/:id', {templateUrl: 'partials/wireless/wpa.html?v=v1.0.125', controller: 'WirelessWPACtrl',
+  $routeProvider.when('/wireless/wpa/:id', {templateUrl: 'partials/wireless/wpa.html?v=v1.0.124', controller: 'WirelessWPACtrl',
     tab: 'wireless', section: 'advanced', wpa: 0});
-  $routeProvider.when('/wireless/wpa2/:id', {templateUrl: 'partials/wireless/wpa.html?v=v1.0.125', controller: 'WirelessWPACtrl',
+  $routeProvider.when('/wireless/wpa2/:id', {templateUrl: 'partials/wireless/wpa.html?v=v1.0.124', controller: 'WirelessWPACtrl',
     tab: 'wireless', section: 'advanced', wpa: 1});
-  $routeProvider.when('/wireless/ssidbroadcast/:id', {templateUrl: 'partials/wireless/ssidbroadcast.html?v=v1.0.125', controller: 'WirelessSSIDBroadcast',
+  $routeProvider.when('/wireless/ssidbroadcast/:id', {templateUrl: 'partials/wireless/ssidbroadcast.html?v=v1.0.124', controller: 'WirelessSSIDBroadcast',
     tab: 'wireless', section: 'advanced'});
-  $routeProvider.when('/wireless/mode', {templateUrl: 'partials/wireless/mode.html?v=v1.0.125', controller: 'WirelessMode',
+  $routeProvider.when('/wireless/mode', {templateUrl: 'partials/wireless/mode.html?v=v1.0.124', controller: 'WirelessMode',
     tab: 'wireless', section: 'advanced'});
-  $routeProvider.when('/wireless/macauth', {templateUrl: 'partials/wireless/macauth.html?v=v1.0.125', controller: 'WirelessMACFilterCtrl',
+  $routeProvider.when('/wireless/macauth', {templateUrl: 'partials/wireless/macauth.html?v=v1.0.124', controller: 'WirelessMACFilterCtrl',
     tab: 'wireless', section: 'advanced'});
-  $routeProvider.when('/wireless/transmission', {templateUrl: 'partials/wireless/transmission.html?v=v1.0.125', controller: 'WirelessTransmissionCtrl',
+  $routeProvider.when('/wireless/transmission', {templateUrl: 'partials/wireless/transmission.html?v=v1.0.124', controller: 'WirelessTransmissionCtrl',
     tab: 'wireless', section: 'advanced'});
-  $routeProvider.when('/wireless/wmm/:id', {templateUrl: 'partials/wireless/wmm.html?v=v1.0.125', controller: 'WirelessWmmCtrl',
+  $routeProvider.when('/wireless/wmm/:id', {templateUrl: 'partials/wireless/wmm.html?v=v1.0.124', controller: 'WirelessWmmCtrl',
     tab: 'wireless', section: 'advanced'});
-  $routeProvider.when('/wireless/wifiSetup', {templateUrl: 'partials/wireless/wifiSetup.html?v=v1.0.125', controller: 'WifiSetupCtrl',
+  $routeProvider.when('/wireless/wifiSetup', {templateUrl: 'partials/wireless/wifiSetup.html?v=v1.0.124', controller: 'WifiSetupCtrl',
     tab: 'wireless', section: 'wifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.125', controller: 'GuestWifiSetupTabCtrl',
+  $routeProvider.when('/wireless/guestWifiSetup', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.124', controller: 'GuestWifiSetupTabCtrl',
     tab: 'wireless', section: 'guestWifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup/devices', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.125', controller: 'GuestWifiSetupTabCtrl',
+  $routeProvider.when('/wireless/guestWifiSetup/devices', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.124', controller: 'GuestWifiSetupTabCtrl',
 	    tab: 'wireless', section: 'guestWifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup/basic', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.125', controller: 'GuestWifiSetupTabCtrl',
+  $routeProvider.when('/wireless/guestWifiSetup/basic', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.124', controller: 'GuestWifiSetupTabCtrl',
 	    tab: 'wireless', section: 'guestWifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup/pass', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.125', controller: 'GuestWifiSetupTabCtrl',
+  $routeProvider.when('/wireless/guestWifiSetup/pass', {templateUrl: 'partials/wireless/guestWifiSetup.html?v=v1.0.124', controller: 'GuestWifiSetupTabCtrl',
 	    tab: 'wireless', section: 'guestWifiSetup'});
 
-  $routeProvider.when('/network', {templateUrl: 'partials/network/network.html?v=v1.0.125', controller: 'NetworkCtrl',
+  $routeProvider.when('/network', {templateUrl: 'partials/network/network.html?v=v1.0.124', controller: 'NetworkCtrl',
     tab: 'network', section: 'status'});
-  $routeProvider.when('/network/connections', {templateUrl: 'partials/network/networkConnections.html?v=v1.0.125', controller: 'NetworkConnectionsCtrl',
+  $routeProvider.when('/network/connections', {templateUrl: 'partials/network/networkConnections.html?v=v1.0.124', controller: 'NetworkConnectionsCtrl',
     tab: 'network', section: 'connections'});
-  $routeProvider.when('/network/connections/:id', {templateUrl: 'partials/network/connection.html?v=v1.0.125', controller: 'NetworkConnectionCtrl',
+  $routeProvider.when('/network/connections/:id', {templateUrl: 'partials/network/connection.html?v=v1.0.124', controller: 'NetworkConnectionCtrl',
     tab: 'network', section: 'connections'});
-  $routeProvider.when('/network/connections/:id/edit', {templateUrl: 'partials/network/connectionEditBase.html?v=v1.0.125', controller: 'NetworkConnectionEditCtrl',
+  $routeProvider.when('/network/connections/:id/edit', {templateUrl: 'partials/network/connectionEditBase.html?v=v1.0.124', controller: 'NetworkConnectionEditCtrl',
     tab: 'network', section: 'connections'});
-  $routeProvider.when('/network/connections/:id/wancoaxstats', {templateUrl: 'partials/network/wanCoaxStats.html?v=v1.0.125', controller: 'WanCoaxStatsCtrl',
+  $routeProvider.when('/network/connections/:id/wancoaxstats', {templateUrl: 'partials/network/wanCoaxStats.html?v=v1.0.124', controller: 'WanCoaxStatsCtrl',
     tab: 'network', section: 'connections'});
-  $routeProvider.when('/network/connections/:id/lancoaxstats', {templateUrl: 'partials/network/lanCoaxStats.html?v=v1.0.125', controller: 'LanCoaxStatsCtrl',
+  $routeProvider.when('/network/connections/:id/lancoaxstats', {templateUrl: 'partials/network/lanCoaxStats.html?v=v1.0.124', controller: 'LanCoaxStatsCtrl',
     tab: 'network', section: 'connections'});
-  $routeProvider.when('/network/device/details/:id', {templateUrl: 'partials/network/deviceDetails.html?v=v1.0.125', controller: 'DeviceDetailsCtrl',
+  $routeProvider.when('/network/device/details/:id', {templateUrl: 'partials/network/deviceDetails.html?v=v1.0.124', controller: 'DeviceDetailsCtrl',
     tab: 'network', section: 'status'});
-  $routeProvider.when('/network/device/rename/:id', {templateUrl: 'partials/network/deviceRename.html?v=v1.0.125', controller: 'DeviceDetailsCtrl',
+  $routeProvider.when('/network/device/rename/:id', {templateUrl: 'partials/network/deviceRename.html?v=v1.0.124', controller: 'DeviceDetailsCtrl',
     tab: 'network', section: 'status'});
-  $routeProvider.when('/network/full', {templateUrl: 'partials/network/fullStatus.html?v=v1.0.125', controller: 'FullStatusCtrl',
+  $routeProvider.when('/network/full', {templateUrl: 'partials/network/fullStatus.html?v=v1.0.124', controller: 'FullStatusCtrl',
     tab: 'network', section: 'connections'});
 
 
-  $routeProvider.when('/firewall', {templateUrl: 'partials/firewall/main.html?v=v1.0.125', controller: 'GeneralCtrl',
+  $routeProvider.when('/firewall', {templateUrl: 'partials/firewall/main.html?v=v1.0.124', controller: 'GeneralCtrl',
    tab: 'firewall', section: 'general'});
-  $routeProvider.when('/firewall/accesscontrol', {templateUrl: 'partials/firewall/accessControl.html?v=v1.0.125', controller: 'AccessControlCtrl',
+  $routeProvider.when('/firewall/accesscontrol', {templateUrl: 'partials/firewall/accessControl.html?v=v1.0.124', controller: 'AccessControlCtrl',
    tab: 'firewall', section: 'access'});
-  $routeProvider.when('/firewall/portforward', {templateUrl: 'partials/firewall/portForward.html?v=v1.0.125', controller: 'PortForwardCtrl',
+  $routeProvider.when('/firewall/portforward', {templateUrl: 'partials/firewall/portForward.html?v=v1.0.124', controller: 'PortForwardCtrl',
    tab: 'firewall', section: 'portforward'});
-  $routeProvider.when('/firewall/porttrigger', {templateUrl: 'partials/firewall/portTrigger.html?v=v1.0.125', controller: 'PortTriggerCtrl',
+  $routeProvider.when('/firewall/porttrigger', {templateUrl: 'partials/firewall/portTrigger.html?v=v1.0.124', controller: 'PortTriggerCtrl',
    tab: 'firewall', section: 'porttrigger'});
-  $routeProvider.when('/firewall/dmzhost', {templateUrl: 'partials/firewall/dmzHost.html?v=v1.0.125', controller: 'dmzHostCtrl',
+  $routeProvider.when('/firewall/dmzhost', {templateUrl: 'partials/firewall/dmzHost.html?v=v1.0.124', controller: 'dmzHostCtrl',
 	   tab: 'firewall', section: 'dmzhost'});
-  $routeProvider.when('/firewall/remoteadmin', {templateUrl: 'partials/firewall/remoteAdmin.html?v=v1.0.125', controller: 'RemoteAdminCtrl',
+  $routeProvider.when('/firewall/remoteadmin', {templateUrl: 'partials/firewall/remoteAdmin.html?v=v1.0.124', controller: 'RemoteAdminCtrl',
    tab: 'firewall', section: 'remoteadmin'});
-  $routeProvider.when('/firewall/staticnat', {templateUrl: 'partials/firewall/staticNAT.html?v=v1.0.125', controller: 'StaticNATCtrl',
+  $routeProvider.when('/firewall/staticnat', {templateUrl: 'partials/firewall/staticNAT.html?v=v1.0.124', controller: 'StaticNATCtrl',
    tab: 'firewall', section: 'staticnat'});
-  $routeProvider.when('/firewall/log', {templateUrl: 'partials/firewall/securityLog.html?v=v1.0.125', controller: 'FirewallSecurityLogCtrl',
+  $routeProvider.when('/firewall/log', {templateUrl: 'partials/firewall/securityLog.html?v=v1.0.124', controller: 'FirewallSecurityLogCtrl',
    tab: 'firewall', section: 'securitylog'});
 
 
-  $routeProvider.when('/parental', {templateUrl: 'partials/parental/main.html?v=v1.0.125', controller: 'ParentalAddCtrl',
+  $routeProvider.when('/parental', {templateUrl: 'partials/parental/main.html?v=v1.0.124', controller: 'ParentalAddCtrl',
    tab: 'parental', section: 'parental'});
-  $routeProvider.when('/parental/summary', {templateUrl: 'partials/parental/summary.html?v=v1.0.125', controller: 'ParentalSummaryCtrl',
+  $routeProvider.when('/parental/summary', {templateUrl: 'partials/parental/summary.html?v=v1.0.124', controller: 'ParentalSummaryCtrl',
    tab: 'parental', section: 'summary'});
 
 
-  $routeProvider.when('/advanced', {templateUrl: 'partials/advanced/advanced.html?v=v1.0.125', controller: 'basicAdvancedCtrl',
+  $routeProvider.when('/advanced', {templateUrl: 'partials/advanced/advanced.html?v=v1.0.124', controller: 'basicAdvancedCtrl',
    tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/fwupgrade', {templateUrl: 'partials/advanced/fwupgrade.html?v=v1.0.125', controller: 'fwUpgradeCtrl',
+  $routeProvider.when('/advanced/fwupgrade', {templateUrl: 'partials/advanced/fwupgrade.html?v=v1.0.124', controller: 'fwUpgradeCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/fwrestore', {templateUrl: 'partials/advanced/fwrestore.html?v=v1.0.125', controller: 'fwRestoreCtrl',
+  $routeProvider.when('/advanced/fwrestore', {templateUrl: 'partials/advanced/fwrestore.html?v=v1.0.124', controller: 'fwRestoreCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/dhcp', {templateUrl: 'partials/advanced/dhcpMain.html?v=v1.0.125', controller: 'dhcpCtrl',
+  $routeProvider.when('/advanced/dhcp', {templateUrl: 'partials/advanced/dhcpMain.html?v=v1.0.124', controller: 'dhcpCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/dhcp/edit', {templateUrl: 'partials/advanced/dhcpSettings.html?v=v1.0.125', controller: 'dhcpEditCtrl',
+  $routeProvider.when('/advanced/dhcp/edit', {templateUrl: 'partials/advanced/dhcpSettings.html?v=v1.0.124', controller: 'dhcpEditCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/dhcp/connections', {templateUrl: 'partials/advanced/dhcpConnections.html?v=v1.0.125', controller: 'dhcpConnectionsCtrl',
+  $routeProvider.when('/advanced/dhcp/connections', {templateUrl: 'partials/advanced/dhcpConnections.html?v=v1.0.124', controller: 'dhcpConnectionsCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/routing', {templateUrl: 'partials/advanced/routing.html?v=v1.0.125', controller: 'RoutesCtrl',
+  $routeProvider.when('/advanced/routing', {templateUrl: 'partials/advanced/routing.html?v=v1.0.124', controller: 'RoutesCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/datetime', {templateUrl: 'partials/advanced/datetime.html?v=v1.0.125', controller: 'dateTimeCtrl',
+  $routeProvider.when('/advanced/datetime', {templateUrl: 'partials/advanced/datetime.html?v=v1.0.124', controller: 'dateTimeCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/scheduler', {templateUrl: 'partials/advanced/scheduler.html?v=v1.0.125', controller: 'schedulerCtrl',
+  $routeProvider.when('/advanced/scheduler', {templateUrl: 'partials/advanced/scheduler.html?v=v1.0.124', controller: 'schedulerCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/portconfig', {templateUrl: 'partials/advanced/portconfig.html?v=v1.0.125', controller: 'PortConfigCtrl',
+  $routeProvider.when('/advanced/portconfig', {templateUrl: 'partials/advanced/portconfig.html?v=v1.0.124', controller: 'PortConfigCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/settings', {templateUrl: 'partials/advanced/settings.html?v=v1.0.125', controller: 'systemSettingsCtrl',
+  $routeProvider.when('/advanced/settings', {templateUrl: 'partials/advanced/settings.html?v=v1.0.124', controller: 'systemSettingsCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/configfile', {templateUrl: 'partials/advanced/configfile.html?v=v1.0.125', controller: 'configFileCtrl',
+  $routeProvider.when('/advanced/configfile', {templateUrl: 'partials/advanced/configfile.html?v=v1.0.124', controller: 'configFileCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/portforward', {templateUrl: 'partials/advanced/portforward.html?v=v1.0.125', controller: 'portForwardRuleCtrl',
+  $routeProvider.when('/advanced/portforward', {templateUrl: 'partials/advanced/portforward.html?v=v1.0.124', controller: 'portForwardRuleCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/networkobjects', {templateUrl: 'partials/advanced/networkobjects.html?v=v1.0.125', controller: 'networkObjectCtrl',
+  $routeProvider.when('/advanced/networkobjects', {templateUrl: 'partials/advanced/networkobjects.html?v=v1.0.124', controller: 'networkObjectCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/dnsserver', {templateUrl: 'partials/advanced/dnsserver.html?v=v1.0.125', controller: 'dnsServerCtrl',
+  $routeProvider.when('/advanced/dnsserver', {templateUrl: 'partials/advanced/dnsserver.html?v=v1.0.124', controller: 'dnsServerCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/remoteadmin', {templateUrl: 'partials/advanced/remoteadmin.html?v=v1.0.125', controller: 'remoteAdminCtrl',
+  $routeProvider.when('/advanced/remoteadmin', {templateUrl: 'partials/advanced/remoteadmin.html?v=v1.0.124', controller: 'remoteAdminCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/localadmin', {templateUrl: 'partials/advanced/localadmin.html?v=v1.0.125', controller: 'localAdminCtrl',
+  $routeProvider.when('/advanced/localadmin', {templateUrl: 'partials/advanced/localadmin.html?v=v1.0.124', controller: 'localAdminCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/users', {templateUrl: 'partials/advanced/users.html?v=v1.0.125', controller: 'usersCtrl',
+  $routeProvider.when('/advanced/users', {templateUrl: 'partials/advanced/users.html?v=v1.0.124', controller: 'usersCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/arptable', {templateUrl: 'partials/advanced/arptable.html?v=v1.0.125', controller: 'ArpCtrl',
+  $routeProvider.when('/advanced/arptable', {templateUrl: 'partials/advanced/arptable.html?v=v1.0.124', controller: 'ArpCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/maccloning', {templateUrl: 'partials/advanced/maccloning.html?v=v1.0.125', controller: 'macCloningCtrl',
+  $routeProvider.when('/advanced/maccloning', {templateUrl: 'partials/advanced/maccloning.html?v=v1.0.124', controller: 'macCloningCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/reboot', {templateUrl: 'partials/advanced/reboot.html?v=v1.0.125', controller: 'rebootCtrl',
+  $routeProvider.when('/advanced/reboot', {templateUrl: 'partials/advanced/reboot.html?v=v1.0.124', controller: 'rebootCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/defaults', {templateUrl: 'partials/advanced/defaults.html?v=v1.0.125', controller: 'defaultsCtrl',
+  $routeProvider.when('/advanced/defaults', {templateUrl: 'partials/advanced/defaults.html?v=v1.0.124', controller: 'defaultsCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/diagnostics', {templateUrl: 'partials/advanced/diagnostics.html?v=v1.0.125', controller: 'diagnosticsCtrl',
+  $routeProvider.when('/advanced/diagnostics', {templateUrl: 'partials/advanced/diagnostics.html?v=v1.0.124', controller: 'diagnosticsCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/ipv6', {templateUrl: 'partials/advanced/ipv6.html?v=v1.0.125', controller: 'ipv6Ctrl',
+  $routeProvider.when('/advanced/ipv6', {templateUrl: 'partials/advanced/ipv6.html?v=v1.0.124', controller: 'ipv6Ctrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/upnp', {templateUrl: 'partials/advanced/upnp.html?v=v1.0.125', controller: 'UPnPCtrl',
+  $routeProvider.when('/advanced/upnp', {templateUrl: 'partials/advanced/upnp.html?v=v1.0.124', controller: 'UPnPCtrl',
     tab: 'advanced', section: 'advanced'});
-  $routeProvider.when('/advanced/dynamicdns', {templateUrl: 'partials/advanced/dynamicdns.html?v=v1.0.125', controller: 'dynamicDnsCtrl',
+  $routeProvider.when('/advanced/dynamicdns', {templateUrl: 'partials/advanced/dynamicdns.html?v=v1.0.124', controller: 'dynamicDnsCtrl',
     tab: 'advanced', section: 'advanced'});
 
-  $routeProvider.when('/igmp/igmpproxy', {templateUrl: 'partials/igmp/igmpProxy.html?v=v1.0.125', controller: 'IgmpProxyCtrl',
+  $routeProvider.when('/igmp/igmpproxy', {templateUrl: 'partials/igmp/igmpProxy.html?v=v1.0.124', controller: 'IgmpProxyCtrl',
     tab: 'advanced', section: 'igmp'});
-  $routeProvider.when('/igmp/intmulti', {templateUrl: 'partials/igmp/intMulticast.html?v=v1.0.125', controller: 'IgmpIntfCtrl',
+  $routeProvider.when('/igmp/intmulti', {templateUrl: 'partials/igmp/intMulticast.html?v=v1.0.124', controller: 'IgmpIntfCtrl',
     tab: 'advanced', section: 'intmulti'});
-  $routeProvider.when('/igmp/hostmulti', {templateUrl: 'partials/igmp/hostMulticast.html?v=v1.0.125', controller: 'IgmpHostsCtrl',
+  $routeProvider.when('/igmp/hostmulti', {templateUrl: 'partials/igmp/hostMulticast.html?v=v1.0.124', controller: 'IgmpHostsCtrl',
     tab: 'advanced', section: 'hostmulti'});
-  $routeProvider.when('/igmp/aclmulti', {templateUrl: 'partials/igmp/aclMulticast.html?v=v1.0.125', controller: 'IgmpAclCtrl',
+  $routeProvider.when('/igmp/aclmulti', {templateUrl: 'partials/igmp/aclMulticast.html?v=v1.0.124', controller: 'IgmpAclCtrl',
     tab: 'advanced', section: 'aclmulti'});
-  $routeProvider.when('/igmp/servmulti', {templateUrl: 'partials/igmp/servMulticast.html?v=v1.0.125', controller: 'IgmpServCtrl',
+  $routeProvider.when('/igmp/servmulti', {templateUrl: 'partials/igmp/servMulticast.html?v=v1.0.124', controller: 'IgmpServCtrl',
     tab: 'advanced', section: 'servmulti'});
 
-  $routeProvider.when('/monitoring', {templateUrl: 'partials/system/main.html?v=v1.0.125', controller: 'MonitoringCtrl',
+  $routeProvider.when('/monitoring', {templateUrl: 'partials/system/main.html?v=v1.0.124', controller: 'MonitoringCtrl',
    tab: 'monitoring', section: 'router'});
-  $routeProvider.when('/monitoring/advanced', {templateUrl: 'partials/system/advanced.html?v=v1.0.125', controller: 'MonitoringAdvCtrl',
+  $routeProvider.when('/monitoring/advanced', {templateUrl: 'partials/system/advanced.html?v=v1.0.124', controller: 'MonitoringAdvCtrl',
    tab: 'monitoring', section: 'advanced'});
-  $routeProvider.when('/monitoring/systemlog', {templateUrl: 'partials/system/log.html?v=v1.0.125', controller: 'SystemLogCtrl',
+  $routeProvider.when('/monitoring/systemlog', {templateUrl: 'partials/system/log.html?v=v1.0.124', controller: 'SystemLogCtrl',
    tab: 'monitoring', section: 'system'});
-  $routeProvider.when('/monitoring/securitylog', {templateUrl: 'partials/system/log.html?v=v1.0.125', controller: 'SecurityLogCtrl',
+  $routeProvider.when('/monitoring/securitylog', {templateUrl: 'partials/system/log.html?v=v1.0.124', controller: 'SecurityLogCtrl',
    tab: 'monitoring', section: 'security'});
-  $routeProvider.when('/monitoring/advancedlog', {templateUrl: 'partials/system/log.html?v=v1.0.125', controller: 'AdvancedLogCtrl',
+  $routeProvider.when('/monitoring/advancedlog', {templateUrl: 'partials/system/log.html?v=v1.0.124', controller: 'AdvancedLogCtrl',
    tab: 'monitoring', section: 'advanced'});
-  $routeProvider.when('/monitoring/firewalllog', {templateUrl: 'partials/system/log.html?v=v1.0.125', controller: 'FirewallLogCtrl',
+  $routeProvider.when('/monitoring/firewalllog', {templateUrl: 'partials/system/log.html?v=v1.0.124', controller: 'FirewallLogCtrl',
    tab: 'monitoring', section: 'firewall'});
-  $routeProvider.when('/monitoring/wandhcplog', {templateUrl: 'partials/system/log.html?v=v1.0.125', controller: 'WandhcpLogCtrl',
+  $routeProvider.when('/monitoring/wandhcplog', {templateUrl: 'partials/system/log.html?v=v1.0.124', controller: 'WandhcpLogCtrl',
    tab: 'monitoring', section: 'wandhcp'});
-  $routeProvider.when('/monitoring/landhcplog', {templateUrl: 'partials/system/log.html?v=v1.0.125', controller: 'LandhcpLogCtrl',
+  $routeProvider.when('/monitoring/landhcplog', {templateUrl: 'partials/system/log.html?v=v1.0.124', controller: 'LandhcpLogCtrl',
    tab: 'monitoring', section: 'landhcp'});
-  $routeProvider.when('/monitoring/fullstatus', {templateUrl: 'partials/system/fullstatus.html?v=v1.0.125', controller: 'FullStatusCtrl',
+  $routeProvider.when('/monitoring/fullstatus', {templateUrl: 'partials/system/fullstatus.html?v=v1.0.124', controller: 'FullStatusCtrl',
    tab: 'monitoring', section: 'advanced'});
-  $routeProvider.when('/monitoring/traffic', {templateUrl: 'partials/system/traffic.html?v=v1.0.125', controller: 'FullStatusCtrl',
+  $routeProvider.when('/monitoring/traffic', {templateUrl: 'partials/system/traffic.html?v=v1.0.124', controller: 'FullStatusCtrl',
    tab: 'monitoring', section: 'advanced'});
-  $routeProvider.when('/monitoring/bandwidth', {templateUrl: 'partials/system/bandwidth.html?v=v1.0.125', controller: 'BandwidthCtrl',
+  $routeProvider.when('/monitoring/bandwidth', {templateUrl: 'partials/system/bandwidth.html?v=v1.0.124', controller: 'BandwidthCtrl',
    tab: 'monitoring', section: 'advanced'});
 
 
-  $routeProvider.when('/setup', {templateUrl: 'partials/setup/main.html?v=v1.0.125', controller: 'SetupCtrl'});
+  $routeProvider.when('/setup', {templateUrl: 'partials/setup/main.html?v=v1.0.124', controller: 'SetupCtrl'});
 
   $routeProvider.otherwise({redirectTo: '/login'});
 }])

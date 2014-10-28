@@ -1,10 +1,10 @@
 <div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
 <div ng-show="!completed">
-  <div ng-include src="'partials/header.html?v=v1.0.125'"></div>
+  <div ng-include src="'partials/header.html?v=v1.0.124'"></div>
   <div class="centerer">
   <div id="content">
-    <div ng-include src="'partials/advanced/nav.html?v=v1.0.125'"></div>
-    <div ng-include src="'partials/error.html?v=v1.0.125'"></div>
+    <div ng-include src="'partials/advanced/nav.html?v=v1.0.124'"></div>
+    <div ng-include src="'partials/error.html?v=v1.0.124'"></div>
 
     <!-- Config File -->
     <div class="content-panel-with-header span9" ng-show="!loadFile">
@@ -51,7 +51,7 @@
         Browse to locate file, then press Apply to begin the configuration file uploading process.
       </div>
       <div ng-show="loadFile">
-        <form action="/api/settings/configfile" enctype="multipart/form-data" target="hidden_upload" method="post">
+        <form action="api/settings/configfile" enctype="multipart/form-data" target="hidden_upload" method="post">
           <iframe id='hidden_upload' name='hidden_upload' src='' 
                     onLoad='uploadDone()' style='width:0;height:0;border:0px solid #fff'></iframe>
           <div class="load_config">
@@ -72,7 +72,7 @@
   <div class="masthead" id="header">
     <div class="navbar" id="main_navbar">
       <div class="header centerer">
-        <a href="/index.html?v=v1.0.125">
+        <a href="/index.html?v=v1.0.124">
           <div class="brand"></div>
         </a>
       </div>
