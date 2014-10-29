@@ -275,6 +275,11 @@ public class ServletRequestUtilities {
 			logger.info("Get by Index " + request.getRequestURI());
 			String all = (String) request.getSession()
 					.getAttribute(servletName);
+			if(all == null){
+				logger.error(serviceName + " " + request.getSession() + " " + servletName + " " + idName);
+			}
+			else
+				logger.error(all + " " + id + " " + idName);
 			String newJson = SimpleJson.getJsonTextByIndex(idName, id, all);
 			ServletRequestUtilities.sendJSONResponse(newJson, response);
 		} else {
