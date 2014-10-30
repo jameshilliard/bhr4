@@ -262,7 +262,13 @@ public class ServletRequestUtilities {
 		logger.info("Get " + request.getRequestURI());
 		String outJson = (String) request.getSession()
 				.getAttribute(servletName);
-		ServletRequestUtilities.sendJSONResponse(outJson, response);
+		if(outJson == null){
+			logger.error(servletName + " has null session data.");
+			ServletRequestUtilities.reponse401(response, 0);
+		}
+		else{
+			ServletRequestUtilities.sendJSONResponse(outJson, response);
+		}
 
 	}
 
@@ -278,8 +284,8 @@ public class ServletRequestUtilities {
 			if(all == null){
 				logger.error(serviceName + " " + request.getSession() + " " + servletName + " " + idName);
 			}
-			else
-				logger.error(all + " " + id + " " + idName);
+//			else
+//				logger.debug(all + " " + id + " " + idName);
 			String newJson = SimpleJson.getJsonTextByIndex(idName, id, all);
 			ServletRequestUtilities.sendJSONResponse(newJson, response);
 		} else {

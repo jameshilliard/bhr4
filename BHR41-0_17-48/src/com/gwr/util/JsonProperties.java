@@ -111,6 +111,10 @@ public class JsonProperties {
 		return properties.getProperty("settings.schedules.json");
 	}
 
+	public static String getSettingsDefaultsJSON() {
+		return properties.getProperty("settings.defaults.json");
+	}
+
 	public static String getSettingsDdnsprovidersJSON() {
 		return properties.getProperty("settings.ddnsproviders.json");
 	}

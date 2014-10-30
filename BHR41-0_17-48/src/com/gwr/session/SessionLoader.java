@@ -34,6 +34,7 @@ import com.gwr.api.settings.MacCloningServlet;
 import com.gwr.api.settings.NetworkObjectsServlet;
 import com.gwr.api.settings.PortForwardRulesServlet;
 import com.gwr.api.settings.RemoteAdminServlet;
+import com.gwr.api.settings.RestoreDefaultServlet;
 import com.gwr.api.settings.RoutesServlet;
 import com.gwr.api.settings.SchedulesServlet;
 import com.gwr.api.settings.SystemServlet;
@@ -156,6 +157,8 @@ public class SessionLoader {
 				JsonProperties.getSettingsDdnsJSON());
 		this.loadListJSON(DdnsprovidersServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDdnsprovidersJSON());
+		this.loadJSON(RestoreDefaultServlet.class.getSimpleName(),
+				JsonProperties.getSettingsDefaultsJSON());
 
 		// special handle because it is not json
 		for (int i = 0; i <= 5; i++) {
