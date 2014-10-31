@@ -79,8 +79,11 @@ public class JsonProperties {
 	public static String getWirelessQos1JSON() {
 		return properties.getProperty("wireless.qos1.json");
 	}
-	public static String getWirelessMacfilterJSON() {
-		return properties.getProperty("wireless.macfilter.json");
+	public static String getWirelessMacfilter0JSON() {
+		return properties.getProperty("wireless.macfilter0.json");
+	}
+	public static String getWirelessMacfilter1JSON() {
+		return properties.getProperty("wireless.macfilter1.json");
 	}
 
 	public static String getWirelessWpsJSON() {

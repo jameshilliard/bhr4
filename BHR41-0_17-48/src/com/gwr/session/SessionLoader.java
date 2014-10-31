@@ -117,9 +117,9 @@ public class SessionLoader {
 				JsonProperties.getWirelessQos1JSON());
 		// each only has 0/1 device
 		this.loadJSON(WirelessServlet.MACKEY + "0",
-				JsonProperties.getWirelessMacfilterJSON());
+				JsonProperties.getWirelessMacfilter0JSON());
 		this.loadJSON(WirelessServlet.MACKEY + "1",
-				JsonProperties.getWirelessMacfilterJSON());
+				JsonProperties.getWirelessMacfilter1JSON());
 		// each only has 0/1 device
 		this.loadJSON(WirelessServlet.WPSKEY + "0",
 				JsonProperties.getWirelessWpsJSON());

@@ -79,9 +79,14 @@ public class WirelessServlet extends HttpServlet {
 			json = wireless.getWpaJson(id);
 		} else if (uri.endsWith(MACFILTER)) {
 			String id = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
-			String def = JsonProperties.getWirelessMacfilterJSON();
+			String def;
+			if(id.equals("0"))
+			  def = JsonProperties.getWirelessMacfilter0JSON();
+			else
+			  def = JsonProperties.getWirelessMacfilter1JSON();	
 			json = HttpSessionUtil.getSessionAttribute(request, id, def);
 		} else if (uri.endsWith(WPS)) {
+			// wps only one
 			String id = WPSKEY + StringUtil.retrieveId(uri, WPS);
 			String def = JsonProperties.getWirelessWpsJSON();
 			json = HttpSessionUtil.getSessionAttribute(request, id, def);
