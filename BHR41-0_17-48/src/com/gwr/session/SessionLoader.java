@@ -151,7 +151,9 @@ public class SessionLoader {
 				JsonProperties.getSettingsPortFowardRulesJSON());
 		this.loadJSON(EthernetServlet.class.getSimpleName(),
 				JsonProperties.getSettingsEthernetJSON());
-		this.loadListJSON(RoutesServlet.class.getSimpleName(),
+//		this.loadListJSON(RoutesServlet.class.getSimpleName(),
+//				JsonProperties.getSettingsRoutesJSON());
+		this.loadJSON(RoutesServlet.class.getSimpleName(),
 				JsonProperties.getSettingsRoutesJSON());
 		this.loadListJSON(DdnsServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDdnsJSON());

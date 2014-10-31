@@ -150,6 +150,26 @@ public class ServletRequestUtilities {
 		request.getSession().setAttribute(servletName, res.toJSON());
 	}
 
+	
+	public static void deleteFromJSONArrayByListIndex(String idString,
+			String servletName, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		logger.info("Delete " + request.getRequestURI());
+		int id = Integer.parseInt(request.getRequestURI().substring(
+				request.getRequestURI().lastIndexOf("/") + 1));
+
+		UIToSimModelListRequest req = new UIToSimModelListRequest(
+				(String) request.getSession().getAttribute(servletName));
+		List<JsonDataModel> modelList = req.getModelList();
+
+        modelList.remove(id);
+		SimToUIJSONModelListResponse res = new SimToUIJSONModelListResponse();
+		res.setModelList(modelList);
+
+		request.getSession().setAttribute(servletName, res.toJSON());
+	}
+
 	/**
 	 * 
 	 * @param string
