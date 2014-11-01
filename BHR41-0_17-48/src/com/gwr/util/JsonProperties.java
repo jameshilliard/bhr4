@@ -45,6 +45,10 @@ public class JsonProperties {
 		return properties.getProperty("dhcp.clients.json");
 	}
 
+	public static String getDHCPOptionsJSON() {
+		return properties.getProperty("dhcp.options.json");
+	}
+
 	// firmware
 	public static final String getFirmwareJSON() {
 		return properties.getProperty("firmware.json");
@@ -222,6 +226,9 @@ public class JsonProperties {
 	// Diagnostics
 	public static String getDiagnosticsJSON() {
 		return properties.getProperty("diagnostics.json");
+	}
+	public static String getDiagnosticsOKJSON() {
+		return properties.getProperty("diagnostics.ok.json");
 	}
 
 }

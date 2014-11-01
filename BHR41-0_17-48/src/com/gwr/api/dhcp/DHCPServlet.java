@@ -24,10 +24,12 @@ public class DHCPServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static String DHCPClients = "DHCPClientsServlet";
+	public static String DHCPOptions = "DHCPOptionsServlet";
 	private static String serviceName = "clients";
+	private static String optionsService = "options";
 	private static String idName = "id";
 
-	// call by api/dhcp api/dhcp/clients api/dhcp/clients/1
+	// call by api/dhcp api/dhcp/options api/dhcp/clients api/dhcp/clients/1
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +41,12 @@ public class DHCPServlet extends HttpServlet {
 		// api/dhcp/clients
 		if (uri.endsWith(serviceName)) {
 			ServletRequestUtilities.handleGetRequest(DHCPClients, request,
+					response);
+			return;
+		}
+		// api/dhcp/options
+		if (uri.endsWith(optionsService)) {
+			ServletRequestUtilities.handleGetRequest(DHCPOptions, request,
 					response);
 			return;
 		}

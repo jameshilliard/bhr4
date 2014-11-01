@@ -93,6 +93,8 @@ public class SessionLoader {
 				JsonProperties.getDHCPJSON());
 		this.loadListJSON(DHCPServlet.DHCPClients,
 				JsonProperties.getDHCPClientsJSON());
+		this.loadListJSON(DHCPServlet.DHCPOptions,
+				JsonProperties.getDHCPOptionsJSON());
 
 		// firmware
 		this.loadJSON(FirmwareServlet.class.getSimpleName(),
