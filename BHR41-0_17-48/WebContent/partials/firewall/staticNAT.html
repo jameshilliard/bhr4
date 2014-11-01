@@ -1,4 +1,4 @@
-<div>
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
     <div id="content">
@@ -33,7 +33,7 @@
                 <div ng-show="!stNat.portForwarding || !stNat.active">Disabled</div>
               </td>
               <td class="actions">
-                <a ng-show="!stNat.readOnly" ng-click="editRule($index)" title="Edit">
+                <a ng-show="!stNat.readOnly && stNat.serviceType == 0" ng-click="editRule($index)" title="Edit">
                   <div class="edit-icon"></div>
                 </a>
                 <a ng-show="!stNat.readOnly" ng-click="removeRule($index)" title="Remove">
@@ -118,7 +118,7 @@
                 <div ng-repeat="part in printProtArr[$index]">{{part}}</div>
               </td>
               <td class="actions">
-                <a ng-click="editService($index)" title="Edit" ng-show="serv.type == 1">
+                <a ng-click="editService($index)" title="Edit" ng-show="serv.type == 1 || serv.serviceType != 0">
                   <div class="edit-icon"></div>
                 </a>
                 <a ng-click="removeService($index)" title="Remove">

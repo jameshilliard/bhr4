@@ -269,17 +269,17 @@ angular.module('vzui.services', []).
                 }
             });
             return msgBox.open();
-        };
+       };
 
-        this.showDmzSaving = function (title, message) {
-          var defaultButtons = [{result:'cancel', label: 'Cancel', cssClass: 'btn'},{result:'ok', label: 'Enable DMZ Host', cssClass: 'btn'}];
-          var msgBox = new $dialog.dialog({
-             dialogFade: true,
-             backdropClick: false,
-             templateUrl: 'partials/basemessage2.html',
-             controller: 'MessageBoxController',
-             resolve:
-               {
+       this.showDmzSaving = function (title, message) {
+         var defaultButtons = [{result:'cancel', label: 'Cancel', cssClass: 'btn'},{result:'ok', label: 'Enable DMZ Host', cssClass: 'btn'}];
+         var msgBox = new $dialog.dialog({
+           dialogFade: true,
+           backdropClick: false,
+           templateUrl: 'partials/basemessage2.html',
+           controller: 'MessageBoxController',
+           resolve:
+             {
                model: function () {
                  return {
                    title: title,
@@ -289,6 +289,164 @@ angular.module('vzui.services', []).
                }
              }
            });
-           return msgBox.open();
+         return msgBox.open();
+       };
+
+       this.showDmzSaving1 = function (title, message) {
+         var defaultButtons = [{result:'cancel', label: 'Cancel', cssClass: 'btn'},{result:'ok', label: 'Enable DMZ Host', cssClass: 'btn'}];
+         var msgBox = new $dialog.dialog({
+           dialogFade: true,
+           backdropClick: false,
+           templateUrl: 'partials/basemessage3.html',
+           controller: 'MessageBoxController',
+           resolve:
+             {
+               model: function () {
+                 return {
+                   title: title,
+                   message: message,
+                   buttons: defaultButtons
+                 };
+               }
+             }
+           });
+         return msgBox.open();
+       };
+
+       this.showWarningMsgGuestWifi = function (title, message,confirmationFlag) {
+         var templateURL = 'partials/wireless/guestWifiWarningNoConfirmation.html';
+         var defaultButtons;
+         if(!confirmationFlag.isEmpty && confirmationFlag){
+           templateURL = 'partials/wireless/guestWifiWarning.html';
+           defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'},{result:'cancel', label: 'Cancel', cssClass: 'btn'}];
+         }else{
+           defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'}];
+         }
+         if(undefined == title || '' == title)
+         {
+           title = 'Warning';
+         }
+         var msgBox = new $dialog.dialog({
+           dialogFade: true,
+           backdropClick: false,
+           templateUrl: templateURL,
+           controller: 'MessageBoxController',
+           dialogClass: 'modal guest',
+           resolve:
+           {
+             model: function () {
+              return {
+                title: title,
+                message: message,
+                buttons: defaultButtons
+                };
+              }
+            }
+         });
+         return msgBox.open();
+       };
+
+        this.showCreateGuestWifiPassword = function (title, message, wpa) {
+            var key;
+            var defaultButtons = [{result:'ok', label: 'Save', cssClass: 'btn'},{result:'cancel', label: 'Cancel', cssClass: 'btn'}];
+            var msgBox =  new $dialog.dialog({
+                dialogFade: true,
+                backdropClick: false,
+                templateUrl: 'partials/wireless/basicGuestWifiPopup.html',
+                controller: 'BasicGuestCtrlPopup',
+                dialogClass: 'modal guest',
+                resolve:
+                {
+                    model: function () {
+                        return {
+                            title: title,
+                            message: message,
+                            buttons: defaultButtons,
+                            key:key,
+                            wpa:wpa
+                        };
+                    }
+
+                }
+            });
+            return msgBox.open();
+        };
+
+        this.showWirelease24GPrompt = function (title, message) {
+            var defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'}];
+            var msgBox =  new $dialog.dialog({
+                dialogFade: true,
+                backdropClick: false,
+                templateUrl: 'partials/wireless/guestWifiWarningNo24GWireless.html',
+                controller: 'MessageBoxController',
+                dialogClass: 'modal guest',
+                resolve:
+                {
+                    model: function () {
+                        return {
+                            title: title,
+                            message: message,
+                            buttons: defaultButtons
+                        };
+                    }
+
+                }
+            });
+            return msgBox.open();
+        };
+
+        this.showWireleaseGuestEditPrompt = function (title, message) {
+            var defaultButtons = [{result:'ok', label: 'Continue', cssClass: 'btn'},{result:'cancel', label: 'Save Changes', cssClass: 'btn'}];
+            var msgBox =  new $dialog.dialog({
+                dialogFade: true,
+                backdropClick: false,
+                templateUrl: 'partials/wireless/guestWifiExitEditMode.html',
+                controller: 'MessageBoxController',
+                dialogClass: 'modal guest',
+                resolve:
+                {
+                    model: function () {
+                        return {
+                            title: title,
+                            message: message,
+                            buttons: defaultButtons
+                        };
+                    }
+                }
+            });
+            return msgBox.open();
+        };
+
+        this.showWarningMsgGuestWifi2 = function (title, message, confirmationFlag) {
+          var templateURL = 'partials/wireless/guestWifiWarningMsgsNoConfirmation.html';
+          var defaultButtons;
+          if(!confirmationFlag.isEmpty && confirmationFlag){
+            templateURL = 'partials/wireless/guestWifiWarning.html';
+            defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'},{result:'cancel', label: 'Cancel', cssClass: 'btn'}];
+          }else{
+            defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'}];
+          }
+          if(undefined == title || '' == title)
+          {
+            title = 'Warning';
+          }
+          var msgBox = new $dialog.dialog({
+            dialogFade: true,
+            backdropClick: false,
+            templateUrl: templateURL,
+            controller: 'MessageBoxController',
+            dialogClass: 'modal guest',
+            resolve:
+            {
+              model: function () {
+               return {
+                 title: title,
+                 message: message,
+                 buttons: defaultButtons
+                 };
+               }
+             }
+          });
+          return msgBox.open();
         };
     }]);

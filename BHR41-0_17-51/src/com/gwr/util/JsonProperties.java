@@ -45,6 +45,10 @@ public class JsonProperties {
 		return properties.getProperty("dhcp.clients.json");
 	}
 
+	public static String getDHCPOptionsJSON() {
+		return properties.getProperty("dhcp.options.json");
+	}
+
 	// firmware
 	public static final String getFirmwareJSON() {
 		return properties.getProperty("firmware.json");
@@ -79,8 +83,11 @@ public class JsonProperties {
 	public static String getWirelessQos1JSON() {
 		return properties.getProperty("wireless.qos1.json");
 	}
-	public static String getWirelessMacfilterJSON() {
-		return properties.getProperty("wireless.macfilter.json");
+	public static String getWirelessMacfilter0JSON() {
+		return properties.getProperty("wireless.macfilter0.json");
+	}
+	public static String getWirelessMacfilter1JSON() {
+		return properties.getProperty("wireless.macfilter1.json");
 	}
 
 	public static String getWirelessWpsJSON() {
@@ -109,6 +116,10 @@ public class JsonProperties {
 
 	public static String getSettingsSchedulesJSON() {
 		return properties.getProperty("settings.schedules.json");
+	}
+
+	public static String getSettingsDefaultsJSON() {
+		return properties.getProperty("settings.defaults.json");
 	}
 
 	public static String getSettingsDdnsprovidersJSON() {
@@ -215,6 +226,9 @@ public class JsonProperties {
 	// Diagnostics
 	public static String getDiagnosticsJSON() {
 		return properties.getProperty("diagnostics.json");
+	}
+	public static String getDiagnosticsOKJSON() {
+		return properties.getProperty("diagnostics.ok.json");
 	}
 
 }

@@ -24,7 +24,7 @@
             <td>
               <a href="#/wireless/wep/0">
                 <label class="radio">
-                  <input type="radio"/>
+                  <input type="radio" ng-model="w24wType" value="0"/>
                   <strong>WEP</strong>
                 </label>
               </a>
@@ -36,7 +36,7 @@
             <td>
               <a href="#/wireless/wpa/0">
                 <label class="radio">
-                  <input type="radio"/>
+                  <input type="radio" ng-model="w24wType" value="2"/>
                   <strong>WPA2/WPA mixed mode</strong>
                 </label>
               </a>
@@ -44,7 +44,7 @@
             <td>
               <a href="#/wireless/wpa/1">
                 <label class="radio">
-                  <input type="radio"/>
+                  <input type="radio" ng-model="w50wType" value="2"/>
                   <strong>WPA2/WPA mixed mode</strong>
                 </label>
               </a>
@@ -54,7 +54,7 @@
             <td>
               <a href="#/wireless/wpa2/0">
                 <label class="radio">
-                  <input type="radio"/>
+                  <input type="radio" ng-model="w24wType" value="1"/>
                   <strong>WPA2</strong>
                 </label>
               </a>
@@ -62,7 +62,7 @@
             <td>
               <a href="#/wireless/wpa2/1">
                 <label class="radio">
-                  <input type="radio"/>
+                  <input type="radio" ng-model="w50wType" value="1"/>
                   <strong>WPA2</strong>
                 </label>
               </a>

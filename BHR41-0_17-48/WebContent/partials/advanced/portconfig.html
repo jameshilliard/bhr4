@@ -1,4 +1,4 @@
-<div>
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -42,7 +42,7 @@
               <span ng-switch-default></span>
             </td>
             <td>
-              <select ng-model="port.desiredMode">
+              <select ng-model="port.desiredMode" ng-change="selectOpt()">
                 <option value="0">Auto</option>
                 <option value="1">10 Half-Duplex</option>
                 <option value="2">10 Full-Duplex</option>

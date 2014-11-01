@@ -18,7 +18,7 @@ import com.gwr.util.ServletRequestUtilities;
 @WebServlet("/api/settings/ddns/*")
 public class DdnsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String serviceName = "routes";
+	private static String serviceName = "ddns";
 	private static String idName = "id";
 
 	/**
@@ -51,8 +51,10 @@ public class DdnsServlet extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		ServletRequestUtilities.deleteFromJSONArrayByID(idName, getClass()
+		// the bug in front end. When it delete it delete by array index not by id key
+		ServletRequestUtilities.deleteFromJSONArrayByListIndex(idName, getClass()
 				.getSimpleName(), request, response);
+//		ServletRequestUtilities.deleteFromJSONArrayByID(idName, getClass()
+//				.getSimpleName(), request, response);
 	}
 }

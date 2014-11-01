@@ -1,4 +1,4 @@
-<div>
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -206,9 +206,9 @@
                 <option value="2">Range</option>
                 <option value="3" ng-show="pageToShow == 5">Same as Initiating Ports</option>
               </select>
-              <input type="number" class="input-mini" ng-model="protocols.incomingPortStart" ng-show="protocols.incomingPorts != 0"/>
+              <input type="number" class="input-mini" ng-model="protocols.incomingPortStart" ng-show="protocols.incomingPorts != 0" maxlength="5" input-max-length-number/>
               <span style="vertical-align:center;" ng-show="protocols.incomingPorts == 2">-</span>
-              <input type="number" class="input-mini" ng-model="protocols.incomingPortEnd" ng-show="protocols.incomingPorts == 2"/>
+              <input type="number" class="input-mini" ng-model="protocols.incomingPortEnd" ng-show="protocols.incomingPorts == 2" maxlength="5" input-max-length-number/>
             </td>
             <td>
               <label class="checkbox" ng-show="protocols.incomingPorts != 0">
@@ -226,9 +226,9 @@
                 <option value="2">Range</option>
                 <option value="3" ng-show="pageToShow == 5 || pageToShow == 4">Same as Initiating Ports</option>
               </select>
-              <input type="number" class="input-mini" ng-model="protocols.outgoingPortStart" ng-show="protocols.outgoingPorts != 0 && protocols.outgoingPorts != 3"/>
+              <input type="number" class="input-mini" ng-model="protocols.outgoingPortStart" ng-show="protocols.outgoingPorts != 0 && protocols.outgoingPorts != 3" maxlength="5" input-max-length-number/>
               <span style="vertical-align:center;" ng-show="protocols.outgoingPorts == 2">-</span>
-              <input type="number" class="input-mini" ng-model="protocols.outgoingPortEnd" ng-show="protocols.outgoingPorts == 2"/>
+              <input type="number" class="input-mini" ng-model="protocols.outgoingPortEnd" ng-show="protocols.outgoingPorts == 2" maxlength="5" input-max-length-number/>
             </td>
             <td>
               <label class="checkbox" ng-show="protocols.outgoingPorts != 0">
@@ -242,7 +242,7 @@
           <tr ng-show="protocols.protocol == 3">
             <td>ICMP Message:</td>
             <td colspan="2">
-              <select ng-model="protocols.icmpMessage">
+              <select ng-model="protocols.icmpMessage" class="input-xlarge">
                 <option value="0">Echo Reply</option>
                 <option value="1">Network Unreachable</option>
                 <option value="2">Host Unreachable</option>
@@ -260,13 +260,13 @@
           <tr ng-show="protocols.protocol == 3 && protocols.icmpMessage == 10">
             <td>ICMP Type:</td>
             <td colspan="2">
-              <input type="number" class="input-mini" ng-model="protocols.icmpType"/>
+              <input type="number" class="input-mini" ng-model="protocols.icmpType" maxlength="3" input-max-length-number/>
             </td>
           </tr>
           <tr ng-show="protocols.protocol == 3 && protocols.icmpMessage == 10">
             <td>ICMP Code:</td>
             <td colspan="2">
-              <input type="number" class="input-mini" ng-model="protocols.icmpCode"/>
+              <input type="number" class="input-mini" ng-model="protocols.icmpCode" maxlength="3" input-max-length-number/>
             </td>
           </tr>
 
@@ -280,7 +280,7 @@
           <tr ng-show="protocols.protocol == 0">
             <th>Protocol Number:</th>
             <td colspan="2">
-              <input type="number" class="input-mini" ng-model="protocols.protocolNumber"/>
+              <input type="number" class="input-mini" ng-model="protocols.protocolNumber" maxlength="3" input-max-length-number/>
             </td>
           </tr>
         </tbody>

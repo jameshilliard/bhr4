@@ -1,4 +1,4 @@
-<div>
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -121,7 +121,7 @@
           <tr>
             <td>Router Advertisement Lifetime:</td>
             <td>
-              <input type="text" ng-model="ipv6.advertisementLifetime" ng-disabled="!ipv6.enabled"/>
+              <input type="text" ng-model="ipv6.advertisementLifetime" ng-disabled="!ipv6.enabled" maxLength="3"/>
               minutes (0-150)
             </td>
           </tr>

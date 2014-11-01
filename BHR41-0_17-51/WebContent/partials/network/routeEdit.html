@@ -5,7 +5,7 @@
       <tr>
         <td>Name:</td>
         <td>
-          <select style="width: auto;" ng-model="routeEditing.type">
+          <select style="width: auto;" ng-model="routeEditing.type" ng-change="selectOpt()">
             <option value="0">{{routesConnections[0].name}}</option>
             <option value="1">{{routesConnections[1].name}}</option>
             <option value="2">{{routesConnections[2].name}}</option>
@@ -52,7 +52,7 @@
       <tr>
         <td>Metric:</td>
         <td>
-          <input type="number" class="input-mini" ng-model="routeEditing.metric"/>
+          <input type="number" class="input-mini" ng-model="routeEditing.metric" maxlength="3" input-max-length-number/>
         </td>
       </tr>
     </tbody>

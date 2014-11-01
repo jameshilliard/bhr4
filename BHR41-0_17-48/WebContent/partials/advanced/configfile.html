@@ -1,3 +1,4 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
 <div ng-show="!completed">
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
@@ -54,10 +55,10 @@
           <iframe id='hidden_upload' name='hidden_upload' src='' 
                     onLoad='uploadDone()' style='width:0;height:0;border:0px solid #fff'></iframe>
           <div class="load_config">
-            <input type="file" name="configfile" ng-model="inputFile"/>
+            <input type="file" name="configfile" ng-model="inputFile" ng-click="loadConfig()"/>
           </div>
           <div class="centerme">
-            <input type="submit" value="Apply" class="btn dark-btn taller" ng-click="submittingFile()"/>
+            <input type="submit" value="Apply" class="btn dark-btn taller" id="submitting" ng-click="submittingFile()" ng-blur="setFocus()"/>
             <a ng-click="toggleShow()" class="btn dark-btn">Cancel</a>
           </div>
         </form>
@@ -91,4 +92,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

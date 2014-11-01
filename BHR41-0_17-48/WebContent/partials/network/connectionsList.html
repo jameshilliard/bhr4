@@ -1,8 +1,8 @@
 <div class="content-panel-with-header span9" ng-show="!detectBroadband">
-  <div class="header">Network Connections</div>
+  <div class="header line-height-small">Network Connections</div>
   <div ng-show="showChildren">NOTE: Only advanced technical users should use this feature.</div>
 
-  <table class="dark-table">
+  <table class="dark-table" alt-style1>
     <tbody>
       <tr>
         <th>Name</th>
@@ -20,7 +20,22 @@
                 <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
                 <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
               </div>
-              <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">Connected</div>
+              <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">
+                <div ng-show="connection.protocolUsed == 0">
+                  <div ng-switch on="connection.status">
+                  <div ng-switch-when="0">
+                    <div ng-show="connection.dhcpStatus == 0" class="red-text">No Connection</div>
+                    <div ng-show="connection.dhcpStatus == 1" class="red-text">No Connection</div>
+                    <div ng-show="connection.dhcpStatus == 2" class="green-text">Connected</div>
+                    <div ng-show="connection.dhcpStatus == 3" class="red-text">No Connection</div>
+                  </div>
+                  <div class="red-text" ng-switch-default>No Connection</div>
+                </div>
+                </div>
+                <div ng-show="connection.protocolUsed != 0">
+                  <div class="green-text">Connected</div>
+                </div>
+              </div>
             </div>
             <div ng-show="connection.status != 0 && connection.enabled"><span ng-show="connection.connectionId == 1">Cable </span>Disconnected</div>
             <div ng-show="!connection.enabled">Disabled</div>

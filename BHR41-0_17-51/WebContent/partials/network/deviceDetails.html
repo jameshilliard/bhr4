@@ -1,4 +1,4 @@
-<div>
+<div  id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
     <div id="content">
@@ -34,6 +34,10 @@
 	            Wireless 5G
 	          </div>
 	          <div ng-switch-when="5">
+	            <div class="wifi-icon"></div>
+	            Wireless 2.4G
+	          </div>
+	          <div ng-switch-when="6">
 	            <div class="wifi-icon"></div>
 	            Wireless 2.4G
 	          </div>

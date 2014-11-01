@@ -1,4 +1,4 @@
-<div>
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -9,7 +9,7 @@
     
       <div class="centerme"><p>Do you want to proceed?</p></div>
       <div class="centerme">
-        <button class="btn dark-btn" ng-click="confirmed=true">Yes</button>
+        <button class="btn dark-btn" ng-click="isConfirmed()">Yes</button>
         <a href="#/wireless/advanced" class="btn dark-btn">No</a>
       </div>
     </div>
@@ -31,7 +31,10 @@
             <tr>
               <th>Transmit Power:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans1.power"/>%
+                <div class="pairedItems clearfix">
+                <input type="number" class="input-mini data" ng-model="trans1.power" maxlength="3" input-max-length-number/>
+                <p class="info">%</p>
+                </div>
               </td>
             </tr>
             <tr>
@@ -55,39 +58,43 @@
             <tr>
               <th>Frame Burst - Max Number:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans1.frameBurstMax"/>
+                <input type="number" class="input-mini" ng-model="trans1.frameBurstMax" maxlength="3" input-max-length-number/>
               </td>
             </tr>
             <tr>
               <th>Frame Burst - Burst Time:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans1.frameBurstTime"/>
+                <input type="number" class="input-mini" ng-model="trans1.frameBurstTime" maxlength="4" input-max-length-number/>
               </td>
             </tr>
             <tr>
               <th>Beacon Interval:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans1.beaconInterval"/>
-                <p class="units_label">ms</p>
+                <div class="pairedItems clearfix">
+                 <input type="number" class="input-mini data" ng-model="trans1.beaconInterval" maxlength="4" input-max-length-number/>
+                <p class="info">ms</p>
+                </div>
               </td>
             </tr>
             <tr>
               <th>DTIM Interval:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans1.dtimInterval"/>
-                <p class="units_label">ms</p>
+                <div class="pairedItems clearfix">
+                <input type="number" class="input-mini data" ng-model="trans1.dtimInterval" maxlength="3" input-max-length-number/>
+                <p class="info">ms</p>
+                </div>
               </td>
             </tr>
             <tr>
               <th>Fragmentation Threshold:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans1.fragmentationThreshold"/>
+                <input type="number" class="input-mini" ng-model="trans1.fragmentationThreshold" maxlength="4" input-max-length-number/>
               </td>
             </tr>
             <tr>
               <th>RTS Threshold:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans1.rtsThreshold"/>
+                <input type="number" class="input-mini" ng-model="trans1.rtsThreshold" maxlength="4" input-max-length-number/>
               </td>
             </tr>
             <tr>
@@ -146,7 +153,10 @@
             <tr>
               <th>Transmit Power:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans2.power"/>%
+                <div class="pairedItems clearfix">
+                <input type="number" class="input-mini data" ng-model="trans2.power" maxlength="3" input-max-length-number/>
+                <p class="info">%</p>
+                </div>
               </td>
             </tr>
             <tr>
@@ -170,39 +180,43 @@
             <tr>
               <th>Frame Burst - Max Number:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans2.frameBurstMax"/>
+                <input type="number" class="input-mini" ng-model="trans2.frameBurstMax" maxlength="3" input-max-length-number/>
               </td>
             </tr>
             <tr>
               <th>Frame Burst - Burst Time:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans2.frameBurstTime"/>
+                <input type="number" class="input-mini" ng-model="trans2.frameBurstTime" maxlength="4" input-max-length-number/>
               </td>
             </tr>
             <tr>
               <th>Beacon Interval:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans2.beaconInterval"/>
-                <p class="units_label">ms</p>
+                <div class="pairedItems clearfix">
+                <input type="number" class="input-mini data" ng-model="trans2.beaconInterval" maxlength="4" input-max-length-number/>
+                <p class="info">ms</p>
+                </div>
               </td>
             </tr>
             <tr>
               <th>DTIM Interval:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans2.dtimInterval"/>
-                <p class="units_label">ms</p>
+                <div class="pairedItems">
+                <input type="number" class="input-mini data" ng-model="trans2.dtimInterval" maxlength="3" input-max-length-number/>
+                <p class="units_label info">ms</p>
+                </div>
               </td>
             </tr>
             <tr>
               <th>Fragmentation Threshold:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans2.fragmentationThreshold"/>
+                <input type="number" class="input-mini" ng-model="trans2.fragmentationThreshold" maxlength="4" input-max-length-number/>
               </td>
             </tr>
             <tr>
               <th>RTS Threshold:</th>
               <td>
-                <input type="number" class="input-mini" ng-model="trans2.rtsThreshold"/>
+                <input type="number" class="input-mini" ng-model="trans2.rtsThreshold" maxlength="4" input-max-length-number/>
               </td>
             </tr>
             <tr>
