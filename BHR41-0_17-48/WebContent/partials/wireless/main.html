@@ -4,9 +4,9 @@
   <div id="content">
     <div ng-include src="'partials/wireless/nav.html'"></div>
     <div class="span9 wider">
-      <div class="content-panel-with-header" ng-repeat="wireless in wirelessInterfaces" ng-if="$index < 2">
+      <div class="content-panel-with-header" ng-repeat="wireless in wirelessInterfaces">
         <div class="header">{{wirelessName[$index]}} Wireless Status</div>
-        <table class="dark-table full_row" alt-style>
+        <table class="dark-table full_row">
           <tbody>
             <tr>
               <th>Radio Enabled:</th>
@@ -33,7 +33,7 @@
                 <div ng-switch-default>No</div>
               </td>
             </tr>
-            <tr ng-hide="wireless.id == 1">
+            <tr>
               <td style="padding-left:40px" ng-show="wep[$index].keyLength == 0">WEP 64-bit:</td>
               <td style="padding-left:40px" ng-show="wep[$index].keyLength == 1">WEP 128-bit:</td>
               <td>

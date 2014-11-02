@@ -71,12 +71,13 @@ public class UsersServlet extends HttpServlet {
 				getClass().getSimpleName());
 		if (StringUtils.isNotEmpty(id)) {
 			User users = new User(js);
-			Map map = SimpleJson.getJsonObject(in);
-			List<Map> maps = (List<Map>) map.get("users");
-			for (Map p : maps) {
-				Long id1 = (Long) p.get("id");
-				users.replaceUser(id1.toString(), p);
-			}
+//			Map map = SimpleJson.getJsonObject(in);
+//			List<Map> maps = (List<Map>) map.get("users");
+//			for (Map p : maps) {
+//				Long id1 = (Long) p.get("id");
+//				users.replaceUser(id1.toString(), p);
+//			}
+			users.replaceUser(id, in);
 			request.getSession().setAttribute(getClass().getSimpleName(),
 					users.getJson());
 			ServletRequestUtilities.sendJSONResponse(in, response);

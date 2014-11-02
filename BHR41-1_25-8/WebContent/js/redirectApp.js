@@ -6,7 +6,7 @@ angular.module('vzui', ['ngRoute','ui.bootstrap',
     'redirect.controllers']).
 config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
-  $routeProvider.when('/redirect', {templateUrl: 'partials/redirect.html?v=v1.0.124', controller: 'redirectCtrl'});
+  $routeProvider.when('/redirect', {templateUrl: 'partials/redirect.html?v=v1.0.125', controller: 'redirectCtrl'});
   $routeProvider.otherwise({redirectTo: '/redirect'});
 }])
 .run( function($rootScope, $location) {

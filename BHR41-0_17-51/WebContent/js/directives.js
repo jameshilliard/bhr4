@@ -115,46 +115,16 @@ angular.module('vzui.directives', [])
     }
   ])
 
-  .directive("altStyle1", ['$timeout',
-    function($timeout) {
-      return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-          scope.$watchCollection('[connections,showChildren]' , function() {
-            $timeout(function() {
-              var rows = element.find('tr');
-              var rowsObj,
-                  count = 0;
-              for(var i = 0; i < rows.length; i ++){
-                rowsObj = angular.element(rows[i]);
-                if (!rowsObj.hasClass('ng-hide')){
-                  if(count % 2 == 0){
-                    rowsObj.removeClass('alt-1').addClass('alt-2')
-                  }else{
-                    rowsObj.removeClass("alt-2").addClass('alt-1')
-                  }
-                  count ++;
-                }
-              }
-            });
-          }, true);
-        }
-      };
-    }
-  ])
-
- .directive('focusMain', function ($timeout) {
+ .directive('focusMe', function ($timeout) {
     return function(scope, element, attrs) {
       var focusElement = function () {
-        var main = document.getElementById("keyContainer");
         $timeout(function(){
-          //element[0].focus();
-          main.focus();
-        },1);
+          element[0].focus();
+        },0);
       };
-    scope.$watch("page", function () {
+    scope.$watch(attrs.focusMe, function () {
       focusElement();
-    });
+    },true);
   };
 })
 
@@ -174,69 +144,4 @@ angular.module('vzui.directives', [])
        });
      }
    };
-})
-//todo apply this to the setup pages
-.directive('focusContainer', function ($timeout) {
-  return {
-  restrict: 'A',
-  scope:{
-    runFocus:'='
-  },
-  link: function(scope, element, attrs) {
-      var focusElement = function () {
-        var main = document.getElementById(attrs.id);
-          if (main!=null){
-            $timeout(function(){
-            //element[0].focus();
-            main.focus();
-          },1);
-        }
-      };
-      focusElement();
-      if (attrs.focusContainer!=''){
-        scope.$watch(attrs.focusContainer, function () {
-          focusElement();
-        });
-      }
-
-      scope.$watch('runFocus', function(newValue) {
-        if (newValue == true){
-          $timeout(function(){
-            scope.runFocus = false;
-            focusElement();
-          },1000);
-        }
-      })
-
-    }
-  };
-})
-.directive('inputMaxLengthNumber', function() {
-  return {
-    require: 'ngModel',
-    restrict: 'A',
-    link: function (scope, element, attrs, ngModelCtrl) {
-      function fromUser(text) {
-        var maxlength = Number(attrs.maxlength);
-        if (String(text).length > maxlength) {
-          var transformedInput = text.substring(0, maxlength);
-          ngModelCtrl.$setViewValue(transformedInput);
-          ngModelCtrl.$render();
-          return transformedInput;
-        }
-        return text;
-      }
-    ngModelCtrl.$parsers.push(fromUser);
-    }
-  };
-})
-.directive('setWidth', function(){
-  return {
-    restrict: "A",
-    link: function (scope, element, attrs) {
-      scope.$watch('fake_percent', function(value) {
-        element.css('width', value + "%");
-      }, true);
-    }
-  }
 });

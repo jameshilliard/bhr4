@@ -9,7 +9,7 @@ angular.module('vzui', ['ngRoute', 'vzui.filters', 'vzui.services',
 
     //Objects
     'devices', 'network_connections', 'firmware_upgrade', 'dhcp', 'login',
-    'wireless', 'advanced', 'firewall', 'parental', 'igmp','guestWifi']).
+    'wireless', 'advanced', 'firewall', 'parental', 'igmp']).
 config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
   $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'LoginCtrl'});
@@ -41,14 +41,7 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
     tab: 'wireless', section: 'advanced'});
   $routeProvider.when('/wireless/wifiSetup', {templateUrl: 'partials/wireless/wifiSetup.html', controller: 'WifiSetupCtrl',
     tab: 'wireless', section: 'wifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup', {templateUrl: 'partials/wireless/guestWifiSetup.html', controller: 'GuestWifiSetupTabCtrl',
-    tab: 'wireless', section: 'guestWifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup/devices', {templateUrl: 'partials/wireless/guestWifiSetup.html', controller: 'GuestWifiSetupTabCtrl',
-	    tab: 'wireless', section: 'guestWifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup/basic', {templateUrl: 'partials/wireless/guestWifiSetup.html', controller: 'GuestWifiSetupTabCtrl',
-	    tab: 'wireless', section: 'guestWifiSetup'});
-  $routeProvider.when('/wireless/guestWifiSetup/pass', {templateUrl: 'partials/wireless/guestWifiSetup.html', controller: 'GuestWifiSetupTabCtrl',
-	    tab: 'wireless', section: 'guestWifiSetup'});
+
 
   $routeProvider.when('/network', {templateUrl: 'partials/network/network.html', controller: 'NetworkCtrl',
     tab: 'network', section: 'status'});
@@ -78,8 +71,6 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
    tab: 'firewall', section: 'portforward'});
   $routeProvider.when('/firewall/porttrigger', {templateUrl: 'partials/firewall/portTrigger.html', controller: 'PortTriggerCtrl',
    tab: 'firewall', section: 'porttrigger'});
-  $routeProvider.when('/firewall/dmzhost', {templateUrl: 'partials/firewall/dmzHost.html', controller: 'dmzHostCtrl',
-	   tab: 'firewall', section: 'dmzhost'});
   $routeProvider.when('/firewall/remoteadmin', {templateUrl: 'partials/firewall/remoteAdmin.html', controller: 'RemoteAdminCtrl',
    tab: 'firewall', section: 'remoteadmin'});
   $routeProvider.when('/firewall/staticnat', {templateUrl: 'partials/firewall/staticNAT.html', controller: 'StaticNATCtrl',
@@ -186,38 +177,13 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 
   $routeProvider.otherwise({redirectTo: '/login'});
 }])
-.run( function($rootScope, $location, SystemSettings, securityTips) {
+.run( function($rootScope, $location, SystemSettings) {
   $rootScope.$on( "$routeChangeStart", function(event, next, current) {
     $rootScope.pre_path = $rootScope.cur_path;
     $rootScope.cur_path = $location.url();
     if (!$rootScope.loggedIn && $location.path() != "/login" && $location.path() != '/setup') {
       $rootScope.nextLocation = $location.path();
       $location.path( "/login" );
-    }
-  });
-
-  $rootScope.$on('$locationChangeStart', function (event, next, current) {
-    if($rootScope.editingGuest && $rootScope.guestHasChanges){
-      event.preventDefault();
-      $rootScope.locationChangeNext = next;
-      $rootScope.locationChangeCurrent = current;
-      securityTips.showWireleaseGuestEditPrompt('','')
-        .then(function (result) {
-          if (result == 'cancel') {
-            $rootScope.locationChangeActivate = true;
-            var tempStr = getNextLocationForLocationChange($rootScope.locationChangeCurrent);
-            if(tempStr.indexOf('wireless/guestWifiSetup/basic') != -1){
-              $rootScope.$broadcast('saveContents1');
-            }else{
-              $rootScope.$broadcast('saveContents2');
-            }
-          }else{
-            $rootScope.editingGuest = false;
-            $rootScope.guestHasChanges = false;
-            $location.path(getNextLocationForLocationChange($rootScope.locationChangeNext));
-          }
-        }
-      );
     }
   });
 });

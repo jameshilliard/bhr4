@@ -4,20 +4,17 @@
       <li>
         <a href="#/main">Main</a>
       </li>
-      <li>
-        <a href="#/wireless" ng-class="section == 'status' && 'active' || ''">Wireless Status</a>
+      <li ng-class="section == 'status' && 'active' || ''">
+        <a href="#/wireless">Wireless Status</a>
       </li>
-      <li>
-        <a href="#/wireless/basic" ng-class="section == 'basic' && 'active' || ''">Basic Security Settings</a>
+      <li ng-class="section == 'basic' && 'active' || ''">
+        <a href="#/wireless/basic">Basic Security Settings</a>
       </li>
-      <li>
-        <a href="#/wireless/advanced" ng-class="section == 'advanced' && 'active' || ''">Advanced Security Settings</a>
+      <li ng-class="section == 'advanced' && 'active' || ''">
+        <a href="#/wireless/advanced">Advanced Security Settings</a>
       </li>
-      <li>
-        <a href="#/wireless/guestWifiSetup" ng-class="section == 'guestWifiSetup' && 'active' || ''">Guest Wi-Fi Settings</a>
-      </li>
-      <li>
-        <a href="#/wireless/wifiSetup" ng-class="section == 'wifiSetup' && 'active' || ''">Wi-Fi Protected Setup (WPS)</a>
+      <li ng-class="section == 'wifiSetup' && 'active' || ''">
+        <a href="#/wireless/wifiSetup">Wi-Fi Protected Setup (WPS)</a>
       </li>
       <li>
         <a href="#/logout">Logout</a>

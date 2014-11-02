@@ -126,7 +126,7 @@ td.text_line {padding-bottom:15px;}
 .nav {margin: -73px 1px 0 0 !important;}
 
 .stripe {
-  padding-left: 68px;
+  padding-left: 77px;
   height: 78px;
   float: left;
 }
@@ -634,7 +634,7 @@ input.right_space {margin-right:5px;}
     min-height: 600px;
     padding-bottom: 30px;
     padding-top:20px;
-    margin-left:-22px;
+    /*margin-left:-22px;*/
     position: relative;
 }
 

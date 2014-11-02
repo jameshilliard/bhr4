@@ -15,7 +15,7 @@ angular.module('vzui.services', []).
             keyboard: true,
             backdropClick: true,
             dialogFade: true,
-            templateUrl: 'partials/tips.html?v=v1.0.124'
+            templateUrl: 'partials/tips.html?v=v1.0.125'
         };
 
         var dialogDDNSDefaults = {
@@ -23,7 +23,7 @@ angular.module('vzui.services', []).
             keyboard: true,
             backdropClick: true,
             dialogFade: true,
-            templateUrl: 'partials/ddns.html?v=v1.0.124'
+            templateUrl: 'partials/ddns.html?v=v1.0.125'
         };
 
         var dialogOptions = {
@@ -71,7 +71,7 @@ angular.module('vzui.services', []).
           var defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'}];
           var msgBox = new $dialog.dialog({
               dialogFade: true,
-              templateUrl: 'partials/basemessage.html?v=v1.0.124',
+              templateUrl: 'partials/basemessage.html?v=v1.0.125',
               //templateUrl: 'partials/tips.html',
               controller: 'MessageBoxController',
               resolve:
@@ -94,7 +94,7 @@ angular.module('vzui.services', []).
           var msgBox = new $dialog.dialog({
               dialogFade: true,
               backdropClick: false,
-              templateUrl: 'partials/basemessage1.html?v=v1.0.124',
+              templateUrl: 'partials/basemessage1.html?v=v1.0.125',
               //templateUrl: 'partials/tips.html',
               controller: 'MessageBoxController',
               resolve:
@@ -117,7 +117,7 @@ angular.module('vzui.services', []).
           var msgBox = new $dialog.dialog({
               dialogFade: true,
               backdropClick: false,
-              templateUrl: 'partials/popmessage.html?v=v1.0.124',
+              templateUrl: 'partials/popmessage.html?v=v1.0.125',
               //templateUrl: 'partials/tips.html',
               controller: 'MessageBoxController',
               resolve:
@@ -140,7 +140,7 @@ angular.module('vzui.services', []).
           var msgBox = new $dialog.dialog({
               dialogFade: true,
               backdropClick: false,
-              templateUrl: 'partials/popmessage.html?v=v1.0.124',
+              templateUrl: 'partials/popmessage.html?v=v1.0.125',
               //templateUrl: 'partials/tips.html',
               controller: 'MessageBoxController',
               resolve:
@@ -163,7 +163,7 @@ angular.module('vzui.services', []).
           var msgBox = new $dialog.dialog({
               dialogFade: true,
               backdropClick: false,
-              templateUrl: 'partials/popmessage.html?v=v1.0.124',
+              templateUrl: 'partials/popmessage.html?v=v1.0.125',
               //templateUrl: 'partials/tips.html',
               controller: 'MessageBoxController',
               resolve:
@@ -186,7 +186,7 @@ angular.module('vzui.services', []).
           var msgBox = new $dialog.dialog({
               dialogFade: true,
               backdropClick: false,
-              templateUrl: 'partials/popmessage.html?v=v1.0.124',
+              templateUrl: 'partials/popmessage.html?v=v1.0.125',
               //templateUrl: 'partials/tips.html',
               controller: 'MessageBoxController',
               resolve:
@@ -207,7 +207,7 @@ angular.module('vzui.services', []).
            var msgBox = new $dialog.dialog({
               dialogFade: true,
               backdropClick: false,
-              templateUrl: 'partials/basemessage.html?v=v1.0.124',
+              templateUrl: 'partials/basemessage.html?v=v1.0.125',
               controller: 'MessageBoxController',
               resolve:
                 {
@@ -231,7 +231,7 @@ angular.module('vzui.services', []).
            var msgBox = new $dialog.dialog({
               dialogFade: true,
               backdropClick: false,
-              templateUrl: 'partials/basemessage.html?v=v1.0.124',
+              templateUrl: 'partials/basemessage.html?v=v1.0.125',
               controller: 'MessageBoxController',
               resolve:
                 {
@@ -255,7 +255,7 @@ angular.module('vzui.services', []).
             var msgBox = new $dialog.dialog({
                 dialogFade: true,
                 backdropClick: false,
-                templateUrl: 'partials/basemessagewarning.html?v=v1.0.124',
+                templateUrl: 'partials/basemessagewarning.html?v=v1.0.125',
                 controller: 'MessageBoxController',
                 resolve:
                 {
@@ -276,7 +276,7 @@ angular.module('vzui.services', []).
          var msgBox = new $dialog.dialog({
            dialogFade: true,
            backdropClick: false,
-           templateUrl: 'partials/basemessage2.html?v=v1.0.124',
+           templateUrl: 'partials/basemessage2.html?v=v1.0.125',
            controller: 'MessageBoxController',
            resolve:
              {
@@ -314,10 +314,10 @@ angular.module('vzui.services', []).
        };
 
        this.showWarningMsgGuestWifi = function (title, message,confirmationFlag) {
-         var templateURL = 'partials/wireless/guestWifiWarningNoConfirmation.html?v=v1.0.124';
+         var templateURL = 'partials/wireless/guestWifiWarningNoConfirmation.html?v=v1.0.125';
          var defaultButtons;
          if(!confirmationFlag.isEmpty && confirmationFlag){
-           templateURL = 'partials/wireless/guestWifiWarning.html?v=v1.0.124';
+           templateURL = 'partials/wireless/guestWifiWarning.html?v=v1.0.125';
            defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'},{result:'cancel', label: 'Cancel', cssClass: 'btn'}];
          }else{
            defaultButtons = [{result:'ok', label: 'OK', cssClass: 'btn'}];
@@ -352,7 +352,7 @@ angular.module('vzui.services', []).
             var msgBox =  new $dialog.dialog({
                 dialogFade: true,
                 backdropClick: false,
-                templateUrl: 'partials/wireless/basicGuestWifiPopup.html?v=v1.0.124',
+                templateUrl: 'partials/wireless/basicGuestWifiPopup.html?v=v1.0.125',
                 controller: 'BasicGuestCtrlPopup',
                 dialogClass: 'modal guest',
                 resolve:
@@ -377,7 +377,7 @@ angular.module('vzui.services', []).
             var msgBox =  new $dialog.dialog({
                 dialogFade: true,
                 backdropClick: false,
-                templateUrl: 'partials/wireless/guestWifiWarningNo24GWireless.html?v=v1.0.124',
+                templateUrl: 'partials/wireless/guestWifiWarningNo24GWireless.html?v=v1.0.125',
                 controller: 'MessageBoxController',
                 dialogClass: 'modal guest',
                 resolve:
@@ -400,7 +400,7 @@ angular.module('vzui.services', []).
             var msgBox =  new $dialog.dialog({
                 dialogFade: true,
                 backdropClick: false,
-                templateUrl: 'partials/wireless/guestWifiExitEditMode.html?v=v1.0.124',
+                templateUrl: 'partials/wireless/guestWifiExitEditMode.html?v=v1.0.125',
                 controller: 'MessageBoxController',
                 dialogClass: 'modal guest',
                 resolve:

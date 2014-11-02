@@ -168,8 +168,8 @@ height: 39px; width: 39px; margin-right: 10px; float: left;}
 }
 
 .navbar .brand {
-  padding: 65px 95px 0 0;
-  margin: 0 10px 0 0;
+  padding: 65px 104px 0 0;
+  margin-left: 22px;
 }
 
 .content-panel-with-header {

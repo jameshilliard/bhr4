@@ -1,4 +1,4 @@
-<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+<div>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -11,7 +11,6 @@
             <th>Rule Name</th>
             <th>Description</th>
             <th>Computer/Device</th>
-            <th>Enable Rule</th>
             <th>View Rule</th>
             <th>Edit Rule</th>
             <th>Delete Rule</th>
@@ -20,11 +19,8 @@
             <td>{{rule.name}}</td>
             <td>{{rule.description}}</td>
             <td>
-              <select size="2" ng-class="{heightAuto1: rule.hosts.length == 1, heightAuto2: rule.hosts.length == 2, heightAuto3: rule.hosts.length == 3, heightAuto4: rule.hosts.length == 4, heightAuto5: rule.hosts.length >= 5}" ng-model="rule.selected" ng-options="host for host in rule.hosts">
+              <select ng-model="rule.selected" ng-options="host for host in rule.hosts">
               </select>
-            </td>
-            <td>
-              <input type="checkbox" ng-model="rule.enabled" ng-click="setSelected($index)">
             </td>
             <td>
               <a ng-click="viewRule($index)" title="View">
@@ -44,11 +40,6 @@
           </tr>
         </tbody>
       </table>
-
-        <div style="text-align:center;">
-            <button ng-click="applySettings()" class="btn">Apply</button>
-            <button class="btn dark-btn" ng-click="restSelection()">Cancel</button>
-        </div>
     </div>
     <div class="content-panel-with-header span9" ng-show="(pageToShow == 0) && viewingRule!=-1">
       <div class="header">Rule Summary</div>

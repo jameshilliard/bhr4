@@ -1,4 +1,4 @@
-<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+<div>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -51,27 +51,10 @@
     <!-- END: Scheduler rules -->
 
     <!-- Start: Scheduler -->
-    <div class="content-panel-with-header span9" ng-class="(showErrorPage) ? 'cross-browser-change' : ''" ng-show="pageToShow == 5 || pageToShow == 6 || pageToShow == 7">
+    <div class="content-panel-with-header span9" ng-show="pageToShow == 5 || pageToShow == 6 || pageToShow == 7">
       <div ng-include src="'partials/firewall/scheduler.html'"></div>
     </div>
     <!-- End: Scheduler -->
-
-    <!-- Start: Attention -->
-    <div class="content-panel-with-header span9" ng-show="(pageToShow == 8) && !showErrorPage">
-      <div class="header">Attention</div>
-      <div>
-        <div>
-          <div align="center">
-            <p>Scheduler rule is in use. Deleting this rule will enable these features regardless of the time.<br>Press Apply to confirm.</p>
-          </div>
-          <div align="center">
-            <button class="btn dark-btn" ng-click="updateAccessControlBeforeRemove()">Apply</button>
-            <button class="btn dark-btn" ng-click="togglePage(0)">Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End: Attention -->
     <div class="clearfix"></div>
   </div>
   </div>

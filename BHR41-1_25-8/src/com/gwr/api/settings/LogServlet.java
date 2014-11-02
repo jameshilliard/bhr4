@@ -2,6 +2,8 @@ package com.gwr.api.settings;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,8 +58,11 @@ public class LogServlet extends HttpServlet {
 
 		String json = (String) request.getSession().getAttribute(key);
 		PrintWriter out = response.getWriter();
-
-		out.print(json);
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM  d HH:mm:ss yyyy");
+		Date d = new Date();
+		//json.replaceAll("dddd", sdf.format(d));
+		String newout = org.apache.commons.lang3.StringUtils.replace(json, "dddd", sdf.format(d));
+		out.print(newout);
 		out.flush();
 	}
 

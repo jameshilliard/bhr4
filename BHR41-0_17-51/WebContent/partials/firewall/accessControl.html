@@ -1,4 +1,4 @@
-<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+<div>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
   <div id="content">
@@ -129,7 +129,7 @@
               <select ng-model="netObj" ng-change="netObjChanged()" ng-show="networkObjects.length == 0">
                 <option value="-2">Any</option>
                 <option value="-1">User Defined</option>
-                <option ng-repeat="netObject in netObjsArr" value="{{$index}}">{{netObject.deviceDisplayName}}</option>
+<option ng-repeat="netObject in netObjsArr" value="{{$index}}">{{netObject.deviceDisplayName}}</option>
               </select>
             </td>
           </tr>
@@ -157,7 +157,7 @@
               <select ng-model="netObj" ng-change="netObjChanged()">
                 <option value="-2">Add...</option>
                 <option value="-1">User Defined</option>
-                <option ng-repeat="netObject in netObjsArr | filter:filterDevice" value="{{$index}}">{{netObject.deviceDisplayName}}</option>
+                <option ng-repeat="netObject in netObjsArr" ng-show="showNetObj[$index]" value="{{$index}}">{{netObject.deviceDisplayName}}</option>
               </select>
             </td>
           </tr>
@@ -184,7 +184,7 @@
               <div ng-repeat="part in printProtArr[$index]">{{part}}</div>
             </td>
             <td class="actions">
-              <a ng-click="editService($index)" ng-show="serv.type == 1 || serv.serviceType != 0" title="Edit">
+              <a ng-click="editService($index)" ng-show="serv.type == 1" title="Edit">
                 <div class="edit-icon"></div>
               </a>
               <a ng-click="removeService($index)" title="Remove">
@@ -244,7 +244,7 @@
     <!-- End: Add Access Control Rule -->
 
     <!-- Start: Service -->
-    <div class="content-panel-with-header span9" ng-show="(pageToShow == 3 || pageToShow == 4)" ng-class="(showErrorPage) ? 'cross-browser-change' : ''">
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 3 || pageToShow == 4)">
       <div ng-include src="'partials/firewall/service.html'"></div>
     </div>
     <!-- End: Service -->

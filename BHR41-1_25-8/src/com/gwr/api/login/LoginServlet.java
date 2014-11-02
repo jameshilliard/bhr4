@@ -54,11 +54,12 @@ public class LoginServlet extends HttpServlet {
 		if (password.equals(PASSWORD)) {
 			
 			// create a session for this flow
+			//request.getSession().setAttribute("loginTry", new Integer(0));
 			request.getSession().setAttribute("loginOk", new Boolean(true));
 
 			// load up all of the JSON for the various screens at the start
 			logger.debug("Login ok " + password + " compare to " + PASSWORD);
-			//logger.debug("Session is " + request.getSession().getId());
+			logger.debug("Session is " + request.getSession().getId());
 			loadDeafult(request);
 			Integer loginTry = (Integer) request.getSession().getAttribute("loginTry");
 			if(loginTry != null)

@@ -150,6 +150,26 @@ public class ServletRequestUtilities {
 		request.getSession().setAttribute(servletName, res.toJSON());
 	}
 
+	
+	public static void deleteFromJSONArrayByListIndex(String idString,
+			String servletName, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		logger.info("Delete " + request.getRequestURI());
+		int id = Integer.parseInt(request.getRequestURI().substring(
+				request.getRequestURI().lastIndexOf("/") + 1));
+
+		UIToSimModelListRequest req = new UIToSimModelListRequest(
+				(String) request.getSession().getAttribute(servletName));
+		List<JsonDataModel> modelList = req.getModelList();
+
+        modelList.remove(id);
+		SimToUIJSONModelListResponse res = new SimToUIJSONModelListResponse();
+		res.setModelList(modelList);
+
+		request.getSession().setAttribute(servletName, res.toJSON());
+	}
+
 	/**
 	 * 
 	 * @param string
@@ -262,7 +282,14 @@ public class ServletRequestUtilities {
 		logger.info("Get " + request.getRequestURI());
 		String outJson = (String) request.getSession()
 				.getAttribute(servletName);
-		ServletRequestUtilities.sendJSONResponse(outJson, response);
+		if(outJson == null){
+			logger.error(servletName + " has null session data.");
+			// dont change this, this is for reboot use since session clear
+			ServletRequestUtilities.reponse401(response, 0);
+		}
+		else{
+			ServletRequestUtilities.sendJSONResponse(outJson, response);
+		}
 
 	}
 
@@ -275,6 +302,11 @@ public class ServletRequestUtilities {
 			logger.info("Get by Index " + request.getRequestURI());
 			String all = (String) request.getSession()
 					.getAttribute(servletName);
+			if(all == null){
+				logger.error(serviceName + " " + request.getSession() + " " + servletName + " " + idName);
+			}
+//			else
+//				logger.debug(all + " " + id + " " + idName);
 			String newJson = SimpleJson.getJsonTextByIndex(idName, id, all);
 			ServletRequestUtilities.sendJSONResponse(newJson, response);
 		} else {

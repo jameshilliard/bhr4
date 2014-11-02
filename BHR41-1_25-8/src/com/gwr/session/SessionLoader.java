@@ -35,13 +35,13 @@ import com.gwr.api.settings.MacCloningServlet;
 import com.gwr.api.settings.NetworkObjectsServlet;
 import com.gwr.api.settings.PortForwardRulesServlet;
 import com.gwr.api.settings.RemoteAdminServlet;
+import com.gwr.api.settings.RestoreDefaultServlet;
 import com.gwr.api.settings.RoutesServlet;
 import com.gwr.api.settings.SchedulesServlet;
 import com.gwr.api.settings.SystemServlet;
 import com.gwr.api.settings.UPNPServlet;
 import com.gwr.api.users.UsersServlet;
 import com.gwr.api.wireless.WirelessServlet;
-import com.gwr.util.GlobalConstants;
 import com.gwr.util.JsonProperties;
 import com.gwr.util.json.SimToUIJSONModelListResponse;
 import com.gwr.util.json.SimToUIJSONModelResponse;
@@ -94,6 +94,8 @@ public class SessionLoader {
 				JsonProperties.getDHCPJSON());
 		this.loadListJSON(DHCPServlet.DHCPClients,
 				JsonProperties.getDHCPClientsJSON());
+		this.loadListJSON(DHCPServlet.DHCPOptions,
+				JsonProperties.getDHCPOptionsJSON());
 
 		// firmware
 		this.loadJSON(FirmwareServlet.class.getSimpleName(),
@@ -107,7 +109,7 @@ public class SessionLoader {
 		this.loadListJSON(WirelessServlet.class.getSimpleName(),
 				JsonProperties.getWirelessJSON());
 		
-		this.loadJSON(GlobalConstants.WPA2Key,
+		this.loadJSON("wireless.2.wpa",
 				JsonProperties.getWireless2WpaJSON());
 		
 		// each only has 0/1 device
@@ -122,9 +124,9 @@ public class SessionLoader {
 				JsonProperties.getWirelessQos1JSON());
 		// each only has 0/1 device
 		this.loadJSON(WirelessServlet.MACKEY + "0",
-				JsonProperties.getWirelessMacfilterJSON());
+				JsonProperties.getWirelessMacfilter0JSON());
 		this.loadJSON(WirelessServlet.MACKEY + "1",
-				JsonProperties.getWirelessMacfilterJSON());
+				JsonProperties.getWirelessMacfilter1JSON());
 		// each only has 0/1 device
 		this.loadJSON(WirelessServlet.WPSKEY + "0",
 				JsonProperties.getWirelessWpsJSON());
@@ -156,12 +158,16 @@ public class SessionLoader {
 				JsonProperties.getSettingsPortFowardRulesJSON());
 		this.loadJSON(EthernetServlet.class.getSimpleName(),
 				JsonProperties.getSettingsEthernetJSON());
-		this.loadListJSON(RoutesServlet.class.getSimpleName(),
+//		this.loadListJSON(RoutesServlet.class.getSimpleName(),
+//				JsonProperties.getSettingsRoutesJSON());
+		this.loadJSON(RoutesServlet.class.getSimpleName(),
 				JsonProperties.getSettingsRoutesJSON());
 		this.loadListJSON(DdnsServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDdnsJSON());
 		this.loadListJSON(DdnsprovidersServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDdnsprovidersJSON());
+		this.loadJSON(RestoreDefaultServlet.class.getSimpleName(),
+				JsonProperties.getSettingsDefaultsJSON());
 
 		// special handle because it is not json
 		for (int i = 0; i <= 5; i++) {

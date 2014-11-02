@@ -1,4 +1,4 @@
-<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+<div>
   <div ng-include src="'partials/header.html'"></div>
   <div class="centerer">
     <div id="content">
@@ -23,7 +23,7 @@
             <tr>
               <th>Destination:</th>
               <td>
-                <input type="text" ng-model="destination" ng-show="1!=status" on-keyup="handlePassKeyUp($key)"/>
+                <input type="text" ng-model="destination" ng-show="1!=status"/>
                 <span ng-show="1==status">{{destination}}</span>
               </td>
               <td>
@@ -50,7 +50,7 @@
                 <div class="red-text" ng-switch-when="5">Address Resolving Failed</div>
               </td>
             </tr>
-            <tr ng-show="testRan && status != 5">
+            <tr ng-show="testRan">
               <td>Packets:</td>
               <td colspan="2">
                 {{sent}}/{{total}} transmitted, {{received}}/{{total}} received, {{loss}}% loss

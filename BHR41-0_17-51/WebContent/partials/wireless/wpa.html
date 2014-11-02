@@ -8,19 +8,26 @@
         <div>
           <p class="header1">User Guidance on Password Selection</p>
           <p>
-            Your wireless network depends on having a good password. A good password contains sixteen (16) or more letters or numbers. This initial password is shipped with your router is an example of a good password. The initial password is printed on the side sticker on the router.
+            Your wireless network security depends on having a good password. A good password contains Sixteen (16) or more letters or numbers, with each letter or digit chosen at random. This initial password shipped with your router is an example of a good password. The initial password is printed on the serial number sticker under the router.
           </p>
 
           <p>
-            The letters in the password are case sensitive. If you wish to change your wireless password, try to pick a password similar to your router’s initial password. You should include at least one letter and at least one number in your password. It is recommended that the password should be at least sixteen letters and numbers. However, you can shorten the password at your own risk. At a minimum there has to be 8 characters and a maximum of 63 can be used.
+            The Letters in the password are case sensitive and the initial password provided on your router is in Upper Case. If you wish to change your wireless password, try to pick a password similar to your router's initial password. You must include at least one letter and at least one number in your password. It is recommended that the password should be at least sixteen letters and numbers, with no spaces or special symbols. However, you can shorten the password at your own risk. At a minimum there has to be 8 characters and a maximum of 63 can be used.
           </p>
-          <p> <strong>Here are some suggestions to help you choose a safe password:</strong> </p>
+          <p> <strong>Here are some suggestions to help you choose the safe password:</strong> </p>
           <ul>
             <li>
-              The password must be 8 to 63 ASCII characters long, and it is highly recommended to use 16 or more.
+              The password should be 8 to 63 ASCII characters long, and it is highly recommended to use 16 or more.
             </li>
             <li>
-             DO use a longer password, and write it down somewhere safe. A short password is easier to remember, but also much easier for attackers to guess. It is OK to let your PC save your wireless password so you don’t have to remember it.
+              Characters that are upper case. ASCII is categorized as Alpha and Numeric characters.
+            </li>
+            <li>
+              DO choose each letter or digit at random. Try one-finger typing with your eyes closed.
+            </li>
+            <li>
+              DO use a longer password, and write it down somewhere safe. A short password is easier to remember, but also much easier
+          for attackers to guess. It is OK to let your PC save your wireless password so you don't have to remember it.
             </li>
             <li>
               DO NOT use anything directly related to you, such as your street address, phone number or car license plate.
@@ -29,7 +36,10 @@
               DO NOT use the name of any person or place in your password. The attackers know all the common names.
             </li>
             <li>
-              DO NOT use a common phrase or sentence.
+              DO NOT use any word from the dictionary. The attackers have dictionaries, too.
+            </li>
+            <li>
+              DO NOT use a phrase or sentence. Once an attacker learns any portion of the phrase or sentence, the rest is easily guessed.
             </li>
           </ul>
         </div>
@@ -66,7 +76,7 @@
                 </label>
               </td>
               <td>
-                <input class="units_label" type="number" ng-model="wpa.groupKeyUpdateInterval" maxlength="5" input-max-length-number/>
+                <input class="units_label" type="number" ng-model="wpa.groupKeyUpdateInterval"/>
                 Seconds
               </td>
             </tr>
