@@ -1,0 +1,32 @@
+<div focus-container ng-controller="GuestWifiSetupCtrl">
+    <div ng-show="(pageToShow == 0)">
+            <div class="theWifiHead">GUEST WIFI DEVICES LIST</div>
+            <table class="dark-table noWidth">
+              <tbody>
+                <tr>
+                  <th class="col1" colspan="2">Device</th>
+                  <th class="col2">MAC Address</th>
+                  <th class="col3">IP Address</th>
+                  <th class="col4">Guest SSID</th>
+                  <th class="col5">On/Off</th>
+                </tr>
+                <tr ng-repeat="device in guestDevices" ng-if="device.toDisplay == true && device.approved == true">
+                  <td class="colImg"><span ng-class="device.styleName" class="gWifiImg"></span></td>
+                  <td class="colName"><p>{{device.name}}</p></td>
+                  <td class="col2"><p>{{device.mac}}</p></td>
+                  <td class="col3"><p ng-show="!device.blocked">{{device.ipAddress}}</p></td>
+                  <td class="colSsid col4"><p>{{device.ssid}}</p></td>
+                  <td  class="col5">
+                    <div class="btnHolderGuest">
+                    <button class="wpstoggle guest" ng-click="toggleOnOffSave(device)"><span>OFF</span>
+                      <img src="img_wh/slider_off.png" ng-show="device.blocked">
+                      <img src="img_wh/slider_on.png" ng-show="!device.blocked">
+                    <span>ON</span></button></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <!-- End: Attention -->
+        <div class="clearfix"></div>
+</div>

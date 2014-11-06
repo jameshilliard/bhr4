@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="vzui">
+  <head>
+    <meta charset="utf-8">
+    <title>Verizon Router</title>
+    <link rel="stylesheet" href="../../css/app.css?v=v1.0.129"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css?v=v1.0.129"/>  
+    <link rel="stylesheet" href="../../css/base.css?v=v1.0.129"/>
+    <link rel="stylesheet" href="../../css/wh_skin.css?v=v1.0.129"/>
+    <!--[if lte IE 8]>
+        <script>
+          document.createElement('ng-include');
+          window.onload = function() {
+            // init angular
+            angular.bootstrap(document)
+          };
+        </script>
+
+        <link rel="stylesheet" href="css/IE8.css?v=v1.0.129"/>
+      <![endif]-->
+
+      <!--[if IE 9]>
+        <link rel="stylesheet" href="css/IE9.css?v=v1.0.129"/>
+      <![endif]-->
+
+  </head>
+  <body>
+<div class="masthead" id="header">
+  <div class="navbar" id="main_navbar">
+    <div class="container_setup">
+      <a href="index.html?v=v1.0.129"><div class="brand"></div></a>
+      <div class="stripe setup">
+      <h2>Welcome to your Verizon FiOS Router!</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main_content set_up">
+
+<div class="left_area_two">
+
+<div class="circle2">&nbsp;</div><div class="personalizeRouter"><h4>Personalize Your Router</h4>Your router is pre-configured with the below admin and Wi-Fi settings. Personalize your network by customizing the following:</div>
+<div class="clearfix"></div>
+<div class="form_fields">
+<label>Admin Password:<input type="text" name="admin"/></label><br>
+<label>WiFi Name (EESID):<input type="text" name="wifiname"/></label><br>
+<label>WiFi Password (WPA2 Key):<input type="text" name="wifipass"/></label><br>
+<div class="pass_message">WiFi password must be at least 8 characters. </div>
+<input value="Revert to Defaults" class="btn small right" type="button"/>
+</div>
+
+
+</div>
+<!--div shows until change button is clicked -->
+<div class="right_area security" style="display:block">
+<div class="lock_icon"></div><h4>Security Settings</h4>
+<p>Your wireless network is automatically set to <strong>WPA2</strong>, the strongest type of security.</p>
+<div class="centerme"><input value="Change" class="btn small" type="button"/></div>
+<p>&nbsp;</p>
+<div class="next"><a href="final_step.html?v=v1.0.129" class="btn next change">Next</a></div>
+ <a href="main.html?v=v1.0.129" class="btn left2 change">Back</a>
+</div>
+
+
+<!--div hides until change button is clicked -->
+<div class="right_area security change" style="display:none">
+
+<div class="lock_icon"></div><h4>Security Settings</h4>
+<p>Select the security level for your wireless network:</p>
+<div class="security_select">
+<label><input type="checkbox" name="WPA" /> <strong>&nbsp;WPA/WPA2</strong></label><span class="detailine green">Recommended</span>
+<label><input type="checkbox" name="WPA" /> &nbsp;WEP</label>
+<span class="detailine">Compatible with older devices.</span>
+<label><input type="checkbox" name="WPA" /> &nbsp;None</label>
+<span class="detailine">Not recommended.</span>
+</div>
+<p>&nbsp;</p>
+<div class="next"><input value="Next" class="btn next" type="button"/></div>
+ <a href="main.html?v=v1.0.129" class="btn left2">Back</a>
+</div>
+
+<div class="clearfix"></div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="passoverlay">
+
+<div class="form_fields2">
+<label>New Admin Password:<input type="text" name="admin"/></label><br>
+<label>Re-enter password:<input type="text" name="wifiname"/></label><br>
+</div>
+<div>
+<input value="Next" class="btn next3" type="button"/>
+<input value="Cancel" class="btn left3" type="button"/>
+</div>
+
+<div class="clearfix"></div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div class="connectoverlay">
+Checking your WiFi connection
+<img src="../../img_wh/wifi_connect_icon.gif" />
+</div>
+<p>&nbsp;</p>
+<div class="connectoverlay">
+  <span class="blue bold">&#10003; </span><span class="gray">WiFi Successfully Connected</span><br>
+Now checking your internet connection
+<img src="../../img_wh/internet_connect_icon.gif" />
+</div>
+<p>&nbsp;</p>
+<div class="connectoverlay">
+ <p> <strong>Congratulations!</strong></p>
+Your router is connected to the internet and ready to use!
+<br>
+<img src="../../img_wh/complete_icon.gif" /><br>
+<input value="Close" class="btn" type="button"/><br>
+</div>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+  </body>
+  </html>

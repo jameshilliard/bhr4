@@ -1,0 +1,55 @@
+<div ng-show="showAddEdit && !showErrorPage">
+    <div class="header">Dynamic DNS</div>
+    <div>Setup Dynamic DNS (Domain Name Server)</div>
+    <div>Dynamic DNS is a dynamic IP Address to be aliased to a static hostname,
+        allowing a computer on your network to be more easily accessible from the Internet</div>
+    <table class="dark-table">
+        <tbody>
+        <tr>
+            <td>Host Name:</td>
+            <td>
+                <input type="text" ng-model="ddnsObject.hostname"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Provider:</td>
+            <td>
+                <select style="width: auto;"  ng-model="ddnsObject.provider" ng-options="provider.name for provider in ddnsProviders">
+                    <!--<option >DynDNS.org</option>
+                    <option >No-ip.com</option>
+                    <option >changeip.com</option>
+                    <option >tzo.com</option>
+                    <option >easydns.com</option>
+                    <option >zonedns.com</option>-->
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" ><a href="" target="_blank" ng-click="openSub()">Click here to initiate and manage your subscription</a></td>
+
+        </tr>
+        <tr>
+            <td>User Name:</td>
+            <td>
+              <input type="text" ng-model="ddnsObject.username" />
+            </td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td>
+                <input type="password" ng-model="ddnsObject.password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" ng-model="ddnsObject.useSsl"> SSL Mode
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="text-align: center">
+        <button class="btn dark-btn" ng-click="saveDynamicDnsObj()">Apply</button>
+        <button class="btn dark-btn" ng-click="cancelDynamicDnsObj()">Cancel</button>
+    </div>
+</div>

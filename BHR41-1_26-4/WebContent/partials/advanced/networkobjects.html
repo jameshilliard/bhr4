@@ -1,0 +1,59 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+  <div ng-include src="'partials/header.html?v=v1.0.129'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v=v1.0.129'"></div>
+    <div ng-include src="'partials/error.html?v=v1.0.129'"></div>
+
+    <!-- START: Network Object main -->
+    <div class="content-panel-with-header span9" ng-show="pageToShow == 0 && !showErrorPage">
+      <div class="header">Network Objects</div>
+
+      <div>
+        A Network Object is a set of host names, IP addresses, or MAC addresses. Security rules can be applied to a distinct LAN subnet using Network Objects.
+      </div>
+
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Network Object</th>
+            <th>Items</th>
+            <th>Action</th>
+          </tr>
+          <tr ng-repeat="netObj in networkObjects">
+            <td><a href="" ng-click="editNetworkObj($index)">{{netObj.name}}</a></td>
+            <td>
+              <div ng-repeat="part in printAddArr[$index]">{{part}}</div>
+            </td>
+            <td class="actions">
+              <a ng-click="editNetworkObj($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeNetworkObj($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <a class="btn dark-btn" ng-click="addNetworkObject()">Add</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <a href="#/advanced" class="btn dark-btn">Close</a>
+      </div>
+    </div>
+    <!-- END: Network Object main -->
+
+    <!-- Start: NetworkObject -->
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 1 || pageToShow == 2) && !showErrorPage">
+      <div ng-include src="'partials/firewall/networkObj.html?v=v1.0.129'"></div>
+    </div>
+    <!-- End: NetworkObject -->
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,323 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1">
+<div class="masthead" id="header">
+  <div class="navbar" id="main_navbar">
+    <div class="container_setup">
+      <a href="index.html?v=v1.0.129" class="hyperlink">
+        <div class="brand"></div>
+      </a>
+      <div class="logo_img">
+        <img src="./img_wh/verizon_logo.png" alt="logo" />
+      </div>
+      <div class="stripe setup">
+        <h2>Welcome to your Verizon FiOS Router!</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main_content set_up" ng-show="page == 0">
+
+  <div class="left_area_one"></div>
+  <div class="right_area">
+    <h4>Configure your router in 3 easy steps</h4>
+    <div class="three_steps">
+      <div class="circle1">&nbsp;</div>
+      <p class="loginRouter">Log in to your Router</p>
+      <div class="clearfix"></div>
+      <div class="circle2">&nbsp;</div>
+      <p class="personalizeRouterIntro">Personalize your WiFi Network Name & Password</p>
+      <div class="clearfix"></div>
+      <div class="circle3">&nbsp;</div>
+      <p class="printSettings">Save & Print your New Settings</p>
+      <div class="clearfix"></div>
+    </div>
+    <label class="dont_show">
+      <input type="checkbox" ng-model="dontShowAgain">&nbsp;Don't show this again
+    </label>
+    <p>&nbsp;</p>
+
+  </div>
+  <div class="get_started">
+    <div class="get_started_buttons">
+      <a href="" class="btn later" ng-click="doLater()">Later</a>
+      <a href="" ng-click="getStarted()" class="btn next" focus-main>Get Started</a>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="main_content set_up" ng-show="page == 1">
+  <div class="password_left">
+    <div class="circle1">&nbsp;</div>
+    <p class="passRouter">
+      <h4>Please log in to your router</h4>
+    </p>
+    <div class="enterPass">
+      <p>Enter the Admin Password located on the side of your router. Unauthorized Access is Prohibited.</p>
+      <label>
+        Admin Password:
+        <input type="password" ng-model="password" ng-show="!showPassword" on-keyup="handlePassKeyUp($key)" ng-disabled="page != 1 || timeout24 || timeout1"/>
+        <input type="text" ng-model="password" ng-show="showPassword" on-keyup="handlePassKeyUp($key)" ng-disabled="page != 1 || timeout24 || timeout1" class="pClass"/>
+      </label>
+      <label class="showPass">
+        <input type="checkbox" ng-model="showPassword"/>
+        Show Password
+      </label>
+    </div>
+    <div class="enterPass" style="color: red;">
+      <p>{{errorMessage}}</p>
+    </div>
+  </div>
+
+  <div class="password_right"></div>
+  <div class="clearfix"></div>
+
+  <div class="get_started password">
+    <div class="password_next_button">
+      <button  ng-click="loginCancelSetup()" class="btn later">Cancel</button>
+      <button class="btn next" ng-click="login()" ng-disabled="timeout24 || timeout1">Next</button>
+    </div>
+  </div>
+</div>
+<div class="main_content set_up" ng-show="page == 2 && !showErrorPage">
+  <div class="left_area_two">
+    <div class="circle2">&nbsp;</div>
+    <div class="personalizeRouter">
+      <h4>Personalize Your Router</h4>
+      Your router is pre-configured with the below admin and Wi-Fi settings. Personalize your network by customizing the following:
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="input_pair_wrap">
+
+      <div class="input_pair">
+        <label>Admin Password:</label>
+        <input type="text" ng-class="!isNewPassword && 'textgrey' || 'textblack'" ng-model="newPassword" ng-change="handleKeyPress()">
+        <div class="clearfix"></div>
+      </div>
+
+      <div ng-show="isNewPassword" class="input_pair">
+      <label>Re-enter Password:</label>
+        <input type="text" class="textblack" class="inputPass" ng-model="rePassword">
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="input_pair">
+      <label>WiFi Name (ESSID):</label>
+        <input type="text"  class="inputPass" ng-class="!isNewSsid && 'textgrey' || 'textblack'"  ng-model="wireless.ssid" ng-change="handleSsidChange()" maxLength="64">
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="input_pair">
+      <label>WiFi Password ({{dispSecurity}}):</label>
+        <input ng-disabled="secType == 2" type="text" class="inputPass" ng-class="!isNewWifiPw && 'textgrey' || 'textblack'" ng-model="secKey" ng-change="handleWifiPwChange()" maxlength="{{setMaxlength(secType)}}">
+        <div class="clearfix"></div>
+      </div>
+       <div class="input_pair">
+        <p class="info_msg" ng-show="secType==0 || secType==3">WiFi password must be at least 8 characters.</p>
+        <p class="info_msg" ng-show="secType==1">WiFi password must be 13 characters.</p>
+        <div class="clearfix"></div>
+       </div>
+       <div class="input_pair">
+        <input value="Revert Changes" class="btn small right defaults btnPass" type="button" ng-click="setEditSection()">
+        <div class="clearfix"></div>
+       </div>
+
+      <div class="clearfix"></div>
+    </div><section class="clearfix"><security-tip></security-tip></section>
+  </div>
+
+
+  <!--div shows until change button is clicked -->
+  <div class="right_area security" ng-show="!modifyWifi">
+    <div class="lock_icon"></div>
+    <h4>Security Settings</h4>
+    <p>
+      Your wireless network is automatically set to
+      <strong>WPA2</strong>
+      , the strongest type of security.
+    </p>
+    <div class="centerme">
+      <input value="Change" class="btn small" type="button" ng-click="editWifi()"></div>
+    <p>&nbsp;</p>
+  </div>
+
+  <!--div hides until change button is clicked -->
+  <div class="right_area security change" ng-show="modifyWifi">
+    <div class="lock_icon" ng-show="secType != 2"></div>
+    <div class="unlock_icon" ng-show="secType == 2"></div>
+    <h4>Security Settings</h4>
+    <p>Select the security level for your wireless network:</p>
+    <div class="security_select">
+      <label ng-class="secType == 3 && 'empText' || ''">
+        <input type="radio" ng-model="secType" ng-change="secChanged()" value="3">
+        WPA2
+      </label>
+      <span class="detailine black">Recommended</span>
+      <label ng-class="secType == 0 && 'empText' || ''">
+        <input type="radio" ng-model="secType" ng-change="secChanged()" value="0" ng-class="secType == 0 && 'empText' || ''">&nbsp;WPA2/WPA mixed mode</label>
+      <span class="detailine green">Recommended</span><br>
+      <span class="detailine">Compatible with older devices.</span>
+    </div>
+    <p>&nbsp;</p>
+  </div>
+
+  <div class="clearfix"></div>
+  <div class="get_started get_startedfix">
+    <div class="get_started_buttons personalize">
+      <a href="#/main" class="btn later mid2">Cancel</a>
+      <a href="" class="btn next mid" ng-click="acceptSettings()">Next</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="main_content set_up" ng-show="page == 2 && showErrorPage">
+  <div class="left_area_two">
+    <div class="circle2">&nbsp;</div>
+    <div class="personalizeRouter">
+      <h4>Input Errors</h4>
+    </div>
+    <div class="clearfix"></div>
+    <div class="form_fields">
+      <table class="dark-table">
+        <tbody>
+          <tr ng-repeat="mess in errorMessages">
+            <td>{{mess}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  
+  <div class="get_started">
+    <div class="get_started_buttons personalize">
+      <a href="" class="btn next mid" ng-click="errorPageOk()">Cancel</a>
+      <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+
+<div class="main_content set_up" ng-show="page == 4">
+  <div>
+    <div class="three_steps">
+
+      <div class="circle3 last">&nbsp;</div>
+      <h4>Save your settings</h4>
+      <p class="printSettings">
+        You have successfully configured your router! Please print your new settings
+      </p>
+      <div class="settingsSummary">
+
+        <div class="surround">
+          <table width="100%">
+          <tr><td>
+            <div class="left_col">
+              Admin Password:
+            </div>
+            <div class="right_col">
+              <strong>{{newPassword}}</strong>
+            </div>
+          </td></tr>
+          <tr><td>
+            <div class="left_col">
+              WiFi Name (ESSID):
+            </div>
+            <div class="right_col">
+              <strong>{{wireless.ssid}}</strong>
+            </div>
+          </td></tr>
+          <tr><td>
+            <div class="left_col">
+              WiFi Password ({{dispSecurity}}):
+            </div>
+            <div class="right_col">
+              <strong>{{secKey}}</strong>
+            </div>
+          </td></tr>
+          </table>
+          <div class="clearfix"></div>
+        </div>
+        <div class="icon_buttons">
+          <a href="" ng-click="print()" class="btn icon_print">Print</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="get_started last">
+    <div class="get_started_buttons last">
+      <button ng-click="confirmSettings()" class="btn next">Next</button>
+    </div>
+  </div>
+  <pre ng-show="false" id="special_copy" style="position: absolute; top: -10000px; right: 0"></pre>
+</div>
+
+<div class="main_content set_up" ng-show="page == 5">
+<div class="main_content set_up">
+<div class="alertbox" ng-show="!notConnected">
+  <div class="alert_icon"></div><h4>You must re-connect to WiFi</h4>
+  <p>You have changed your wireless settings and therefore you have been disconnected from the wireless network. To re-connect your network, select <strong>"{{wireless.ssid}}"</strong> from your wireless network setting on your computer and enter your password <strong>"{{secKey}}"</strong>.</p>
+   <div class="settingsSummary">
+        <div class="surround">
+        <div class="left_col">
+          WiFi Network Name: <br>
+            WiFi Password:
+        </div>
+          <div class="right_col"><strong>{{wireless.ssid}}</strong><br>
+            <strong>{{secKey}}</strong>
+          </div>
+<div class="clearfix"></div>
+       </div>
+        <p class="reconnectMsg">Once you have reconnected, hit the "Next" button below.</p>
+      </div>
+  <a href="" class="btn reconnect" ng-click="checkConnection()">Next</a>
+  <div class="clearfix"></div>
+</div>
+
+<div class="WifiConnectBox" ng-show="notConnected">
+  <p><strong>Checking your Wi-Fi Connection</strong></p>
+  <img src ="img_wh/animation_test.gif" width="90" height="90">
+</div>
+
+</div>
+</div>
+
+<div class="main_content set_up" ng-show="page == 6">
+<div class="alertbox">
+  <div class="alert_icon"></div><h4>Not Connected</h4>
+  <p>Your wireless device is not connected to your wireless network.</p>
+  <p class="bigred centerme">You must re-connect to WiFi</p>
+
+  <p>You have changed your wireless settings. To re-connect your network, select <strong>"{{wireless.ssid}}"</strong> from your wireless network setting on your computer and enter your password <strong>"{{secKey}}"</strong>.</p>
+   <div class="settingsSummary">
+        <div class="surround">
+        <div class="left_col">
+          WiFi Network Name: <br>
+            WiFi Password:
+        </div>
+          <div class="right_col"><strong>{{wireless.ssid}}</strong><br>
+            <strong>{{secKey}}</strong>
+          </div>
+<div class="clearfix"></div>
+       </div>
+        <p class="reconnectMsg">Once you have reconnected, hit the "Next" button below.</p>
+      </div>
+  <a href="" class="btn reconnect" ng-click="checkConnection()">Next</a>
+  <div class="clearfix"></div>
+</div>
+</div>
+
+<div class="main_content set_up" ng-show="page == 7">
+<div class="WifiConnectBox">
+  <p><strong>You have successfully re-connected to your router.</strong></p>
+  <p><img src ="img_wh/complete_icon.gif" width="90" height="90"></p>
+  <p><a href="#/main" class="btn">Close</a></p>
+</div>
+</div>
+
+</div><!-- keypress -->

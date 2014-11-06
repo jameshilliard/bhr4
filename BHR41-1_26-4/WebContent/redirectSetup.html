@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="vzui">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <title>Verizon Router</title>
+    <link rel="stylesheet" href="css/app.css?v=v1.0.129"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css?v=v1.0.129"/>
+    <link rel="stylesheet" href="css/base.css?v=v1.0.129"/>
+    <link rel="stylesheet" href="css/wh_skin.css?v=v1.0.129"/>
+      <!--[if lte IE 7]>
+        <script>
+          document.createElement('ng-include');
+          window.onload = function() {
+            // init angular
+            angular.bootstrap(document)
+          };
+        </script>
+      <![endif]-->
+      <!--[if lte IE 8]>
+        <link rel="stylesheet" href="css/IE8.css?v=v1.0.129"/>
+      <![endif]-->
+
+      <!--[if IE 9]>
+        <link rel="stylesheet" href="css/IE9.css?v=v1.0.129"/>
+      <![endif]-->
+
+
+  </head>
+  <body>
+    <div id="bgimage" class="container" ng-view></div>
+    <script src="js/angular.min.js?v=v1.0.129"></script>
+    <script src="js/angular-resource.min.js?v=v1.0.129"></script>
+    <script src="js/angular-route.min.js?v=v1.0.129"></script>
+    <script src="js/ui-bootstrap-tpls-0.3.0.min.js?v=v1.0.129"></script>
+    <script src="js/sha512.js?v=v1.0.129"></script>
+    <script src="js/redirectSetupApp.js?v=v1.0.129"></script>
+    <script src="js/redirectSetupControllers.js?v=v1.0.129"></script>
+  </body>
+</html>

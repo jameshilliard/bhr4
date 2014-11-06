@@ -1,0 +1,11 @@
+<div class="modal-header-guest">
+    <div class='modal-wifi-close'><button type="button" class="guestWifiCloseImg" data-dismiss="modal" ng-click="close('ok')" aria-hidden="true"></button></div>
+</div>
+<div class="guestWifiErrorImg">
+</div>
+<div class="guestWifiMsg1 guestWifiMsgCenter">
+    <p>{{ message }}</p>
+</div>
+<div class="modal-footer-guest center">
+    <button ng-repeat="btn in buttons" ng-click="close(btn.result);" class="btn" ng-class="btn.cssClass">{{ btn.label }}</button>
+</div>
