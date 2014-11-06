@@ -1,0 +1,23 @@
+/* IE9 */
+
+.security_settings p .checkbox input[type='checkbox'], .security_settings p .radio input[type='radio'] {
+top:6px; position:relative;
+}
+
+
+.checkbox input[type='checkbox'], .radio input[type='radio'] { 
+  top:2px; position:relative;
+}
+
+.input-ip  { padding: 2px; width: 45px !important;}
+
+
+
+select, input[type="text"], input[type="number"], input[type="password"] {
+    border: thin solid #f7f4f4;
+}
+
+input[type="text"]{
+  height: 25px;
+  padding: 2px 5px 2px 5px;
+}

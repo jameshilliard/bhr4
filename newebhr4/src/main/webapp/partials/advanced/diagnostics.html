@@ -1,0 +1,77 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html?v=v1.0.124'"></div>
+  <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/advanced/nav.html?v=v1.0.124'"></div>
+      <div ng-include src="'partials/error.html?v=v1.0.124'"></div>
+
+      <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+        <div class="header">Diagnostics</div>
+
+        <div>
+          <p>
+            Diagnostics can assist in testing network connectivity. This feature pings (ICMP echo) an IP address and displays the results, such as the number of packets transmitted and received, round trip time, and success status
+          </p>
+        </div>
+
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <td> <strong>Ping (ICMP Echo)</strong>
+              </td>
+            </tr>
+            <tr>
+              <th>Destination:</th>
+              <td>
+                <input type="text" ng-model="destination" ng-show="1!=status" on-keyup="handlePassKeyUp($key)"/>
+                <span ng-show="1==status">{{destination}}</span>
+              </td>
+              <td>
+                <button class="btn dark-btn" ng-click="goButton()" ng-show="1!=status">Go</button>
+                <button class="btn dark-btn" ng-click="cancel()" ng-show="1==status">Cancel</button>
+              </td>
+            </tr>
+            <tr ng-show="1!=status">
+              <th>Number of Pings:</th>
+              <td colspan="2">
+                <input type="text" maxLength="3" class="input-mini" ng-model="pingCount"/>
+              </td>
+            </tr>
+            <tr>
+              <th ng-show="!testRan" colspan="3">Status:</th>
+              <td ng-show="testRan">Status:</td>
+              <td ng-show="testRan" colspan="2" ng-switch on="status">
+                <div class="green-text" ng-switch-when="-1"></div>
+                <div class="green-text" ng-switch-when="0">Test Succeeded</div>
+                <div class="green-text" ng-switch-when="1">Testing...</div>
+                <div class="red-text" ng-switch-when="2">Test Failed</div>
+                <div class="red-text" ng-switch-when="3">Test Interrupted</div>
+                <div class="red-text" ng-switch-when="4">Cancelled</div>
+                <div class="red-text" ng-switch-when="5">Address Resolving Failed</div>
+              </td>
+            </tr>
+            <tr ng-show="testRan && status != 5">
+              <td>Packets:</td>
+              <td colspan="2">
+                {{sent}}/{{total}} transmitted, {{received}}/{{total}} received, {{loss}}% loss
+              </td>
+            </tr>
+            <tr ng-show="hasResults">
+              <td>Round Trip Time:</td>
+              <td colspan="2">
+                <div>Minimum = {{min}} ms</div>
+                <div>Maximum = {{max}} ms</div>
+                <div>Average = {{average}} ms</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <a href="#{{previousPath}}" class="btn dark-btn">Close</a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

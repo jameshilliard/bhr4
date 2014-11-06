@@ -1,0 +1,57 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.124'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/firewall/nav.html?v=v1.0.124'"></div>
+    <div class="span9 wider">
+      <div ng-include src="'partials/error.html?v=v1.0.124'"></div>
+      <div class="content-panel-with-header" ng-show="!showErrorPage">
+      <div class="header">DMZ Host Settings</div>
+      <div class="heading">
+        Allow a single networked computer /device to be fully exposed to the Internet.
+      </div>
+      <br>
+      <p class="bold">Note:
+      <span class="softTxt">
+        If you have purchased a group of Static IP’s and have enabled Static NAT for all your Static IPs, do NOT enable the DMZ Host feature.
+      </span></p>
+
+      <table class="dark-table full_row" alt-style>
+        <tbody>
+          <tr>
+            <th>DMZ Host:</th>
+            <td>
+              <span>
+                <input type="radio" ng-model="enabled" ng-value="true"/>
+                Enable
+              </span>
+              &nbsp;
+              <span>
+                <input type="radio" ng-model="enabled" ng-value="false"/>
+                Disable
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>IP Address:</th>
+            <td>
+              <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddr[0]" maxlength="3" ng-disabled="ipAddrDisabled[0] || !enabled"/>
+              <span style="vertical-align:bottom;" class="dot-big">.</span>
+              <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddr[1]" maxlength="3" ng-disabled="ipAddrDisabled[1] || !enabled"/>
+              <span style="vertical-align:bottom;" class="dot-big">.</span>
+              <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddr[2]" maxlength="3" ng-disabled="ipAddrDisabled[2] || !enabled"/>
+              <span style="vertical-align:bottom;" class="dot-big">.</span>
+              <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddr[3]" maxlength="3" ng-disabled="ipAddrDisabled[3] || !enabled"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="cancel()">Cancel</button>
+        <button class="btn dark-btn" ng-click="checkThenSave()">Apply</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

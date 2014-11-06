@@ -1,0 +1,109 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.124'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v=v1.0.124'"></div>
+    <div ng-include src="'partials/error.html?v=v1.0.124'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header"><img src="img_wh/wps_header_icon.png" alt="wps"> Wi-Fi Protected Setup (WPS)</div>
+
+      <p>
+        Wi-Fi Protected Setup is an easy way to add wireless devices to your network. To use this feature, your wireless client device needs to support WPS.
+      </p>
+ 
+      <p>Warning: Wireless devices may briefly lose connectivity when turning WPS ON or OFF</p>
+
+      <p>
+        <strong>Wi-Fi Protected Setup:</strong> <button class="wpstoggle" ng-click="toggleOnOff()"><span>OFF</span><img src="img_wh/slider_off.png" ng-show="!enabled"> <img src="img_wh/slider_on.png" ng-show="enabled"><span>ON</span></button>
+      </p>
+
+      <div ng-show="enabled">
+
+        <!-- Main WPS -->
+        <div ng-show="0 == currentStep">
+         <p class="subhead"> You have two alternate methods to add a wireless device to your network using WPS:</p>
+          
+          <strong><div class="abutton">&nbsp;</div> Push button configuration (preferred):</strong>
+          <p>
+          If your client device has a WPS button, press it and then click the button below to start WPS registration.
+          </p>
+
+          <div class="wps_push">
+            <div class="icon"></div>
+            <button class="btn wps" ng-click="pushButtonConfig()">WPS</button>
+            <div class="orline">OR</div>
+          </div>
+        
+          <p>
+            <hr>
+          </p>
+
+          <strong><div class="bbutton">&nbsp;</div> PIN enrollment:</strong>
+          <p>
+          If your client device has a WPS PIN, enter that number below (usually found on a sticker on the back of the device) and click "Register":
+          </p>
+
+          <strong>Client WPS PIN:</strong>
+          <input type="text" ng-model="clientWpsPin" numbers-wps maxlength="9"/>
+          <button class="btn register_button" ng-click="register()">Register</button>
+          <div class="enableRouter">
+          <p>Alternatively, If your client supports it, enter the router's PIN into the client device:</p>
+          <p class="cBox"><input type="checkbox" ng-model="erEnabled" ng-disabled="erCanEnabled" ng-change="sendErEnabled(erEnabled);">Enable Router's PIN {{apPin}}</p>
+          <p class="cInfo" ng-hide="!apLockDown">The router's PIN has been automatically disabled due to too many failed attempts. Click the check box to re-enable the PIN.</p>
+          </div>
+        </div>
+
+        <!-- Step 1: A -->
+        <div class="reg_set" ng-show="1 == currentStep">
+          <strong>Looking for WPS client...</strong>
+          <p>
+          Time remaining to press client WPS button: {{timeString}}.</p>
+          <div class="centerme">
+            <button class="btn client" ng-click="cancel()" ng-hide="true">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Step 1: B -->
+        <div class="pin_set" ng-show="2 == currentStep">
+          <strong>Looking for WPS client with PIN {{clientWpsPin}}...</strong>
+          <p>
+          Time remaining to press client WPS button: {{timeString}}.</p>
+          <div class="centerme">
+            <button class="btn" ng-click="cancel()" ng-hide="true">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Step 2: -->
+        <div class="wps_connecting" ng-show="3 == currentStep">
+          Connecting to WPS client...
+          <div class="centerme">
+            <button class="btn" ng-click="cancel()" ng-hide="true">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div class="wps_success" ng-show="4 == currentStep">
+          <div class="green-text">SUCCESS</div>
+          <p>Successfully added WPS client! 
+          </p>
+          <p><strong>MAC Address:</strong> {{mac}}</p>
+          <div class="centerme">
+            <button class="btn" ng-click="completed()">OK</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Failure -->
+        <div class="wps_failure" ng-show="5 == currentStep">
+          <div class="red-text">FAILURE</div>
+          WPS registration has timed out. Did not successfully add a WPS client to the network within 2 minutes.<br>
+          <div class="centerme">
+            <button class="btn fail" ng-click="completed()">OK</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

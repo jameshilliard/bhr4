@@ -1,0 +1,121 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.124'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/system/nav.html?v=v1.0.124'"></div>
+    <div class="span9 content-panel-with-header">
+      <div class="header">Router Status</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>UI Version:</th>
+            <td>v1.0.124</td>
+          </tr>
+          <tr>
+            <th>Firmware Version</th>
+            <td>{{fw.version}}</td>
+          </tr>
+          <tr>
+            <th>Model Name:</th>
+            <td>{{stats.modelName}}</td>
+          </tr>
+          <tr>
+            <th>Hardware Version:</th>
+            <td>{{stats.hwVersion}}</td>
+          </tr>
+          <tr>
+            <th>Serial Number:</th>
+            <td>{{stats.serialNumber}}</td>
+          </tr>
+          <tr>
+            <th>Physical Connection Type:</th>
+            <td ng-switch on="bb.connectionUsed">
+              <span ng-show="bb.protocolUsed != 0"><span ng-switch-when="1">Coax</span>
+              <span ng-switch-default>Ethernet</span></span>
+            </td>
+          </tr>
+          <tr>
+            <th>Broadband Connection Type:</th>
+            <td ng-switch on="bb.protocolUsed">
+              <span ng-show="bb.protocolUsed != 0"><span ng-switch-when="1">DHCP</span>
+              <span ng-switch-when="2">Static</span>
+              <span ng-switch-when="0">No IP Address</span></span>
+            </td>
+          </tr>
+          <tr>
+            <th>Broadband Connection Status:</th>
+            <td ng-show="bb.protocolUsed == 1">
+              <span ng-show="null !=bb && (bb.connectionUsed == 0 || bb.connectionUsed == 1)">
+                <span ng-switch on="bb.dhcpStatus">
+                  <span class="red-text" ng-switch-when="3">No Connection</span>
+                  <span class="red-text" ng-switch-when="0">No Connection</span>
+                  <span class="green-text" ng-switch-when="2">Connected</span>
+                  <span ng-switch-default>Connecting...</span>
+                </span>
+              </span>
+              <span ng-show="null != bb && (bb.connectionUsed != 0 && bb.connectionUsed != 1)">
+                <span class="red-text">No Connection</span>
+              </span>
+            </td>
+            <td ng-show="bb.protocolUsed != 1">
+              <span ng-show="null != bb && (bb.connectionUsed == 0 || bb.connectionUsed == 1)">
+                <span ng-switch on="bb.status">
+                  <span ng-switch-when="0">
+                    <span ng-show="bb.dhcpStatus == 0" class="red-text">No Connection</span>
+                    <span ng-show="bb.dhcpStatus == 1" class="red-text">No Connection</span>
+                    <span ng-show="bb.dhcpStatus == 2" class="green-text">Connected</span>
+                    <span ng-show="bb.dhcpStatus == 3" class="red-text">No Connection</span>
+                  </span>
+                  <span class="red-text" ng-switch-default>No Connection</span>
+                </span>
+              </span>
+              <span ng-show="null != bb && (bb.connectionUsed != 0 && bb.connectionUsed != 1)">
+                <span class="red-text">No Connection</span>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>Broadband IP Address:</th>
+            <td><span ng-show="bb.protocolUsed != 0">{{bb.ipAddress}}</span></td>
+          </tr>
+          <tr>
+            <th>Subnet Mask:</th>
+            <td><span ng-show="bb.protocolUsed != 0">{{bb.subnetMask}}</span></td>
+          </tr>
+          <tr>
+            <th>Broadband MAC Address:</th>
+            <td>{{bb.mac}}</td>
+          </tr>
+          <tr>
+            <th>Default Gateway:</th>
+            <td><span ng-show="bb.protocolUsed != 0">{{bb.defaultGateway}}</span></td>
+          </tr>
+          <tr>
+            <th>DNS Server:</th>
+            <td><span ng-show="bb.protocolUsed != 0">{{bb.primaryDnsServer}}, {{bb.secondaryDnsServer}}</span></td>
+          </tr>
+          <tr>
+            <th>Broadband IPv6 Address:</th>
+            <td>{{bb.ipv6Address}}</td>
+          </tr>
+          <tr>
+            <th>Active Status (Router Has Been Active For):</th>
+            <td>{{stats.uptime}}</td>
+          </tr>
+          <tr>
+            <th>NATs Supported (Used/Max):</th>
+            <td>{{stats.natEntriesUsed}}/30,000</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <a href="#/advanced" class="btn dark-btn">Close</a>
+        <button class="btn dark-btn" ng-click="toggleAutoRefresh()" ng-show="!autoRefresh">Automatic Refresh On</button>
+        <button class="btn dark-btn" ng-click="toggleAutoRefresh()" ng-show="autoRefresh">Automatic Refresh Off</button>
+        <a href="" class="btn dark-btn" ng-click="refreshing()">Refresh</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>
