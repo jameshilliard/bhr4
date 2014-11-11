@@ -1,31 +1,34 @@
-package com.gwr.api.dhcp.model;
+package com.gwr.bhr4.api.dhcp.model;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.gwr.bhr4.dto.JSONDto;
+import com.gwr.bhr4.dto.JSONListDto;
 import com.gwr.util.json.SimpleJson;
 
 public class DHCPClients {
 	@SuppressWarnings("rawtypes")
-	List<Map> DhcpCLients;
+	JSONListDto dtoList;
 
 	public DHCPClients(String jsontext) {
-		DhcpCLients = SimpleJson.getJsonObjects(jsontext);
+		dtoList = new JSONListDto(jsontext);
 	}
 
 	public String getJson() {
-		return SimpleJson.toJsonText(DhcpCLients);
+		return dtoList.getJson();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean replaceDHCPClientByWhat(String mapByJson, String bywhat) {
 
-		Map mapby = SimpleJson.getJsonObject(mapByJson);
-		String mac = (String) mapby.get(bywhat);
+		JSONDto jsondto = new JSONDto(mapByJson);
+		Map mapby = jsondto.getMap();
+		String mac = (String) jsondto.getMap().get(bywhat);
 		Map theMap = null;
-		for (Map p : DhcpCLients) {
+		for (Map p : dtoList.getMapList()) {
 			String thisMac = "" + p.get(bywhat);
 			if (mac.equals(thisMac)){
 				theMap = p;
@@ -43,12 +46,14 @@ public class DHCPClients {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addClient(String jsonText) {
 		// find the next id
-		long nextId = getNextIDInList("id");
-
-		Map one = SimpleJson.getJsonObject(jsonText);
+		
+		
+		
+		JSONDto jsondto = new JSONDto(jsonText);
+		Map one = jsondto.getMap();
 		one.put("id", nextId);
 		UIBug(one);
-		DhcpCLients.add(one);
+		dtoList.addOneByIndex("id", jsondto.getJson());
 	}
 
 	private void UIBug(Map one){

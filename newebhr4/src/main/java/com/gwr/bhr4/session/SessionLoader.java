@@ -41,6 +41,7 @@ import com.gwr.api.settings.SystemServlet;
 import com.gwr.api.settings.UPNPServlet;
 import com.gwr.api.users.UsersServlet;
 import com.gwr.api.wireless.WirelessServlet;
+import com.gwr.bhr4.dto.JSONListDto;
 import com.gwr.util.JsonProperties;
 import com.gwr.util.json.SimToUIJSONModelListResponse;
 import com.gwr.util.json.SimToUIJSONModelResponse;
@@ -66,32 +67,21 @@ public class SessionLoader {
 		this.session = session;
 	}
 
-	private void loadListJSON(String servletName, String json) {
-		UIToSimModelListRequest req = new UIToSimModelListRequest(json);
-		SimToUIJSONModelListResponse res = new SimToUIJSONModelListResponse();
-		res.setModelList(req.getModelList());
-
-		this.session.setAttribute(servletName, res.toJSON());
-	}
 
 	private void loadJSON(String servletName, String json) {
-		UIToSimModelRequest req = new UIToSimModelRequest(json);
-		SimToUIJSONModelResponse res = new SimToUIJSONModelResponse();
-		res.setModel(req.getJsonDataModel());
-
-		this.session.setAttribute(servletName, res.toJSON());
+		this.session.setAttribute(servletName, json);
 	}
 
 	public void loadDefaultRouterJSONInToSession() {
 
 		logger.info("Loading data into session: " + session.getId());
 		// devices
-		this.loadListJSON(DevicesServlet.class.getSimpleName(),
+		this.loadJSON(DevicesServlet.class.getSimpleName(),
 				JsonProperties.getDevicesJSON());
 		// dhcp
 		this.loadJSON(DHCPServlet.class.getSimpleName(),
 				JsonProperties.getDHCPJSON());
-		this.loadListJSON(DHCPServlet.DHCPClients,
+		this.loadJSON(DHCPServlet.DHCPClients,
 				JsonProperties.getDHCPClientsJSON());
 
 		// firmware
@@ -99,11 +89,11 @@ public class SessionLoader {
 				JsonProperties.getFirmwareJSON());
 
 		// network
-		this.loadListJSON(NetworkServlet.class.getSimpleName(),
+		this.loadJSON(NetworkServlet.class.getSimpleName(),
 				JsonProperties.getNetworkJSON());
 
 		// wireless
-		this.loadListJSON(WirelessServlet.class.getSimpleName(),
+		this.loadJSON(WirelessServlet.class.getSimpleName(),
 				JsonProperties.getWirelessJSON());
 		// each only has 0/1 device
 		this.loadJSON(WirelessServlet.TRAKEY + "0",
@@ -137,25 +127,25 @@ public class SessionLoader {
 				JsonProperties.getSettingsDateTimeJSON());
 		this.loadJSON(MacCloningServlet.class.getSimpleName(),
 				JsonProperties.getSettingsMacCloningJSON());
-		this.loadListJSON(SchedulesServlet.class.getSimpleName(),
+		this.loadJSON(SchedulesServlet.class.getSimpleName(),
 				JsonProperties.getSettingsSchedulesJSON());
 		this.loadJSON(IPV6Servlet.class.getSimpleName(),
 				JsonProperties.getSettingsIPV6JSON());
-		this.loadListJSON(DNSServerServlet.class.getSimpleName(),
+		this.loadJSON(DNSServerServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDNSServerJSON());
-		this.loadListJSON(ARPTableServlet.class.getSimpleName(),
+		this.loadJSON(ARPTableServlet.class.getSimpleName(),
 				JsonProperties.getSettingsARPTableJSON());
-		this.loadListJSON(NetworkObjectsServlet.class.getSimpleName(),
+		this.loadJSON(NetworkObjectsServlet.class.getSimpleName(),
 				JsonProperties.getSettingsNetworkObjectsJSON());
-		this.loadListJSON(PortForwardRulesServlet.class.getSimpleName(),
+		this.loadJSON(PortForwardRulesServlet.class.getSimpleName(),
 				JsonProperties.getSettingsPortFowardRulesJSON());
 		this.loadJSON(EthernetServlet.class.getSimpleName(),
 				JsonProperties.getSettingsEthernetJSON());
-		this.loadListJSON(RoutesServlet.class.getSimpleName(),
+		this.loadJSON(RoutesServlet.class.getSimpleName(),
 				JsonProperties.getSettingsRoutesJSON());
-		this.loadListJSON(DdnsServlet.class.getSimpleName(),
+		this.loadJSON(DdnsServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDdnsJSON());
-		this.loadListJSON(DdnsprovidersServlet.class.getSimpleName(),
+		this.loadJSON(DdnsprovidersServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDdnsprovidersJSON());
 		this.loadJSON(RestoreDefaultServlet.class.getSimpleName(),
 				JsonProperties.getSettingsDefaultsJSON());
@@ -172,7 +162,7 @@ public class SessionLoader {
 				JsonProperties.getSettingsIGMPProxyJSON());
 		this.loadJSON(IGMPAclServlet.class.getSimpleName(),
 				JsonProperties.getSettingsIGMPAclJSON());
-		this.loadListJSON(IGMPHostsServlet.class.getSimpleName(),
+		this.loadJSON(IGMPHostsServlet.class.getSimpleName(),
 				JsonProperties.getSettingsIGMPHostsJSON());
 		this.loadJSON(IGMPIntfServlet.class.getSimpleName(),
 				JsonProperties.getSettingsIGMPIntfJSON());
@@ -184,19 +174,19 @@ public class SessionLoader {
 		// firewall
 		this.loadJSON(FirewallServlet.class.getSimpleName(),
 				JsonProperties.getFirewallJSON());
-		this.loadListJSON(AccessControlServlet.class.getSimpleName(),
+		this.loadJSON(AccessControlServlet.class.getSimpleName(),
 				JsonProperties.getFirewallAccessControlJSON());
-		this.loadListJSON(PortForwardServlet.class.getSimpleName(),
+		this.loadJSON(PortForwardServlet.class.getSimpleName(),
 				JsonProperties.getFirewallPortFowardJSON());
-		this.loadListJSON(PortTriggerServlet.class.getSimpleName(),
+		this.loadJSON(PortTriggerServlet.class.getSimpleName(),
 				JsonProperties.getFirewallPortTriggerJSON());
-		this.loadListJSON(StaticNatServlet.class.getSimpleName(),
+		this.loadJSON(StaticNatServlet.class.getSimpleName(),
 				JsonProperties.getFirewallStaticNatJSON());
 		this.loadJSON(LogSettingsServlet.class.getSimpleName(),
 				JsonProperties.getFirewallLogSettingsJSON());
 
 		// parental
-		this.loadListJSON(ParentalServlet.class.getSimpleName(),
+		this.loadJSON(ParentalServlet.class.getSimpleName(),
 				JsonProperties.getParentalJSON());
 
 		// Diagnostics

@@ -1,94 +1,32 @@
-package com.gwr.api.settings;
+package com.gwr.bhr4.api.settings;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.gwr.util.JsonProperties;
-import com.gwr.util.ServletRequestUtilities;
-import com.gwr.util.ServletRequestUtilities1;
-import com.gwr.util.StringUtil;
-
-/**
- * This is NON-Json servlet. We do not respond with JSON, just text
- * 
- * NOTES: This required changes to BOTH rest.js and util.js
- * 
- * @author jerry skidmore
- * 
- */
-@WebServlet("/api/settings/log/*")
+@Controller
+@RequestMapping("/api/settings/log/")
 public class LogServlet extends HttpServlet {
 	private final static Logger logger = LoggerFactory
 			.getLogger(LogServlet.class);
-	private static final long serialVersionUID = 1L;
-	private static String serviceName = "log";
-	private static String idName = "id";
-
-	/**
-	 * 
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
-		response.setContentType("application/json");
-		String id = StringUtil.retrieveLastId(request.getRequestURI(),
-				serviceName);
-
-		logger.debug(request.getRequestURI());
-
-		if (StringUtils.isEmpty(id))
-			return;
-
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public String get(@PathVariable String id, HttpServletRequest request) {
 		String key = getClass().getSimpleName() + id;
-		// Get the PrintWriter object from response to write the required JSON
-		// object to the output stream
 
 		String json = (String) request.getSession().getAttribute(key);
-		PrintWriter out = response.getWriter();
+		return json;
 
-		out.print(json);
-		out.flush();
 	}
 
-	/**
-	 * 
-	 */
-	// @Override
-	// protected void doPut(HttpServletRequest request,
-	// HttpServletResponse response) throws ServletException, IOException {
-	//
-	// ServletRequestUtilities.handlePutRequest(getClass().getSimpleName(),
-	// request, response);
-	// }
-	//
-	// @Override
-	// protected void doPost(HttpServletRequest request,
-	// HttpServletResponse response) throws ServletException, IOException {
-	//
-	// ServletRequestUtilities.addToJSONArrayByID(idName, getClass()
-	// .getSimpleName(), request, response);
-	// }
-	//
-	@Override
-	protected void doDelete(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable String id, HttpServletRequest request) {
 
-		String id = StringUtil.retrieveLastId(request.getRequestURI(),
-				serviceName);
-
-		if (StringUtils.isEmpty(id))
-			return;
 		String key = getClass().getSimpleName() + id;
 		request.getSession().setAttribute(key, "");
 	}

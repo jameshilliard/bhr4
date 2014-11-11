@@ -1,46 +1,28 @@
-package com.gwr.api.settings;
+package com.gwr.bhr4.api.settings;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.gwr.api.logout.LogoutServlet;
-import com.gwr.util.ServletRequestUtilities;
-
-/**
- * 
- * @author jerry skidmore
- * 
- */
-@WebServlet("/api/settings/reboot")
-public class RebootServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+@RequestMapping("/api/settings/reboot/")
+public class RebootServlet {
 	private final static Logger logger = LoggerFactory
 			.getLogger(RebootServlet.class);
 
-	/**
-	 * 
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@RequestMapping(method = RequestMethod.GET)
+	public void get(HttpServletRequest request) {
+		post(request);
 
-		// TODO maybe we should log them out????
-		doPost(request, response);
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// remove all cookies
+	@RequestMapping(method = RequestMethod.POST)
+	public void post(HttpServletRequest request) {
 		logger.debug("Reboot " + request.getSession().getId());
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {

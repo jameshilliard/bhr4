@@ -1,10 +1,18 @@
 package com.gwr.bhr4.json;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.gwr.util.json.JsonDataModel;
+import com.gwr.util.json.SimToUIJSONModelListResponse;
+import com.gwr.util.json.UIToSimModelListRequest;
 
 public class JSONObjectListAbstract extends JSONAbstract {
 	private final static Logger logger = LoggerFactory
@@ -65,7 +73,7 @@ public class JSONObjectListAbstract extends JSONAbstract {
 
 		Map mapBy = this.marshallJson(byJson);
 		// don't update id at all, TODO
-		if(thisOne != null){
+		if (thisOne != null) {
 			mapBy.remove(idName);
 			thisOne.putAll(mapBy);
 		}
@@ -78,10 +86,52 @@ public class JSONObjectListAbstract extends JSONAbstract {
 		Map thisOne = getMapByListIndex(idx);
 
 		Map mapBy = this.marshallJson(byJson);
-		if(thisOne != null){
+		if (thisOne != null) {
 			thisOne.putAll(mapBy);
 		}
 		this.jsonText = this.unmarshallJsonList(this.mapObjs);
+	}
+
+	public void deleteByIndexName(String idName, String idx) {
+
+		for (int i = 0; i < this.mapObjs.size(); i++) {
+			String sid = ((Long) ((Map) mapObjs.get(i)).get(idName)) + "";
+
+			if (sid.equals(idx)) {
+				mapObjs.remove(i);
+				break;
+
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public void addOneByIndex(String idName, String byJson) {
+
+		Map mapin = this.marshallJson(byJson);
+		long nextID = getNextIDInList(idName);
+
+		mapin.put(idName, nextID);
+		mapObjs.add(mapin);
+
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	private long getNextIDInList(String idName) {
+
+		// if original array is empty, start with 1
+		if (mapObjs == null || mapObjs.isEmpty())
+			return 1;
+
+		long maxIDInList = 0;
+		for (Map model : mapObjs) {
+			Long lid = (Long) model.get(idName);
+			if (lid > maxIDInList) {
+				maxIDInList = lid;
+			}
+		}
+
+		return (maxIDInList + 1);
 	}
 
 }

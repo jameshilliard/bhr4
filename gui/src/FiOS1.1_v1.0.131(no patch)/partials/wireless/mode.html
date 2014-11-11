@@ -1,0 +1,49 @@
+<div>
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v={version_number}'"></div>
+    <div class="content-panel-with-header span9">
+      <div class="header">802.11 Mode</div>
+      <div>
+        <p>
+          Access to the Router's network can be restricted to wireless devices using either 802.11b/g (11Mbps/54Mbps) or 802.11n (130 Mbps) wireless devices. Select the option that best applies to your wireless network. Then click Apply button to save your settings.
+        </p>
+      </div>
+
+      <div class="heading bold">NOTE:</div>
+      <div>'Compatibility Mode' to support 802.11bg & 802.11n.</div>
+      <div>'Legacy Mode' to support only 802.11bg.</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>2.4 GHz Wireless Mode:</th>
+            <td>
+              <select ng-model="modeA" class="input-xlarge">
+                <option value="8">Compatibility Mode(802.11b/g/n)</option>
+                <option value="4">Legacy Mode(802.11b/g)</option>
+                <option value="1">Performance Mode(802.11n)</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>5 GHz Wireless Mode:</th>
+            <td>
+              <select ng-model="modeB" class="input-xlarge">
+                <option value="1">N Only Mode(802.11n)</option>
+                <option value="16">N and AC Mode(802.11n/ac)</option>
+                <option value="2">AC Only Mode(802.11ac)</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <a href="#/wireless/advanced" class="btn dark-btn">Back</a>
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

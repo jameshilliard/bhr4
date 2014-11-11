@@ -1,0 +1,75 @@
+<div>
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/network/nav.html?v={version_number}'"></div>
+    <div class="span9 content-panel-with-header">
+      <div class="header">LAN Coax Connection Stats</div>
+      <div>
+        NOTE: Only advanced technical users should use this feature, all rates are Mbps.
+      </div>
+      <div>
+        * next to Router or Device represents the Network Coordinator
+      </div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>Channel:</td>
+            <td colspan="16">{{coax.coaxChannel}}MHz</td>
+          </tr>
+          <tr>
+            <td>Privacy:</td>
+            <td colspan="16" ng-switch on="coax.coaxPrivacy">
+              <span ng-switch-when="true">Enabled</span>
+              <span ng-switch-default>Disabled</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Password:</td>
+            <td colspan="16">{{coax.coaxPassword}}</td>
+          </tr>
+          <tr>
+            <td>Connection Speed</td>
+            <td ng-repeat="dev in coax.devices">{{dev.name}}<span ng-show="dev.nc">*</span></td>
+          </tr>
+          <tr>
+            <td>Device Name</td>
+            <td ng-repeat="dev in coax.devices">clink0</td>
+          </tr>
+          <tr>
+            <td>MAC Address</td>
+            <td ng-repeat="dev in coax.devices">{{dev.mac}}</td>
+          </tr>
+          <tr>
+            <td>IP Address</td>
+            <td ng-repeat="dev in coax.devices">{{dev.ipAddress}}</td>
+          </tr>
+          <tr ng-repeat="n in [0,15] | makeRange">
+            <td>{{coax.devices[$index].name}}</td>
+            <td>{{coax.devices[$index].power[0]}}</td>
+            <td>{{coax.devices[$index].power[1]}}</td>
+            <td>{{coax.devices[$index].power[2]}}</td>
+            <td>{{coax.devices[$index].power[3]}}</td>
+            <td>{{coax.devices[$index].power[4]}}</td>
+            <td>{{coax.devices[$index].power[5]}}</td>
+            <td>{{coax.devices[$index].power[6]}}</td>
+            <td>{{coax.devices[$index].power[7]}}</td>
+            <td>{{coax.devices[$index].power[8]}}</td>
+            <td>{{coax.devices[$index].power[9]}}</td>
+            <td>{{coax.devices[$index].power[10]}}</td>
+            <td>{{coax.devices[$index].power[11]}}</td>
+            <td>{{coax.devices[$index].power[12]}}</td>
+            <td>{{coax.devices[$index].power[13]}}</td>
+            <td>{{coax.devices[$index].power[14]}}</td>
+            <td>{{coax.devices[$index].power[15]}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <a class="btn dark-btn" href="#/network/connections/5/edit">Close</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

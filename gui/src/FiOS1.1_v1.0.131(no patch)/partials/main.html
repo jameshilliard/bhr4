@@ -1,0 +1,12 @@
+<div>
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+  <div class="container1">
+  <!--start nested divs force the stretch-->
+    <div ng-include src="'partials/main/routerStatus.html?v={version_number}'"></div>
+    <div ng-include src="'partials/main/deviceList.html?v={version_number}'"></div>
+    <div ng-include src="'partials/main/actionZone.html?v={version_number}'"></div>
+  </div>
+  <!--do not pass-->
+  </div>
+</div>

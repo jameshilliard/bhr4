@@ -8,13 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.gwr.bhr4.api.NonListTypeAbstract;
 import com.gwr.util.ServletRequestUtilities;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
+@Controller
+@RequestMapping("/api/settings/datetime")
+public class DateTimeServlet extends NonListTypeAbstract {
+	public DateTimeServlet() {
+		servletName = this.getClass().getSimpleName();
+	}
+
+}
 @WebServlet("/api/settings/remoteadmin")
 public class RemoteAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
