@@ -1,0 +1,95 @@
+<div>
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/system/loggingNav.html?v={version_number}'"></div>
+      <div class="content-panel-with-header span9" ng-show="isOK">
+        <div class="header">Attention</div>
+        <div><span class="bold">Clear Log: </span>You are about to clear the {{logType}} Log</div>
+        <br>
+        <p class="centerme margin_up">Press Apply to confirm.</p>
+        <div style="text-align: center;">
+          <button class="btn dark-btn" ng-click="clearLog()">Apply</button>
+          <a class="btn dark-btn" ng-click="cancelOK(0)">Cancel</a>
+        </div>
+      </div>
+      <div class="span9 content-panel-with-header" ng-hide="isOK">
+        <div class="header" ng-hide="isOK || showOpts">{{logType}} Log</div>
+        <div class="attn" ng-show="showOpts">
+          <p class="header">Log Viewing Options</p>
+          <p class="mBottomRdio">
+            <label><input type="radio" ng-model="logOpts" value="op1">Past Day</input></label>
+            <label><input type="radio" ng-model="logOpts" value="op2">Past Week</input></label>
+            <label><input type="radio" ng-model="logOpts" value="op3">Custom Range</input></label>
+          </p>
+          <div ng-show="logOpts === 'op3'">
+            <div class="lCaption">Start :</div> <div my-directive s-month="month" s-year="year" s-day="day" s-hour="hour" s-minute="minute" s-ampm="amp"></div>
+            <hr class="divy"/>
+            <div class="lCaption">End :</div> <div my-directive s-month="monthB" s-year="yearB" s-day="dayB" s-hour="hourB" s-minute="minuteB" s-ampm="ampB"></div>
+          </div>
+          <p align="right">
+            <button class="btn dark-btn mRight" ng-click="logOpts === 'op3' ? showFiltered(month + ' ' + day + ' ' + dateConvert(hour, minute, amp) + ' ' + year, monthB + ' ' + dayB + ' ' + dateConvert(hourB, minuteB, ampB) + ' ' + yearB , items) : showNewLog()">OK</button><button class="btn dark-btn" ng-click="cancelOK()">Cancel</button>
+          </p>
+        </div>
+        <div style="text-align: center;" ng-hide="isOK || showOpts">
+          <button class="btn dark-btn" ng-click="viewOpts()" >View Options</button>
+          <a href="#/monitoring/advanced" class="btn dark-btn">Close</a>
+          <button class="btn dark-btn" ng-click="clearLogger(true)" ng-show="canClearLog && sysSettings.warnBeforeChanges">Clear Log</button>
+          <button class="btn dark-btn" ng-click="clearLog()" ng-show="canClearLog && !sysSettings.warnBeforeChanges">Clear Log</button>
+          <a href="api/settings/savelog/{{logId}}" class="btn dark-btn">Save Log</a>
+          <button class="btn dark-btn" ng-click="refresh()">Refresh</button>
+        </div>
+        <ul class="logs" ng-switch on="logOpts" ng-hide="isOK || showOpts" >
+          <li class="head">
+            <span class="b1">Time</span>
+            <span class="b2">Event-Type</span>
+            <span class="b3">Log Level</span>
+            <span class="b4">Details</span>
+          </li>
+          <li ng-switch-default>
+            <div class="zeb" ng-repeat="event in items | limitTo:DisplayNum">
+              <span class="b1">{{event.time}}</span>
+              <span class="b2">{{event.event}}</span>
+              <span class="b3">{{event.type}}</span>
+              <span class="b4">{{event.details}}</span>
+            </div>
+          </li>
+          <li ng-switch-when="op1">
+            <div class="zeb" ng-repeat="event in items | logsFilter:'yes' | limitTo:DisplayNum">
+              <span class="b1">{{event.time}}</span>
+              <span class="b2">{{event.event}}</span>
+              <span class="b3">{{event.type}}</span>
+              <span class="b4">{{event.details}}</span>
+            </div>
+          </li>
+          <li ng-switch-when="op2">
+            <div class="zeb" ng-repeat="event in items | logsFilter:1 | limitTo:DisplayNum">
+              <span class="b1">{{event.time}}</span>
+              <span class="b2">{{event.event}}</span>
+              <span class="b3">{{event.type}}</span>
+              <span class="b4">{{event.details}}</span>
+            </div>
+          </li >
+          <li ng-switch-when="op3">
+            <div class="zeb" ng-repeat="event in filterItems | limitTo:DisplayNum">
+              <span class="b1">{{event.time}}</span>
+              <span class="b2">{{event.event}}</span>
+              <span class="b3">{{event.type}}</span>
+              <span class="b4">{{event.details}}</span>
+            </div>
+          </li>
+        </ul>
+        <div ng-hide="isOK || showOpts">
+          <div ng-switch on="logOpts">
+            <button class="btn" ng-click="loadMore()" ng-hide="(DisplayNum > (items| logsFilter:'yes').length)" ng-switch-when="op1">Load more</button>
+            <button class="btn" ng-click="loadMore()" ng-hide="(DisplayNum > (items| logsFilter:1).length)" ng-switch-when="op2">Load more</button>
+            <button class="btn" ng-click="loadMore()" ng-hide="DisplayNum > filterItems.length" ng-switch-when="op3">Load more</button>
+            <button class="btn" ng-click="loadMore()" ng-hide="DisplayNum > items.length" ng-switch-default>Load more</button>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>

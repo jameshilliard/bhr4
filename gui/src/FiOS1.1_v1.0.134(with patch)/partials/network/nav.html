@@ -1,0 +1,18 @@
+<div class="span3">
+  <div class="content-panel">
+    <ul class="sidenav">
+      <li>
+        <a href="#/main">Main</a>
+      </li>
+      <li id="network_status_link">
+        <a href="#/network" ng-class="section == 'status' && 'active' || ''">Network Status</a>
+      </li>
+      <li id="network_connections_link">
+        <a href="" ng-click="checkNetworkConnections();" ng-class="section == 'connections' && 'active' || ''">Network Connections</a>
+      </li>
+      <li>
+        <a href="#/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</div>

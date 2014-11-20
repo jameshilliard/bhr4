@@ -1,0 +1,70 @@
+<div>
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/network/nav.html?v={version_number}'"></div>
+    <div class="span9 content-panel-with-header">
+      <div class="header">WAN Coax Connection Stats</div>
+      <div>
+        NOTE: Only advanced technical users should use this feature, all rates are Mbps.
+      </div>
+      <div>
+        * next to Router or Device represents the Network Coordinator
+      </div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>Channel:</td>
+            <td colspan="2">{{coax.coaxChannel}}MHz</td>
+          </tr>
+          <tr>
+            <td>Privacy:</td>
+            <td colspan="2" ng-switch on="coax.coaxPrivacy">
+              <span ng-switch-when="true">Enabled</span>
+              <span ng-switch-default>Disabled</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Password:</td>
+            <td colspan="2">{{coax.coaxPassword}}</td>
+          </tr>
+          <tr>
+            <td>Connection Speed</td>
+            <td>{{coax.devices[0].name}}<span ng-show="coax.devices[0].nc">*</span></td>
+            <td>{{coax.devices[1].name}}<span ng-show="coax.devices[1].nc">*</span></td>
+          </tr>
+          <tr>
+            <td>Device Name</td>
+            <td>clink0</td>
+            <td>clink0</td>
+          </tr>
+          <tr>
+            <td>MAC Address</td>
+            <td>{{coax.devices[0].mac}}</td>
+            <td>{{coax.devices[1].mac}}</td>
+          </tr>
+          <tr>
+            <td>IP Address</td>
+            <td>{{coax.devices[0].ipAddress}}</td>
+            <td>{{coax.devices[1].ipAddress}}</td>
+          </tr>
+          <tr>
+            <td>Router</td>
+            <td>{{coax.devices[0].power[0]}}</td>
+            <td>{{coax.devices[0].power[1]}}</td>
+          </tr>
+          <tr>
+            <td>{{coax.devices[1].name}}</td>
+            <td>{{coax.devices[1].power[0]}}</td>
+            <td>{{coax.devices[1].power[1]}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center">
+        <button class="btn dark-btn" ng-click="close()">Close</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

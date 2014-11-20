@@ -1,0 +1,75 @@
+<div ng-show="2 != restDefaults">
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/advanced/nav.html?v={version_number}'"></div>
+      <div class="content-panel-with-header span9" ng-show="0 == restDefaults">
+        <div class="header">Attention</div>
+        <div class="restore_info">
+          <p>
+            Restoring your router to default settings will erase the current router configuration. If you would like to save the current configuration, click the "Save Configuration File" button.
+          </p>
+          <div class="centerme">
+            <a href="api/settings/configfile.bin" class="btn dark-btn">Save Configuration File</a>
+          </div>
+        </div>
+        <div>
+          <p>
+            If you do not wish to save the current configuration file, click the "Restore" button.
+          </p>
+        </div>
+        <div>
+          <label><input type="radio" ng-model="resetType" value="0">All Defaults</label>
+        </div>
+        <div>
+          <label><input type="radio" ng-model="resetType" value="1">All Defaults except User Settings(SSIDs, passwords)</label>
+        </div>
+        <div align="center">
+          <button class="btn dark-btn" ng-click="defaults()">Restore</button>
+        </div>
+      </div>
+      <div class="content-panel-with-header span9" ng-show="1 == restDefaults">
+        <div class="header">Restore Defaults</div>
+        <p class="heading bold">Attention! The following items will be set to factory settings:</p>
+          <ul>
+            <li>User Defined Settings</li>
+            <li>
+              Network Connections (All connected DHCP clients will need to request new IP addresses)
+            </li>
+           <li>Also, Wireless Broadband Router will have to reboot.</li>
+         </ul>
+        <p>Are you sure you want to revert Wireless Broadband Router's configuration to the factory defaults?</p>
+        <div align="center">
+          <button class="btn dark-btn" ng-click="restoreDefaults()">OK</button>
+          <button class="btn dark-btn" ng-click="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div ng-show="2 == restDefaults">
+  <div class="masthead" id="header">
+    <div class="navbar" id="main_navbar">
+      <div class="header centerer">
+        <a href="/index.html?v={version_number}">
+          <div class="brand"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="centerer">
+    <div id="content" class="plainlower">
+      <div>
+        <p>Your router is currently rebooting. Please wait.</p>
+      </div>
+      <p>
+        Attention! If the page does not refresh automatically in a minute, please press the Login button.
+      </p>
+      <div>
+        <a href="" class="btn dark-btn" ng-show="!restarting">Login</a>
+        <a href="#/setup" class="btn dark-btn" ng-show="restarting && resetType == 0">Login</a>
+        <a href="#/login" class="btn dark-btn" ng-show="restarting && resetType == 1">Login</a>
+      </div>
+    </div>
+  </div>
+</div>
