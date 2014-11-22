@@ -1,0 +1,467 @@
+<div class="content-panel-with-header span9" ng-show="!editingRoute">
+  <div class="header">{{name}} Properties</div>
+
+  <div>NOTE: Only advanced technical users should use this feature.</div>
+  <table class="dark-table" alt-style>
+    <tbody>
+      <tr>
+        <th>General</th>
+        <th></th>
+      </tr>
+      <tr ng-show="connection.connectionId != 1 || connection.protocolUsed != 1">
+        <th>Status:</th>
+        <td>
+          <div ng-show="connection.status == 0 && connection.enabled">
+            <div ng-show="connection.connectionId == 2 || connection.connectionId == 3 || connection.connectionId == 4">
+              <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
+              <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
+            </div>
+            <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">Connected</div>
+          </div>
+          <div ng-show="connection.status != 0 && connection.enabled"><span ng-show="connection.connectionId == 1">Cable </span>Disconnected</div>
+          <div ng-show="!connection.enabled">Disabled</div>
+        </td>
+      </tr>
+      <tr ng-show="connection.connectionId == 1 && connection.protocolUsed == 1">
+        <th>Status:</th>
+        <td>
+          <div ng-show="connection.status == 0 && connection.enabled">
+            <div ng-show="connection.dhcpStatus == 3">No Connection</div>
+            <div ng-show="connection.dhcpStatus == 2">
+              <div ng-show="connection.connectionId == 2 || connection.connectionId == 3 || connection.connectionId == 4">
+                <div class="green-text" ng-show="connection.hasConnectedDeviceNow">Connected</div>
+                <div ng-show="!connection.hasConnectedDeviceNow">Disconnected</div>
+              </div>
+              <div class="green-text" ng-show="connection.connectionId != 2 && connection.connectionId != 3 && connection.connectionId != 4">Connected</div>
+            </div>
+            <div ng-show="connection.dhcpStatus == 1">Connected (Renewing DHCP Lease)</div>
+            <div ng-show="connection.dhcpStatus == 0">DHCP IP Address Released</div>
+          </div>
+          <div ng-show="connection.status != 0 && connection.enabled">Cable Disconnected</div>
+          <div ng-show="!connection.enabled">Disabled</div>
+        </td>
+      </tr>
+      <tr>
+        <th>Network:</th>
+        <td>
+          <select ng-model="connection.networkType" ng-disabled="true" class="dark-table-select-small">
+            <option value="0">Broadband Connection</option>
+            <option value="1">Network (Home/Office)</option>
+            <option value="2">DMZ</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Connection Type:</th>
+        <td>{{connection.connectionType}}</td>
+      </tr>
+      <tr>
+        <th>Physical Address:</th>
+        <td>{{connection.mac}}</td>
+      </tr>
+      <tr>
+        <th>MTU:</th>
+        <td>
+          <select ng-model="connection.mtuType" ng-change="mtuTypeChanged()" class="dark-table-select-small">
+            <option value="0">Automatic</option>
+            <option value="1">Automatic by DHCP</option>
+            <option value="2">Manual</option>
+          </select>
+          <input type="number" class="input-mini dark-table-input-small" ng-model="connection.mtu" value="connection.mtu" ng-disabled="connection.mtuType != 2"/>
+        </td>
+      </tr>
+
+      <!-- Coax specific section -->
+      <tr ng-show="connection.type == 1">
+        <th>Coax Link</th>
+        <td></td>
+      </tr>
+      <tr ng-show="connection.type == 1">
+        <th>Privacy:</th>
+        <td>
+          <label class="checkbox" style="display: block;">
+            <input type="checkbox" ng-model="connection.coaxPrivacy" ng-change="changePrivacy(connection.coaxPrivacy)"/>
+            Enabled
+          </label>
+        </td>
+      </tr>
+      <tr ng-show="connection.type == 1 && connection.coaxPrivacy">
+        <th>
+          <div class="spacePrivacyPassword">&nbsp;&nbsp;&nbsp;<input type="radio" ng-model="connection.coaxAutoDetection" ng-value="true"/>Automatically connect</div><br>
+          <div class="spacePrivacyPassword">&nbsp;&nbsp;&nbsp;<input type="radio" ng-model="connection.coaxAutoDetection" ng-value="false"/>Manual entry of privacy password:</div>
+        </th>
+        <td>
+          <div class="spacePrivacyPassword1">&nbsp;</div><br>
+          <div class="spacePrivacyPassword2"><input type="text" ng-show="!connection.coaxAutoDetection" maxlength="17" ng-model="connection.coaxPasswordManual"/></div>
+        </td>
+      </tr>
+      <tr ng-show="connection.type == 1">
+        <th>Enable/Disable Coax Link:</th>
+        <td ng-switch on="connection.coaxEnabled">
+          <button ng-switch-when="false" class="btn dark-btn" ng-click="enableCoax()">Enable</button>
+          <button ng-switch-when="true" class="btn dark-btn" ng-click="disableCoax()">Disable</button>
+        </td>
+      </tr>
+      <tr ng-show="connection.type == 1">
+        <th>Coax Connection Stats:</th>
+        <td>
+          <a href="#/network/connections/{{connection.connectionId}}/wancoaxstats">Go to WAN Coax Stats</a>
+        </td>
+      </tr>
+      <tr ng-show="connection.type == 1">
+        <th>*WAN Coax Connection Speeds*</th>
+        <td></td>
+      </tr>
+      <tr ng-show="connection.type == 1">
+        <th>Router Tx (Mbps):</th>
+        <td>
+          {{connection.coaxTxPhyRate  + '.00'}}
+        </td>
+      </tr>
+      <tr ng-show="connection.type == 1">
+        <th>Router Rx (Mbps):</th>
+        <td>
+          {{connection.coaxRxPhyRate + '.00'}}
+        </td>
+      </tr>
+      <!-- End coax specific section -->
+
+      <tr>
+        <th>Internet Protocol:</th>
+        <td>
+          <select ng-model="connection.protocolUsed" ng-change="protocolChanged()" ng-show="connection.type != 1" class="dark-table-select-small">
+            <option value="2">Use the Following IP Address</option>
+          </select>
+          <select ng-model="connection.protocolUsed" ng-change="protocolChanged()" ng-show="connection.type == 1" class="dark-table-select-small">
+            <option value="0">No IP Address</option>
+            <option value="1">Obtain IP Address Automatically</option>
+            <option value="2">Use the Following IP Address</option>
+          </select>
+        </td>
+      </tr>
+      <tr ng-show="connection.protocolUsed == 2">
+        <th>IP Address:</th>
+        <td>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddress[0]" maxlength="3" />
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddress[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddress[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="ipAddress[3]" maxlength="3"/>
+        </td>
+      </tr>
+      <tr>
+        <th ng-show="connection.protocolUsed == 2">Subnet Mask:</th>
+        <th ng-show="connection.protocolUsed == 1">
+          <label class="checkbox bold" style="display: block;">
+            <input type="checkbox" ng-model="connection.overrideSubnetMask" class="dark-table-input-small"/>
+            Override Subnet Mask:
+          </label>
+        </th>
+        <td ng-show="connection.protocolUsed != 0">
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="subnetMask[0]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="subnetMask[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="subnetMask[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="subnetMask[3]" maxlength="3"/>
+        </td>
+      </tr>
+
+      <!-- Broadband specific section -->
+      <tr ng-show="connection.type == 1 && connection.protocolUsed == 1">
+        <th>DHCP Lease:</th>
+        <td>
+          <button ng-show="connection.dhcpStatus == 2 || connection.dhcpStatus == 1"  ng-disabled="!connection.enabled" class="btn dark-btn" ng-click="dhcpRelease()">Release</button>
+          <button ng-show="connection.dhcpStatus == 2 || connection.dhcpStatus == 0"  ng-disabled="!connection.enabled" class="btn dark-btn" ng-click="dhcpRenew()">Renew</button>
+        </td>
+      </tr>
+
+      <tr ng-show="connection.type == 1 && connection.protocolUsed == 1">
+        <th>Expires In:</th>
+        <td>{{connection.dhcpExpireTime}}</td>
+      </tr>
+      <!-- End Broadband specific section -->
+
+      <tr ng-show="connection.networkType == 0 && connection.protocolUsed == 2">
+        <th>Default Gateway:</th>
+        <td>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="defaultGateway[0]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="defaultGateway[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="defaultGateway[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput dark-table-input-small" ng-model="defaultGateway[3]" maxlength="3"/>
+        </td>
+      </tr>
+      <tr ng-show="connection.type == 1 && connection.protocolUsed != 0">
+        <th>DNS Server:</th>
+        <td>
+          <select ng-model="connection.dnsMode"  ng-show="connection.protocolUsed == 1">
+            <option value="0">Obtain DNS Server Address Automatically</option>
+            <option value="1">Use the following DNS Server Addresses</option>
+            <option value="2">No DNS Server</option>
+          </select>
+          <select ng-model="connection.dnsMode"  ng-show="connection.protocolUsed != 1">
+            <option value="1">Use the following DNS Server Addresses</option>
+            <option value="2">No DNS Server</option>
+          </select>
+        </td>
+      </tr>
+      <tr ng-show="connection.dnsMode == 1 && connection.type == 1 && connection.protocolUsed != 0">
+        <th>Primary DNS Server:</th>
+        <td>
+          <input type="text" class="input-ip ipInput" ng-model="primaryDnsServer[0]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="primaryDnsServer[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="primaryDnsServer[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="primaryDnsServer[3]" maxlength="3"/>
+        </td>
+      </tr>
+      <tr ng-show="connection.dnsMode == 1 && connection.type == 1 && connection.protocolUsed != 0">
+        <th>Secondary DNS Server:</th>
+        <td>
+          <input type="text" class="input-ip ipInput" ng-model="secondaryDnsServer[0]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="secondaryDnsServer[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="secondaryDnsServer[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="secondaryDnsServer[3]" maxlength="3"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table ng-show="bridges != null" class="dark-table">
+    <tbody>
+      <tr>
+        <th>Bridge</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>VLANs</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr>
+        <td><span class="{{connection.styleName}}">{{connection.name}}</span></td>
+        <td>Disabled</td>
+        <td ng-switch on="connection.status">
+          <div class="green-text" ng-switch-when="0">Connected</div>
+          <div ng-switch-default>Disconnected</div>
+        </td>
+        <td></td>
+      </tr>
+      <tr ng-repeat="bridge in bridges" class="bridge_labels">
+        <td class="indent">
+            <input type="checkbox" ng-model="bridge.bridged" ng-disabled="bridge.connectionId == 4"/>
+           
+           <a href="#/network/connections/{{bridge.connectionId}}{{bridge.fromString}}" class="{{bridge.styleName}}">{{bridge.name}}</a>
+        </td>
+        <td>Disabled</td>
+        <td ng-show="bridge.connectionId != 1 || bridge.protocolUsed != 1">
+          <div ng-show="bridge.connectionId != 5">
+            <div ng-show="bridge.status == 0 && bridge.enabled">
+              <div ng-show="bridge.connectionId == 2 || bridge.connectionId == 3 || bridge.connectionId == 4">
+                <div class="green-text" ng-show="bridge.hasConnectedDeviceNow">Connected</div>
+                <div ng-show="!bridge.hasConnectedDeviceNow">Disconnected</div>
+              </div>
+              <div class="green-text" ng-show="bridge.connectionId != 2 && bridge.connectionId != 3 && bridge.connectionId != 4">Connected</div>
+            </div>
+            <div ng-show="bridge.status != 0 && bridge.enabled"><span ng-show="bridge.connectionId == 1">Cable </span>Disconnected</div>
+            <div ng-show="!bridge.enabled">Disabled</div>
+          </div>
+          <div ng-show="bridge.connectionId == 5">
+            <div class="green-text" ng-show="bridge.status == 0 && bridge.coaxConnected && bridge.coaxEnabled">Connected</div>
+            <div ng-show="bridge.status == 0 && !bridge.coaxConnected && bridge.coaxEnabled">Cable </span>Disconnected</div>
+            <div ng-show="bridge.status != 0 && bridge.coaxEnabled"><span ng-show="bridge.connectionId == 1">Cable </span>Disconnected</div>
+            <div ng-show="!bridge.coaxEnabled">Disabled</div>
+          </div>
+        </td>
+        <td ng-show="bridge.connectionId == 1 && bridge.protocolUsed == 1">
+          <div ng-show="bridge.connectionId != 5">
+            <div ng-show="bridge.dhcpStatus == 2 && bridge.status == 0 && bridge.enabled">
+              <div ng-show="bridge.connectionId == 2 || bridge.connectionId == 3 || bridge.connectionId == 4">
+                <div class="green-text" ng-show="bridge.hasConnectedDeviceNow">Connected</div>
+                <div ng-show="!bridge.hasConnectedDeviceNow">Disconnected</div>
+              </div>
+              <div class="green-text" ng-show="bridge.connectionId != 2 && bridge.connectionId != 3 && bridge.connectionId != 4">Connected</div>
+            </div>
+            <div ng-show="bridge.dhcpStatus == 1 && bridge.status == 0 && bridge.enabled">Connected (Renewing DHCP Lease)</div>
+            <div ng-show="bridge.dhcpStatus == 0 && bridge.status == 0 && bridge.enabled">DHCP IP Address Released</div>
+            <div ng-show="bridge.status != 0 && bridge.enabled">Cable Disconnected</div>
+            <div ng-show="!bridge.enabled">Disabled</div>
+          </div>
+          <div ng-show="bridge.connectionId == 5">
+            <div class="green-text" ng-show="bridge.dhcpStatus == 2 && bridge.status == 0 && bridge.coaxConnected && bridge.coaxEnabled">Connected</div>
+            <div ng-show="bridge.dhcpStatus == 2 && bridge.status == 0 && !bridge.coaxConnected && bridge.coaxEnabled">Cable Disconnected</div>
+            <div ng-show="bridge.dhcpStatus == 1 && bridge.status == 0 && bridge.coaxEnabled">Connected (Renewing DHCP Lease)</div>
+            <div ng-show="bridge.dhcpStatus == 0 && bridge.status == 0 && bridge.coaxEnabled">DHCP IP Address Released</div>
+            <div ng-show="bridge.status != 0 && bridge.coaxEnabled">Cable Disconnected</div>
+            <div ng-show="!bridge.coaxEnabled">Disabled</div>
+          </div>
+        </td>
+        <td class="actions">
+          <a href="#/network/connections/{{bridge.connectionId}}{{bridge.fromString}}" title="Edit">
+            <div class="edit-icon"></div>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="dark-table" ng-show="connection.dhcpSettings != null">
+    <tbody>
+      <tr>
+        <th>IP Address Distribution:</th>
+        <td>
+          <select ng-model="connection.dhcpSettings.mode">
+            <option value="0">Disabled</option>
+            <option value="2">DHCP Server</option>
+          </select>
+        </td>
+      </tr>
+      <tr ng-show="connection.dhcpSettings.mode==2">
+        <th>Start IP Address:</th>
+        <td>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[0]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[3]" maxlength="3"/>
+        </td>
+      </tr>
+      <tr ng-show="connection.dhcpSettings.mode==2">
+        <th>End IP Address:</th>
+        <td>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[0]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[3]" maxlength="3"/>
+        </td>
+      </tr>
+      <tr ng-show="connection.dhcpSettings.mode==2">
+        <th>WINS Server:</th>
+        <td>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[0]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[1]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[2]" maxlength="3"/>
+          <span style="vertical-align:bottom;" class="dot-big">.</span>
+          <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[3]" maxlength="3"/>
+        </td>
+      </tr>
+      <tr ng-show="connection.dhcpSettings.mode==2">
+        <th>Lease Time in Minutes:</th>
+        <td>
+          <input type="number" class="input-mini" ng-model="connection.dhcpSettings.leaseTime"/>
+        </td>
+      </tr>
+      <tr ng-show="false">
+        <td>
+          <label class="checkbox" style="display: block;">
+            <input type="checkbox" ng-model="connection.dhcpSettings.provideHostName"/>
+            Provide Host Name If Not Specified by Client
+          </label>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="dark-table" ng-show="connection.dhcpSettings.mode==2">
+    <tbody>
+      <tr>
+        <th colspan="4">IP Address Distribution According to DHCP Option 60 (Vendor Class Identifier)</th>
+      </tr>
+      <tr>
+        <th>Vendor Class ID:</th>
+        <th>IP Address:</th>
+        <th>MAC Address:</th>
+        <th>QoS</th>
+      </tr>
+      <tr ng-repeat="dev in dhcpOptions">
+        <td>{{dev.option}}</td>
+        <td>{{dev.ip}}</td>
+        <td>{{dev.mac}}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="dark-table" ng-show="connection.protocolUsed != 0 && connection.type != 1">
+    <tbody>
+      <tr>
+        <th colspan="7">Routing Table</th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Destination</th>
+        <th>Gateway</th>
+        <th>Netmask</th>
+        <th>Metric</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr ng-repeat="route in routes">
+        <td>
+          <a href="" ng-click="editRoute($index)">{{name}}</a>
+        </td>
+        <td>{{route.destination}}</td>
+        <td>{{route.gateway}}</td>
+        <td>{{route.netmask}}</td>
+        <td>{{route.metric}}</td>
+        <td class="green-text">Applied</td>
+        <td class="actions">
+          <a ng-click="editRoute($index)" title="Edit">
+            <div class="edit-icon"></div>
+          </a>
+          <a ng-click="deleteRoute($index)" title="Remove">
+            <div class="remove-icon"></div>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <button class="btn dark-btn" ng-click="addNewRoute()">Add New Route</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="dark-table" ng-show="connection.networkType == 0">
+    <tbody>
+      <tr>
+        <td><a class="bold" href="#/firewall{{fromString}}">Internet Connection Firewall</a></td>
+        <td>
+          <label class="checkbox" style="display: block;">
+            <input type="checkbox" ng-model="connection.firewallEnabled"/>
+            Enabled
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">(This feature provides the ability to change the default firewall setting on this interface. We highly recommend that you not change the default setting).</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="text-align: center;">
+    <button class="btn dark-btn" ng-click="save()">Apply</button>
+    <a class="btn dark-btn" href="#/network/connections/{{connection.connectionId}}{{fromString}}">Cancel</a>
+  </div>
+</div>

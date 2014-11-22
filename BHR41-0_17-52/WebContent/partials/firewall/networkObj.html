@@ -1,0 +1,242 @@
+<div>
+
+  <!-- Start: Edit Network Objects -->
+  <div ng-show="pageToShow == 1">
+    <div class="header">Edit Network Objects</div>
+
+    <div class="bold">Network Object</div>
+    <table class="dark-table">
+      <tbody>
+        <tr>
+          <td>Description</td>
+          <td>
+            <input type="text" ng-model="networkObj.name" maxLength="64"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="bold">Items</div>
+    <table class="dark-table">
+      <tbody>
+        <tr>
+          <th>Item</th>
+          <th>Action</th>
+        </tr>
+        <tr ng-repeat="rule in networkObj.rules">
+          <td>
+            <a href="" ng-click="editAddress($index)">
+              <div ng-show="rule.networkObjType == 0">{{rule.ipAddress}}</div>
+              <div ng-show="rule.networkObjType == 1">{{rule.ipSubnet}} / {{rule.subnetMask}}</div>
+              <div ng-show="rule.networkObjType == 2">{{rule.ipStart}} - {{rule.ipEnd}}</div>
+              <div ng-show="rule.networkObjType == 3">{{rule.mac}}/{{rule.macMask}}</div>
+              <div ng-show="rule.networkObjType == 4">{{rule.hostname}}</div>
+              <div ng-show="rule.networkObjType == 5" ng-switch on="rule.dhcpType">
+                <span ng-switch-when="0">DHCP Option: Vendor Class ID = {{rule.option}}</span>
+                <span ng-switch-when="1">DHCP Option: Client ID = {{rule.option}}</span>
+                <span ng-switch-when="2">DHCP Option: User Class ID = {{rule.option}}</span>
+              </div>
+            </a>
+          </td>
+          <td class="actions">
+            <a ng-click="editAddress($index)" title="Edit">
+              <div class="edit-icon"></div>
+            </a>
+            <a ng-click="removeAddress($index)" title="Remove">
+              <div class="remove-icon"></div>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <a class="btn dark-btn" ng-click="loadDeviceData(2)">Add</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="text-align: center;">
+      <button class="btn dark-btn" ng-click="applyNetworkObj()">Apply</button>
+      <a class="btn dark-btn" ng-click="cancelNetworkObj()">Cancel</a>
+    </div>
+  </div>
+  <!-- End: Edit Network Objects -->
+
+  <!-- Start: Edit Item -->
+  <div ng-show="pageToShow == 2">
+    <div class="header">Edit Item</div>
+
+    <table class="dark-table">
+      <tbody>
+        <tr>
+          <td>Network Object Type</td>
+          <td>
+            <select ng-model="rule.networkObjType">
+              <option value="0">IP Address</option>
+              <option value="1">IP Subnet</option>
+              <option value="2">IP Range</option>
+              <option value="3">MAC Address</option>
+              <option value="4">Host Name</option>
+              <option value="5">DHCP Option</option>
+            </select>
+            <select ng-model="rule.dhcpType" ng-show="rule.networkObjType == 5">
+              <option value="0">Vendor Class Id</option>
+              <option value="1">Client ID</option>
+              <option value="2">User Class ID</option>
+            </select>
+          </td>
+        </tr>
+
+        <!-- IP Address -->
+        <tr ng-show="rule.networkObjType == 0">
+          <td>IP Address:</td>
+          <td>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[0]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[1]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[2]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[3]" maxlength="3"/>
+          </td>
+        </tr>
+
+        <!-- IP Subnet -->
+        <tr ng-show="rule.networkObjType == 1">
+          <td>Subnet IP Address</td>
+          <td>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[0]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[1]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[2]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[3]" maxlength="3"/>
+          </td>
+        </tr>
+        <tr ng-show="rule.networkObjType == 1">
+          <td>Subnet Mask:</td>
+          <td>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[0]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[1]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[2]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[3]" maxlength="3"/>
+          </td>
+        </tr>
+
+        <!-- IP Range -->
+        <tr ng-show="rule.networkObjType == 2">
+          <td>From IP Address:</td>
+          <td>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[0]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[1]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[2]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ip[3]" maxlength="3"/>
+          </td>
+        </tr>
+        <tr ng-show="rule.networkObjType == 2">
+          <td>To IP Address:</td>
+          <td>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[0]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[1]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[2]" maxlength="3"/>
+            <span style="vertical-align:bottom;">.</span>
+            <input type="text" class="input-ip ipInput" ng-model="rule.ipTwo[3]" maxlength="3"/>
+          </td>
+        </tr>
+
+        <!-- MAC Addresses -->
+        <tr ng-show="rule.networkObjType == 3">
+          <td>Select Mac Address:</td>
+          <td>
+            <select id="macSelecter" ng-model="macSelect" title="Helpful Hint:&#013;Type in the MAC Address you want to Add&#013;, or select an already connected Device from&#013;the list."
+                    ng-change="copyMacAddress()">
+              <option value="-1">Specify MAC Address</option>
+              <option ng-repeat="device in devices" value="{{$index}}">{{device.mac}}</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr ng-show="rule.networkObjType == 3">
+          <td>Mac Address:</td>
+          <td>
+            <input type="text" class="input-mac" ng-model="rule.mac[0]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.mac[1]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.mac[2]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.mac[3]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.mac[4]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.mac[5]" maxLength="2"/>
+          </td>
+        </tr>
+        <tr ng-show="rule.networkObjType == 3">
+          <td>Mac Mask:</td>
+          <td>
+            <input type="text" class="input-mac" ng-model="rule.macMask[0]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.macMask[1]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.macMask[2]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.macMask[3]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.macMask[4]" maxLength="2"/>
+            <span style="vertical-align:center;">:</span>
+            <input type="text" class="input-mac" ng-model="rule.macMask[5]" maxLength="2"/>
+          </td>
+        </tr>
+
+        <!-- Host Name -->
+        <tr ng-show="rule.networkObjType == 4">
+          <td>Host Name</td>
+          <td>
+            <input type="text" ng-model="rule.hostname"/>
+          </td>
+        </tr>
+
+        <!-- DHCP Option: Vendor Class ID -->
+        <tr ng-show="rule.networkObjType == 5 && rule.dhcpType == 0">
+          <td>Vendor Class ID:</td>
+          <td>
+            <input type="text" ng-model="rule.hostname"/>
+          </td>
+        </tr>
+
+        <!-- DHCP Option: Client ID -->
+        <tr ng-show="rule.networkObjType == 5 && rule.dhcpType == 1">
+          <td>Client ID</td>
+          <td>
+            <input type="text" ng-model="rule.hostname"/>
+          </td>
+        </tr>
+
+        <!-- DHCP Option: User Class ID -->
+        <tr ng-show="rule.networkObjType == 5 && rule.dhcpType == 2">
+          <td>User Class ID:</td>
+          <td>
+            <input type="text" ng-model="rule.hostname"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="text-align: center;">
+      <button class="btn dark-btn" ng-click="applyAddress()">Apply</button>
+      <a class="btn dark-btn" ng-click="cancelAddress()">Cancel</a>
+    </div>
+
+  </div>
+  <!-- End: Edit Item -->
+</div>

@@ -1,0 +1,250 @@
+<div>
+  <div ng-include src="'partials/header.html'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/firewall/nav.html'"></div>
+
+    <div class="content-panel-with-header span9" ng-show="showSettings == 3">
+      <div class="header">Attention</div>
+      <div><span class="bold">Clear Log: </span>You are about to clear the Security Log</div>
+      <br>
+      <p class="centerme margin_up">Press Apply to confirm.</p>
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="clearSecLog()">Apply</button>
+        <a class="btn dark-btn" ng-click="togglePage(0)">Cancel</a>
+      </div>
+    </div>
+    <!-- Security Log -->
+    <div class="content-panel-with-header span9" ng-show="showSettings == 0">
+      <div class="header">Security Log</div>
+
+      <div style="text-align: center;">
+        <a class="btn semi" href="#/firewall">Close</a>
+        <button class="btn semi" ng-click="clearLogScreen()">Clear Log</button>
+        <a href="api/settings/savelog/1" class="btn semi">Save Log</a>
+        <button class="btn semi" ng-click="togglePage(1)">Hazard</button>
+        <button class="btn semi" ng-click="togglePage(2)">Settings</button>
+        <button class="btn semi" ng-click="refresh()">Refresh</button>
+      </div>
+
+      <p class="bold margin_up">Press the Refresh button to update the data.</p>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Time</th>
+            <th>Event-Type</th>
+            <th>Log Level</th>
+            <th>Details</th>
+          </tr>
+          <tr ng-repeat="event in items">
+            <td>{{event.time}}</td>
+            <td>{{event.event}}</td>
+            <td>{{event.type}}</td>
+            <td>{{event.details}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Hazard  TODO - buttons? -->
+    <div class="content-panel-with-header span9" ng-show="showSettings == 1">
+      <div class="header">Security Hazard Log</div>
+
+      <div class="hazard_buttons">
+        <a class="btn dark-btn" ng-click="togglePage(0)">Close</a>
+        <a class="btn dark-btn" ng-click="markViewed()">Mark as Viewed</a>
+        <a class="btn dark-btn" ng-click="refresh()">Refresh</a>
+      </div>
+
+      <div>Press the Refresh button to update the data.</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Time</th>
+            <th>Event</th>
+            <th>Event-Type</th>
+            <th>Details</th>
+          </tr>
+          <tr ng-repeat="event in securityHazard">
+            <td>{{getTime(event.time)}}</td>
+            <td>{{event.event}}</td>
+            <td>{{event.eventType}}</td>
+            <td>{{event.details}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Settings -->
+    <div class="content-panel-with-header span9" ng-show="showSettings == 2">
+      <div class="header">Log Settings</div>
+
+      <div>Accepted Events</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.acceptedIncomingConnections"/>
+                Accepted Incoming Connections
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.acceptedOutgoingConnections"/>
+                Accepted Outgoing Connections
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div>Blocked Events</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td colspan="3">
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.allBlockedConnectionAttempts"/>
+                All Blocked Connection Attempts
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.winnuke"/>
+                Winnuke
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.multicastBroadcast"/>
+                Multicast/Broadcast
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.icmpReplay"/>
+                ICMP Replay
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.defragmentationError"/>
+                Defragmentation Error
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.spoofedConnection"/>
+                Spoofed Connection
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.icmpRedirect"/>
+                ICMP Redirect
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.blockedFragments"/>
+                Blocked Fragments
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.packetIllegalOptions"/>
+                Packet Illegal Options
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.icmpMulticast"/>
+                ICMP Multicast
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.synFlood"/>
+                Syn Flood
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.udpFlood"/>
+                UDP Flood
+              </label>
+            </td>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.icmpFlood"/>
+                ICMP Flood
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.echoChargen"/>
+                Echo Chargen
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div>Other Events</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.remoteAdminAttempts"/>
+                Remote Administration Attempts
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.connectionStates"/>
+                Connection States
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div>Log Buffer</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="securitySettings.preventLogOverrun"/>
+                Prevent Log Overrun
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+        <a class="btn dark-btn" ng-click="togglePage(0)">Cancel</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>
