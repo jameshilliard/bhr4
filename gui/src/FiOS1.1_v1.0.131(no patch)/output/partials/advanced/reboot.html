@@ -1,0 +1,50 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+<div ng-show="!rebooting">
+  <div ng-include src="'partials/header.html?v=v1.0.131'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v=v1.0.131'"></div>
+      <div class="content-panel-with-header span9">
+        <div class="header">Reboot Router</div>
+        <div>
+          <div>
+            <div align="center">
+              <p>Are you sure you want to reboot Wireless Broadband Router ?</p>
+            </div>
+            <div align="center">
+              <button class="btn dark-btn" ng-click="reboot()">OK</button>
+              <a href="#/advanced" class="btn dark-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<div ng-show="rebooting">
+  <div class="masthead" id="header">
+    <div class="navbar" id="main_navbar">
+      <div class="header centerer">
+        <a href="/index.html?v=v1.0.131">
+          <div class="brand"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="centerer">
+    <div id="content" class="plainlower">
+      <div>
+        <p>Your router is currently rebooting. Please wait.</p>
+      </div>
+      <p>
+        Attention! If the page does not refresh automatically in a minute, please press the Login button.
+      </p>
+      <div>
+        <a href="" class="btn dark-btn" ng-show="!restarting">Login</a>
+        <a href="#/login" class="btn dark-btn" ng-show="restarting">Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

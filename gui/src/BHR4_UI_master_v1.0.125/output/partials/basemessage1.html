@@ -1,0 +1,9 @@
+<div class="modal-header">
+	<h3>Warning</h3>
+</div>
+<div class="modal-body">
+	<p>Warning: By turning off WEP, you will disable security for your 2.4 GHz Wi-Fi. Are you sure you want to disable Wi-Fi security?<br><br>Note: It is recommended that you select "Cancel", then enable WPA2 or WPA2/WPA mixed mode security under Advanced Security Settings.</p>
+</div>
+<div class="modal-footer">
+	<button ng-repeat="btn in buttons" ng-click="close(btn.result);" class="btn" ng-class="btn.cssClass">{{ btn.label }}</button>
+</div>

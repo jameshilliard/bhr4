@@ -1,0 +1,81 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.125'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v=v1.0.125'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header">{{wirelessName}} WEP Settings</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>WEP Mode:</td>
+            <td>
+              WEP Only
+            </td>
+          </tr>
+          <tr>
+            <td>Network Authentication:</td>
+            <td>
+              <select ng-model="wep.authenticationType">
+                <option value="0">Open System Authentication</option>
+                <option value="1">Shared Key Authentication</option>
+                <option value="2">Both</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="heading bold">WEP Keys</div>
+      <ul class="softTxt">
+        <li>To create a 64/40 WEP Hex Key, you need to enter a combination of 10 digits. You can choose any letter from A-F or any number from 0-9. Sample HEX WEP Key: 0FB310FF28.</li>
+        <li>To create a 64/40 WEP ASCII, you need to enter a combination of 5 ASCII characters. Sample ASCII WEP Key: hello.</li>
+        <li>To create a 128/104 WEP Hex Key, you need to enter a combination of 26 digits. You can choose any letter from A-F or any number from 0-9. Sample HEX WEP Key: 0FB310FF280FB310FF28123456.</li>
+        <li>To create a 128/104 WEP ASCII, you need to enter a combination of 13 ASCII characters. Sample ASCII WEP Key: hellohello123.</li>
+      </ul>
+      <div class="heading bold">Password Tips: </div>
+      <p class="softTxt">Use a mix of letters and numbers.
+      Don’t use personal information that could be guessed or easily discovered (for example, names of family members, birthdates, phone numbers)</p>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Active</th>
+            <th>Encryption Key</th>
+            <th>Entry Method</th>
+            <th>Key Length</th>
+          </tr>
+          <tr ng-repeat="setting in wep.settings">
+            <td>
+              <label class="radio">
+                <input type="radio" ng-model="wep.activeSetting" ng-value="$index"/>
+                {{$index+1}}
+              </label>
+            </td>
+            <td>
+              <input type="text" class="input-encrypt" ng-model="setting.key" ng-change="wepChanged($index)"/>
+            </td>
+            <td>
+              <select ng-model="setting.entryMethod" ng-change="wepChanged($index)">
+                <option value="0">HEX</option>
+                <option value="1">ASCII</option>
+              </select>
+            </td>
+            <td>
+              <select ng-model="setting.keyLength" ng-change="wepChanged($index)">
+                <option value="0">64/40 - Bit</option>
+                <option value="1">128/104 - Bit</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <a href="#/wireless/advanced" class="btn dark-btn">Back</a>
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+      </div>
+    </div>
+    <div ng-include src="'partials/error.html?v=v1.0.125'"></div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+</div>

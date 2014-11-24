@@ -1,0 +1,104 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.131'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v=v1.0.131'"></div>
+    <div class="span9 wider">
+      <div class="content-panel-with-header" ng-repeat="wireless in wirelessInterfaces" ng-if="$index < 2">
+        <div class="header">{{wirelessName[$index]}} Wireless Status</div>
+        <table class="dark-table full_row" alt-style>
+          <tbody>
+            <tr>
+              <th>Radio Enabled:</th>
+              <td ng-switch on="wireless.radioEnabled">
+                <div ng-switch-when="true">Yes</div>
+                <div ng-switch-default>No</div>
+              </td>
+            </tr>
+            <tr>
+              <th>SSID:</th>
+              <td>{{wireless.ssid}}</td>
+            </tr>
+            <tr>
+              <th>Channel:</th>
+              <td ng-switch on="wireless.channelDesired">
+                <div ng-switch-when="0">Automatic</div>
+                <div ng-switch-default>{{wireless.channelDesired}}</div>
+              </td>
+            </tr>
+            <tr>
+              <th>Security Enabled:</th>
+              <td ng-switch on="wireless.security.enabled">
+                <div ng-switch-when="true">Yes</div>
+                <div ng-switch-default>No</div>
+              </td>
+            </tr>
+            <tr ng-hide="wireless.id == 1">
+              <td style="padding-left:40px" ng-show="wep[$index].keyLength == 0">WEP 64-bit:</td>
+              <td style="padding-left:40px" ng-show="wep[$index].keyLength == 1">WEP 128-bit:</td>
+              <td>
+                <div ng-show="wireless.security.type == 0 && wireless.security.enabled">
+                  {{wireless.security.wep.settings[wireless.security.wep.activeSetting].key}}
+                </div>
+                <div ng-show="!wireless.security.enabled || wireless.security.type != 0">N/A</div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-left:40px" ng-switch on="wireless.security.wpa.type">
+                <div ng-switch-when="0">WPA2/WPA mixed mode:</div>
+                <div ng-switch-when="1">WPA2:</div>
+              </td>
+              <td ng-switch on="wireless.security.type">
+                <div ng-switch-when="1">{{wireless.security.wpa.key}}</div>
+                <div ng-switch-when="2">{{wireless.security.wpa.key}}</div>
+                <div ng-switch-default>N/A</div>
+              </td>
+            </tr>
+            <tr>
+              <th>SSID Broadcast:</th>
+              <td ng-switch on="wireless.ssidBroadcast">
+                <div class="green-text" ng-switch-when="true">Enabled</div>
+                <div class="red-text" ng-switch-default>Disabled</div>
+              </td>
+            </tr>
+            <tr>
+              <th>MAC Authentication:</th>
+              <td ng-switch on="wireless.macAuthentication">
+                <div ng-switch-when="true">Enabled</div>
+                <div ng-switch-default>Disabled</div>
+              </td>
+            </tr>
+            <tr>
+              <th>Wireless Mode:</th>
+              <td ng-switch on="wireless.mode">
+                <div ng-switch-when="8">Compatibility Mode(802.11b/g/n)</div>
+                <div ng-switch-when="4">Legacy Mode(802.11b/g)</div>
+                <div ng-switch-when="1">{{nMode[$index]}}(802.11n)</div>
+                <div ng-switch-when="16">N and AC Mode(802.11n/ac)</div>
+                <div ng-switch-when="2">AC Only Mode(802.11ac)</div>
+                <div ng-switch-default>Unknown</div>
+              </td>
+            </tr>
+            <tr ng-show="wireless.radioEnabled">
+              <th>WMM:</th>
+              <td ng-switch on="wireless.wmm">
+                <div class="green-text" ng-switch-when="true">Enabled</div>
+                <div class="red-text" ng-switch-default>Disabled</div>
+              </td>
+            </tr>
+            <tr ng-show="wireless.radioEnabled">
+              <th>Received Packets:</th>
+              <td>{{wireless.rxPackets}}</td>
+            </tr>
+            <tr ng-show="wireless.radioEnabled">
+              <th>Sent Packets:</th>
+              <td>{{wireless.txPackets}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

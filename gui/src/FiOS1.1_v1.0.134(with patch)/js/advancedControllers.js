@@ -380,7 +380,7 @@ angular.module('advanced.controllers', [])
             $templateCache.removeAll();
             clearTimeout($scope.fakeTimer);
             //$location.path('/login').search({rebooting: 'true'});
-            window.location = '/redirect.html?v={version_number}';
+            window.location = findCurrentPath() + '/redirect.html?v={version_number}';
           }else{
             window.setTimeout($scope.testConnection,3000);
           }
@@ -430,7 +430,7 @@ angular.module('advanced.controllers', [])
             $scope.restarting = true;
             $templateCache.removeAll();
             //$location.path('/login').search({rebooting: 'true'});
-            window.location = '/redirect.html?v={version_number}';
+            window.location = findCurrentPath() + '/redirect.html?v={version_number}';
           }else
             window.setTimeout($scope.testConnection,3000);
         });
@@ -986,7 +986,7 @@ angular.module('advanced.controllers', [])
             $scope.restarting = true;
             $templateCache.removeAll();
             //$location.path('/login').search({rebooting: 'true'});
-            window.location = '/redirect.html?v={version_number}';
+            window.location = findCurrentPath() + '/redirect.html?v={version_number}';
           }else
             window.setTimeout($scope.testConnection,3000);
         });
@@ -1178,10 +1178,10 @@ angular.module('advanced.controllers', [])
             $templateCache.removeAll();
             if($scope.resetType == 0){
               //$location.path('/setup');
-              window.location = '/redirectSetup.html?v={version_number}';
+              window.location = findCurrentPath() + '/redirectSetup.html?v={version_number}';
             }else{
               //$location.path('/login').search({rebooting: 'true'});
-              window.location = '/redirect.html?v={version_number}';
+              window.location = findCurrentPath() + '/redirect.html?v={version_number}';
             }
           }else
             window.setTimeout($scope.testConnection,3000);
@@ -1211,7 +1211,7 @@ angular.module('advanced.controllers', [])
             $scope.restarting = true;
             $templateCache.removeAll();
             //$location.path('/login').search({rebooting: 'true'});
-            window.location = '/redirect.html?v={version_number}';
+            window.location = findCurrentPath() + '/redirect.html?v={version_number}';
           }else
             window.setTimeout($scope.testConnection,3000);
         });

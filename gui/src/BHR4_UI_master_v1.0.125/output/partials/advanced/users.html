@@ -1,0 +1,134 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html?v=v1.0.125'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v=v1.0.125'"></div>
+
+    <!-- START: Show Users -->
+    <div class="content-panel-with-header span9" ng-show="pageToShow == 0 && !showErrorPage">
+      <div class="header">Users</div>
+      <p>The User page provides the ability to edit router administrator settings.</p>
+      <p class="heading bold">Login Configuration</p>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>Maximum Unsuccessful Login Attempts:</td>
+            <td>
+              <input type="text" ng-model="userObj.maxLoginAttempts" maxlength="2"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="heading bold">Users</p>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Full Name</th>
+            <th>User Name</th>
+            <th>Permissions</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td><a href="" ng-click="edit($index)">{{user.fullName}}</a></td>
+            <td>admin</td>
+            <td>Administrator</td>
+            <td class="actions">
+              <a ng-click="edit($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+        <a href="#/advanced" class="btn dark-btn">Close</a>
+      </div>
+    </div>
+
+    <!-- END: Show Users -->
+
+    <!-- START: Show User Settings -->
+    <div class="content-panel-with-header span9" ng-show="pageToShow == 1 && !showErrorPage">
+      <div class="header">User Settings</div>
+      <div>General</div>
+      <table class="dark-table">
+        <tbody>
+          <tr> 
+            <td>Full Name:</td>
+            <td>
+              <input type="text" ng-model="newName"/>
+            </td>
+          </tr>
+          <tr>
+            <td>User Name (case sensitive):</td>
+            <td>
+              admin
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="checkbox" ng-model="setPassword"/><span class="pt10">&nbsp;Set a new password</span>
+              <security-tip></security-tip>
+            </td>
+          </tr>
+          <tr ng-show="setPassword">
+            <td>New Password:</td>
+            <td>
+              <input ng-show="!showPassword" type="password" ng-model="newPassword"/>
+              <input ng-show="showPassword" type="text" ng-model="newPassword"/>
+            </td>
+          </tr>
+          <tr ng-show="setPassword">
+            <td>Retype New Password:</td>
+            <td>
+              <input ng-show="!showPassword" type="password" ng-model="rtNewPassword"/>
+              <input ng-show="showPassword" type="text" ng-model="rtNewPassword"/>
+            </td>
+          </tr>
+          <tr ng-show="setPassword">
+            <td>
+            </td>
+            <td>
+              <input type="checkbox" ng-model="showPassword">Show Password
+            </td>
+          </tr>
+          <tr>
+            <td>Permissions:</td>
+            <td>
+              Administrator
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="saveUser()">Apply</button>
+        <button class="btn dark-btn" ng-click="togglePage(0)">Cancel</button>
+      </div>
+    </div>
+    <!-- END: Show User Settings -->
+
+    <!-- Start: Attention -->
+    <div class="content-panel-with-header span9" ng-show="pageToShow == 2 && !showErrorPage">
+      <div class="header">Attention</div>
+      <div>
+        <div>
+          <div align="center">
+            <p>Logged In User: User admin is currently logged in.<br>Applying changes will require the user to re-login.<br>Press Apply to confirm.</p>
+          </div>
+          <div align="center">
+            <button class="btn dark-btn" ng-click="saveUserCfm()">Apply</button>
+            <button class="btn dark-btn" ng-click="togglePage(1)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: Attention -->
+    <div ng-include src="'partials/error.html?v=v1.0.125'"></div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

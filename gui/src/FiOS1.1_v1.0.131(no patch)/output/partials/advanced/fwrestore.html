@@ -1,0 +1,88 @@
+<div ng-show="page != 3">
+  <div ng-include src="'partials/header.html?v=v1.0.131'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v=v1.0.131'"></div>
+    <div class="content-panel-with-header span9" ng-show="!uploadComplete">
+      <div class="header">Firmware Restore</div>
+      <div class="bold heading">Welcome to Firmware Restore</div>
+
+      <p>
+        You can use Firmware Restore to undo changes to your Wireless Broadband Router and restore its settings and performance. Firmware Restore returns your Wireless Broadband Router to an earlier loaded firmware and its configuration file.
+      </p>
+
+      <p>
+        This is useful if the firmware you downloaded does not fit your needs.
+      </p>
+
+      <p>
+        Any change Firmware Restore makes to your Wireless Broadband Router is completely reversible.
+      </p>
+
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th colspan="2">Active Firmware</th>
+          </tr>
+          <tr>
+            <td>Version</td>
+            <td>{{stats.version}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th colspan="2">Backup Firmware</th>
+          </tr>
+          <tr ng-show="valid">
+            <td>Version</td>
+            <td>{{stats.restoreVersion}}</td>
+          </tr>
+          <tr ng-show="!valid">
+            <td colspan="2">Restore firmware image is not available</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <p>Do you want to Restore Firmware?</p>
+        <div>
+          <button ng-show="valid" class="btn dark-btn" ng-click="apply()">Restore Backup Firmware</button>
+          <a href="#/advanced" class="btn">Cancel</a>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>
+<div ng-show="page == 3">
+  <div class="masthead" id="header">
+    <div class="navbar" id="main_navbar">
+      <div class="header centerer">
+        <a href="/index.html?v=v1.0.131">
+          <div class="brand"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="centerer">
+    <div id="content" class="plainlower">
+      <div class="content-panel-with-header span9">
+        <div>
+          <div>
+            <p>Please wait, system is now being upgraded...</p>
+          </div>
+          <p>
+            Attention! If the page does not refresh automatically in a minute, please press the Login button.
+          </p>
+          <div class="login_button">
+            <a href="" class="btn dark-btn" ng-show="!restarting">Login</a>
+            <a href="#/login" class="btn dark-btn" ng-show="restarting">Login</a>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

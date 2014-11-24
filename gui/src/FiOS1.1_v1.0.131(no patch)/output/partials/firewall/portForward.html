@@ -1,0 +1,195 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.131'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/firewall/nav.html?v=v1.0.131'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header">Port Forwarding</div>
+      <div>
+        This feature enables applications (Games, Webcams, IM & Others) by opening a tunnel between remote (Internet) computers and a specific device port inside your local area network(LAN).
+      </div>
+
+      <p class="bold margin_up">Create new port forwarding rule:</p>
+
+      <div>
+
+        <table class="dark-table">
+          <tbody>
+            <tr class="hideLineDarkTable">
+              <td>
+                <select class="ip_forward" ng-model="ipSelect" title="Helpful Hint:&#013;Type in the IP address you want to forward&#013;to, or select an already connected item from&#013;the list.">
+                  <option value="-2">Select IP from menu</option>
+                  <option value="-1">Specify IP</option>
+                  <option ng-repeat="device in devices" value="{{$index}}">{{device.displayName}}</option>
+                </select>
+                <div ng-show="-1 == ipSelect" class="ip_forward">
+                  <br/>
+                  <input type="text" class="input-ip ipInput" ng-model="pf.specifiedIp[0]" maxLength="3"/>
+                  <span style="vertical-align:bottom;">.</span>
+                  <input type="text" class="input-ip ipInput" ng-model="pf.specifiedIp[1]" maxLength="3"/>
+                  <span style="vertical-align:bottom;">.</span>
+                  <input type="text" class="input-ip ipInput" ng-model="pf.specifiedIp[2]" maxLength="3"/>
+                  <span style="vertical-align:bottom;">.</span>
+                  <input type="text" class="input-ip ipInput" ng-model="pf.specifiedIp[3]" maxLength="3"/>
+                </div>
+              </td>
+              <td>
+                <select  class="widthAuto" ng-model="appToForward" ng-change="appForward()" title="Helpful Hint:&#013;Choose a pre-configured application from&#013;this menu. You can also choose the option&#013;Custom ports to create a new application for&#013;port forwarding.">
+                  <option value="-2">Application To Forward...</option>
+                  <option value="-1">Custom Ports</option>
+                  <option ng-repeat="pf in pfRules | filter:filterFn" value="{{pf.id}}">{{pf.displayLabel}}</option>
+                </select>
+                <div ng-show="appToForward>0">
+                  <div ng-repeat="s in portsUsed">{{s}}</div>
+                </div>
+                  <div class="clearfix">
+                      <div ng-show="!showAdvanced && -1 == appToForward" class="fLeft">
+                          <select ng-model="pf.protocol.protocol" class="input-mini wider" >
+                              <option value="1">TCP</option>
+                              <option value="2">UDP</option>
+                              <option value="7">Both</option>
+                          </select>
+                      </div>
+                      <div ng-show="!showAdvanced && -1 == appToForward" class="fLeft mLeft20">
+                          <input type="text" ng-model="pf.protocol.outgoingPortStart" class="input-mini"/>
+                      </div>
+                      <div class="red-text" ng-show="showAdvanced && -1 == appToForward">Advanced Settings</div>
+                  </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+        <table class="dark-table">
+          <tbody>
+            <colgroup>
+              <col style="width: 20%;">
+              <col style="width: 40%;">
+              <col style="width: 40%;">
+            </colgroup>
+            <tr ng-show="false">
+            </tr>
+            <tr ng-show="showAdvanced && -1 == appToForward">
+              <td>Protocol<br><select ng-model="pf.protocol.protocol" class="input-small">
+                  <option value="1">TCP</option>
+                  <option value="2">UDP</option>
+                  <option value="7">Both</option>
+                </select>
+              </td>
+              <td>Source Ports<br><select ng-model="sourcePortType" class="input-small">
+                  <option value="0">Any</option>
+                  <option value="1">Specify</option>
+                </select>
+                <div ng-show="sourcePortType == 1">
+                  <br/>
+                  <input type="text" ng-model="pf.incomingPortStart"/>
+                </div>
+              </td>
+              <td>Destination Ports<br><select ng-model="destPortType" class="input-small">
+                  <option value="0">Any</option>
+                  <option value="1">Specify</option>
+                </select>
+                <div ng-show="destPortType == 1">
+                  <br/>
+                  <input type="text" ng-model="pf.outgoingPortStart"/>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="dark-table">
+          <tbody>
+            <tr ng-show="showAdvanced && -1 <= appToForward">
+              <td>
+                Forward to Port
+                <br><select ng-model="pf.servicePortType" class="input-large">
+                  <option value="0">Same as Incoming Port</option>
+                  <option value="1">Specify</option>
+                </select>
+                <div ng-show="pf.servicePortType == 1">
+                  <br/>
+                  <input type="text" ng-model="pf.servicePort" maxlength="5"/>
+                </div>
+              </td>
+              <td>
+                Schedule
+                <br><select ng-model="pf.schedule" class="input-large" title="Helpful Hint:&#013;If you want to select custom schedule rule&#013;instead of Always, please create it at&#013;Advanced->Scheduler Rules in advance.">
+                  <option value="Always">Always</option>
+                  <option ng-repeat="sched in schedules" value="{{sched.name}}">{{sched.name}}</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <a class="btn dark-btn" ng-click="add()">Add</a>
+          <a class="btn dark-btn" ng-click="reset()">Reset</a>
+          <a href="#/firewall" class="btn dark-btn">Cancel</a>
+          <a ng-show="!showAdvanced" class="btn dark-btn" ng-click="toggleShow()">Advanced>></a>
+          <a ng-show="showAdvanced" class="btn dark-btn" ng-click="toggleShow()">Basic &#60;&#60;</a>
+        </div>
+      </div>
+        <p>&nbsp;</p>
+      <div class="bold">Applied rules:</div>
+      <table class="dark-table">
+        <colgroup>
+          <col style="width: 35%;">
+          <col style="width: 35%;">
+          <col style="width: 15%;">
+          <col style="width: 15%;">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th>Networked Computer / Device</th>
+            <th>Applications & Ports Forwarded</th>
+            <th>Status</th>
+            <th>Delete</th>
+          </tr>
+          <tr>
+            <td>
+              localhost<br>127.0.0.1
+            </td>
+            <td>
+              <div>Verizon FIOS Service</div>
+              <div>TCP Any -> 4567</div> 
+            </td>
+            <td>
+              Active
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr ng-repeat="port in portForward">
+            <td>
+              <input type="checkbox" ng-model="active[$index]" ng-show="!port.readOnly" title="Helpful Hint:&#013;Uncheck this box to disable this Port Forwarding and click apply. To re enable this rule check the box and click apply.">
+
+               {{port.hostname}}<span ng-show="!port.showIp && port.servicePort != 0">:{{port.servicePort}}</span><br><p class="ip_line" ng-show="port.showIp">{{port.deviceIp}}<span ng-show="port.servicePort != 0">:{{port.servicePort}}</span></p>
+
+             </td>
+            
+            <td><div>{{port.displayName}}</div><div ng-repeat="part in printPortsArr[$index]">{{part}}</div></td>
+            <td>
+              <span ng-show="port.enabled">{{port.schedActive}}</span>
+              <span ng-show="!port.enabled">Disabled</span>
+            </td>
+            <td>
+              <label class="checkbox" ng-show="!port.readOnly">
+                <input type="checkbox" ng-model="removeBox[$index]" title="Helpful Hint:&#013;Select check box to mark the rule for &#013;deletion."/>
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <a class="btn dark-btn" ng-click="resolveNow()" ng-show="false">Resolve Now</a>
+        <a class="btn dark-btn" ng-click="save()">Apply</a>
+        <a class="btn dark-btn" ng-click="remove()">Delete</a>
+        <a class="btn dark-btn" ng-click="refresh()" ng-show="false">Refresh</a>
+      </div>
+    </div>
+    <div ng-include src="'partials/error.html?v=v1.0.131'"></div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

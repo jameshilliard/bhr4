@@ -311,7 +311,7 @@ angular.module('network.controllers', [])
           $scope.restarting = true;
           $templateCache.removeAll();
           //$location.path('/login').search({rebooting: 'true'});
-          window.location = '/redirect.html?v={version_number}';
+          window.location = findCurrentPath() + '/redirect.html?v={version_number}';
         }else
           window.setTimeout($scope.testConnection,3000);
       });

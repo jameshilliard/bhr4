@@ -1,0 +1,136 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html?v=v1.0.131'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/firewall/nav.html?v=v1.0.131'" ng-hide="warning"></div>
+    <div class="content-panel-with-header span9" ng-show="warning">
+      <div class="header">Warning</div>
+      <p>Any changes made in this section may affect your router's performance and configuration.</p>
+      <p>Do you want to proceed?</p>
+      <div class="centerme">
+        <button class="btn dark-btn" ng-click="acceptWarning()">Yes</button>
+        <a href="#/main" class="btn dark-btn">No</a>
+      </div>
+    </div>
+    <div class="content-panel-with-header span9" ng-show="!warning">
+      <div class="header">General</div>
+
+      <div class="security_settings">
+        <p>IPv4 Settings</p>
+        <!-- High sec -->
+        <p>
+          <label class="radio">
+            <input type="radio" ng-model="general.ipv4SecurityLevel" ng-value="2"/>
+            <span class="bold">Maximum Security (High)</span>
+            <br/>
+            Inbound Policy:
+           
+              <strong>Reject.</strong>
+              <br/>
+              Remote Administration settings will override the security inbound policy.
+          
+            <br/>
+            Outbound Policy:
+          
+              <strong>Reject.</strong>
+              <br/>
+              Outbound access is allowed to the following services: DHCP, DNS, IMAP, SMTP, POP3, HTTPS, HTTP, FTP, Telnet.
+            <br>
+            <input type="checkbox" ng-model="general.ipv4AllowIpc" ng-disabled="general.ipv4SecurityLevel != 2">Allow outbound Set Top Box traffic         
+          </label>
+        </p>
+
+        <!-- Med sec -->
+        <p>
+          <label class="radio">
+            <input type="radio" ng-model="general.ipv4SecurityLevel" ng-value="1"/>
+            <span class="bold">Typical Security (Medium)</span>
+            <br/>
+            Inbound Policy:
+             <strong>Reject.</strong>
+              <br/>
+              Remote Administration settings will override the security inbound policy.
+            
+            <br/>
+            Outbound Policy:
+        <strong>Accept.</strong>
+          </label>
+        </p>
+
+        <!-- Low sec -->
+        <p>
+          <label class="radio">
+            <input type="radio" ng-model="general.ipv4SecurityLevel" ng-value="0"/>
+            <span class="bold">Minimum Security (Low)</span>
+            <br/>
+            Inbound Policy:
+           <strong>Accept.</strong>
+            <br/>
+            Outbound Policy:
+           <strong>Accept.</strong>
+           
+          </label>
+        </p>
+
+      </div>
+      <div class="security_settings">
+        <p>IPv6 Settings</p>
+        <!-- High sec -->
+        <p>
+          <label class="radio">
+            <input type="radio" ng-model="general.ipv6SecurityLevel" ng-value="2" ng-disabled="!ipv6.enabled"/>
+            <span class="bold">Maximum Security (High)</span>
+            <br/>
+            Inbound Policy:
+           
+              <strong>Reject.</strong>
+          
+            <br/>
+            Outbound Policy:
+          
+              <strong>Reject.</strong>
+              <br/>
+              Outbound access is allowed to the following services: DHCP, DNS, IMAP, SMTP, POP3, HTTPS, HTTP, Telnet.
+          </label>
+        </p>
+
+        <!-- Med sec -->
+        <p>
+          <label class="radio">
+            <input type="radio" ng-model="general.ipv6SecurityLevel" ng-value="1" ng-disabled="!ipv6.enabled"/>
+            <span class="bold">Typical Security (Medium)</span>
+            <br/>
+            Inbound Policy:
+             <strong>Reject.</strong>
+            
+            <br/>
+            Outbound Policy:
+        <strong>Accept.</strong>
+          </label>
+        </p>
+
+        <!-- Low sec -->
+        <p>
+          <label class="radio">
+            <input type="radio" ng-model="general.ipv6SecurityLevel" ng-value="0" ng-disabled="!ipv6.enabled"/>
+            <span class="bold">Minimum Security (Low)</span>
+            <br/>
+            Inbound Policy:
+           <strong>Accept.</strong>
+            <br/>
+            Outbound Policy:
+           <strong>Accept.</strong>
+           
+          </label>
+        </p>
+      </div>
+
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+        <a href="" ng-click="cancel()" class="btn dark-btn">Cancel</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+</div>

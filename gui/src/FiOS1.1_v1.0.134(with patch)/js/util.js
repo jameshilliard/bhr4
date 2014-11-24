@@ -1678,3 +1678,19 @@ function notAcceptedMac(value){
       break;
   }
 }
+
+function findCurrentPath(){
+  var urlTempArr = String(document.URL).split("/");
+  var urlStr = "";
+  for(var i = 0; i < urlTempArr.length; i ++){
+    if(urlTempArr[i].indexOf('#') == -1){
+      if(urlStr != ""){
+        urlStr += "/";
+      }
+      urlStr += urlTempArr[i];
+    }else if(urlTempArr[i].indexOf('#') != -1){
+      break;
+    }
+  }
+  return urlStr;
+}

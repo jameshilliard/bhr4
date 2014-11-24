@@ -1,0 +1,47 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.131'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/system/nav.html?v=v1.0.131'"></div>
+    <div class="content-panel-with-header span9" ng-show="warning">
+      <div class="header">Warning</div>
+      <p>Only advanced technical users should use this feature.</p>
+      <p>Do you want to proceed?</p>
+      <div class="centerme">
+        <button class="btn dark-btn" ng-click="warning=false">Yes</button>
+        <a href="#/main" class="btn dark-btn">No</a>
+      </div>
+    </div>
+    <div class="span9 content-panel-with-header" ng-show="!warning">
+      <div class="header">Advanced Status</div>
+      <p>Click on the link you wish to view</p>
+      <p class="bold">NOTE: Only advanced technical users should use this feature.</p>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <a href="#/monitoring/systemlog">System Logging</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="#/monitoring/fullstatus">Full Status/System wide Monitoring of Connections</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="#/monitoring/traffic">Traffic Monitoring</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="#/monitoring/bandwidth">Bandwidth Monitoring</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

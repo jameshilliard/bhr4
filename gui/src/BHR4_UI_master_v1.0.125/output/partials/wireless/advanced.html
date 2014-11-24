@@ -1,0 +1,115 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.125'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v=v1.0.125'"></div>
+    <div class="content-panel-with-header span9">
+      <div class="header">Advanced Security Settings</div>
+      <div class="heading">
+        IMPORTANT: For a more secure wireless network use Advanced Security Settings.
+      </div>
+      <br>
+        <p class="bold">Level 1:
+        <span class="softTxt">
+          Securing your wireless traffic as it transmits through the air, – we recommend you use WPA2 security, unless you experience compatibility issues.
+        </span></p>
+      
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>2.4 GHz Security</th>
+            <th>5.0 GHz Security</th>
+          </tr>
+          <tr>
+            <td>
+              <a href="#/wireless/wep/0">
+                <label class="radio">
+                  <input type="radio" ng-model="w24wType" value="0"/>
+                  <strong>WEP</strong>
+                </label>
+              </a>
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="#/wireless/wpa/0">
+                <label class="radio">
+                  <input type="radio" ng-model="w24wType" value="2"/>
+                  <strong>WPA2/WPA mixed mode</strong>
+                </label>
+              </a>
+            </td>
+            <td>
+              <a href="#/wireless/wpa/1">
+                <label class="radio">
+                  <input type="radio" ng-model="w50wType" value="2"/>
+                  <strong>WPA2/WPA mixed mode</strong>
+                </label>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <a href="#/wireless/wpa2/0">
+                <label class="radio">
+                  <input type="radio" ng-model="w24wType" value="1"/>
+                  <strong>WPA2</strong>
+                </label>
+              </a>
+            </td>
+            <td>
+              <a href="#/wireless/wpa2/1">
+                <label class="radio">
+                  <input type="radio" ng-model="w50wType" value="1"/>
+                  <strong>WPA2</strong>
+                </label>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="heading">
+        <strong>Level 2:</strong>
+        <span class="softTxt">
+          Stop your router from broadcasting your Wireless Network Name (SSID)
+        </span>
+      </div>
+      <div class="softTxt">
+        SSID Broadcast (Allows you to prevent users who do not know your SSID name to access your router wirelessly.)
+      </div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>
+              <a href="#/wireless/ssidbroadcast/0">2.4 GHz SSID Broadcast</a>
+            </td>
+            <td>
+              <a href="#/wireless/ssidbroadcast/1">5.0 GHz SSID Broadcast</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="heading level3">
+        <strong>Level 3:</strong>
+        <span class="softTxt">Limit access to certain wireless devices</span>
+      </div>
+      <div class="heading">
+       <p> <a class="other_options" href="#/wireless/macauth">Wireless MAC Authentication</a>
+        <span class="softTxt tidy">
+          (Allows you to limit access to your wireless network by allowing only those devices with specific MAC addresses.)
+        </span></p>
+      </div>
+      <div class="heading">
+       <p> <a class="other_options" href="#/wireless/mode">802.11 b/g/n/ac Mode</a>
+        <span class="softTxt">
+          (Allows you to limit access to your wireless network based on the type of technology.)
+        </span></p>
+      </div>
+      <a class="other_options" href="#/wireless/transmission?warn=true">Other Advanced Wireless Options</a>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+</div>
