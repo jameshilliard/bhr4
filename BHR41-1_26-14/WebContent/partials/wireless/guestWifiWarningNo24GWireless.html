@@ -1,0 +1,11 @@
+<div class="modal-header-guest">
+    <div class='modal-wifi-close'><button type="button" class="guestWifiCloseImg" data-dismiss="modal" ng-click="close()" aria-hidden="true"></button></div>
+</div>
+<div class="guestWifiErrorImg">
+</div>
+<div class="guestWifiMsg1">
+    <p>Guest Wi-Fi cannot be enabled because the 2.4GHz radio is disabled.<br><br>Before enabling Guest Wi-Fi, please first enable the 2.4GHz radio which can be found on the following page: "Wireless Settings > Basic Security Settings"<br>&nbsp;</p>
+</div>
+<div class="modal-footer-guest center">
+    <button ng-repeat="btn in buttons" ng-click="close(btn.result);" class="btn" ng-class="btn.cssClass">{{ btn.label }}</button>
+</div>

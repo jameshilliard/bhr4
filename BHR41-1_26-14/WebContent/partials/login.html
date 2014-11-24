@@ -1,0 +1,53 @@
+<div>
+  <div class="masthead" id="header">
+    <div class="navbar" id="main_navbar">
+      <div class="container">
+        <a href="index.html?v=v1.0.134">
+          <div class="brand"></div>
+        </a>
+      </div>
+    </div>
+    <div ng-show="loggingIn" class="content-panel-with-header" id="login-div">
+      <div class="header">Login</div>
+      <div ng-show="showError">{{errorMessage}}</div>
+      <table id="login-table">
+        <tbody>
+          <tr>
+            <td colSpan="2">Unauthorized Access is Prohibited.</td>
+          </tr>
+          <tr>
+            <td>User Name:</td>
+            <td>
+              <input type="text" ng-model="username" ng-disabled="true"/>
+            </td>
+          </tr>
+          <tr ng-show="showPasswordForm">
+            <td>Password:</td>
+            <td>
+              <input type="password" ng-model="password" ng-show="!showPassword" on-keyup="handleKeyPress($key)" ng-disabled="timeout24 || timeout1"/>
+              <input type="text" ng-model="password" ng-show="showPassword" on-keyup="handleKeyPress($key)" ng-disabled="timeout24 || timeout1"/>
+            </td>
+          </tr>
+          <tr ng-show="showPasswordForm">
+            <td colSpan="2" style="text-align: center;">
+              <input type="checkbox" ng-model="showPassword">Show Password
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn dark-btn login" ng-click="login()" ng-disabled="timeout24 || timeout1">OK</button>
+    </div>
+    <div ng-show="isUrlError && !cookiesEnabled" class="content-panel-with-header">
+          <div class="header">Attention</div>
+        Internet Explorer does not allow cookies when hostname/domain contains "_" character. <br/>
+        Please ensure that the router's Hostname or Local Domain does not contain "_" and that cookies have not been blocked in the browser settings.
+    </div>
+    <div ng-show="!cookiesEnabled && !isUrlError" class="content-panel-with-header">
+      <div class="header">Attention</div>
+      <div>Cookies are disabled.  Please enable cookies and try again.</div>
+      <div style="text-align: center;">
+        <button ng-click="retry()" class="btn dark-btn">Retry</button>
+      </div>
+    </div>
+  </div>
+</div>

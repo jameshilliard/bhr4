@@ -1,0 +1,92 @@
+<div class="content-panel-with-header span9">
+  <div class="header line-height-small">{{name}} Properties</div>
+
+  <div>NOTE: Only advanced technical users should use this feature.</div>
+  <table class="dark-table">
+    <tbody>
+      <tr>
+        <th>General</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>Status:</th>
+        <td>
+          <div class="green-text" ng-show="connection.status == 0 && connection.coaxConnected && connection.coaxEnabled">Connected</div>
+          <div ng-show="connection.status == 0 && !connection.coaxConnected && connection.coaxEnabled">Cable Disconnected</div>
+          <div ng-show="connection.status != 0 && connection.coaxEnabled">Disconnected</div>
+          <div ng-show="!connection.coaxEnabled">Disabled</div>
+        </td>
+      </tr>
+      <tr>
+        <th>Network:</th>
+        <td>
+          <select ng-model="connection.networkType" ng-disabled="true">
+            <option value="0">Broadband Connection</option>
+            <option value="1">Network (Home/Office)</option>
+            <option value="2">DMZ</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>Connection Type:</th>
+        <td>{{connection.connectionType}}</td>
+      </tr>
+      <tr>
+        <th>Physical Address:</th>
+        <td>{{connection.mac}}</td>
+      </tr>
+      <tr>
+        <th>MTU:</th>
+        <td>
+          <select ng-model="connection.mtuType" ng-change="mtuTypeChanged()">
+            <option value="0">Automatic</option>
+            <option value="1">Automatic by DHCP</option>
+            <option value="2">Manual</option>
+          </select>
+          <input type="number" class="input-mini" ng-model="connection.mtu" value="connection.mtu" ng-disabled="connection.mtuType != 2"/>
+        </td>
+      </tr>
+
+      <!-- Coax specific section -->
+      <tr>
+        <th>Coax Link</th>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Privacy:</th>
+        <td>
+          <label class="checkbox" style="display: block;">
+            <input type="checkbox" ng-model="connection.coaxPrivacy"/>
+            Enabled
+          </label>
+        </td>
+      </tr>
+      <tr>
+        <th>Password:</th>
+        <td>
+          <input type="text" maxLength="17" ng-model="connection.coaxPasswordManual"/>
+        </td>
+      </tr>
+      <tr>
+        <th>Enable/Disable Coax Link:</th>
+        <td ng-switch on="connection.coaxEnabled">
+          <button ng-switch-when="false" class="btn dark-btn" ng-click="enableCoax()">Enable</button>
+          <button ng-switch-default class="btn dark-btn" ng-click="disableCoax()">Disable</button>
+        </td>
+      </tr>
+      <tr>
+        <th>Coax Connection Stats:</th>
+        <td>
+          <a href="#/network/connections/{{connection.connectionId}}/lancoaxstats">Go to LAN Coax Stats</a>
+        </td>
+      </tr>
+      <!-- End coax specific section -->
+    </tbody>
+  </table>
+
+  <div style="text-align: center">
+    <button class="btn dark-btn" ng-click="save()">Apply</button>
+    <a class="btn dark-btn" href="#/network/connections/{{connection.connectionId}}{{fromString}}">Cancel</a>
+  </div>
+
+</div>

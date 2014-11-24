@@ -1,0 +1,51 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container ng-controller="BasicGuestCtrl">
+    <div class="content span9" ng-show="(pageToShow == 0)">
+
+    <div class="theWifiHead2" ng-show="!editingGuest">
+      <div class="fLeft"><strong>Guest Wi-Fi</strong>
+        <button class="wpstoggle" ng-click="toggleOnOffSave()"><span>OFF</span>
+          <img src="img_wh/slider_off.png" ng-show="!basicGuestWifi.enabled">
+          <img src="img_wh/slider_on.png" ng-show="basicGuestWifi.enabled"><span>ON</span>
+        </button>
+        </div>
+    </div>
+    <div class="theWifiHead2" ng-show="editingGuest">
+    </div>
+
+    <div ng-show="!editingGuest && !showErrorPage">
+        <div class="softTxt">SSID</div>
+        <div class="mTop10"><strong>{{basicGuestWifi.ssid}}</strong></div>
+
+
+        <div class="softTxt mTop20">PASSWORD</div>
+        <div class="softTxt italics11 mTop10" ng-show="!keySet">Click on the Edit button below to create a password</div>
+        <div class="mTop10" ng-show="keySet"><strong class="mRight20" ng-show="wpa.wpaShowKeyInUI">{{wpa.key}}</strong><strong class="mRight20" ng-show="!wpa.wpaShowKeyInUI" ng-bind-html="tempWPAkey"></strong><input type="checkbox" ng-model="wpa.wpaShowKeyInUI" ng-change="toggleShowPassword()"><strong>Show Password</strong></div>
+
+
+        <div class="softTxt mTop20">CONNECTED GUEST DEVICES<strong class="mLeft20">:<span ng-show="basicGuestWifi.enabled">{{guestDevices.length == 0? 'None':guestDevices.length}}</span></strong></div>
+        <div class="softTxt italics11 mTop10" ng-show="!basicGuestWifi.enabled">Active guest devices are shown when Guest Wi-Fi is enabled</div>
+
+        <div class="mTop20" style="">
+            <button class="btn dark-btn" ng-click="editWifiSettings()">Edit</button>
+        </div>
+    </div>
+
+    <div ng-show="editingGuest && !showErrorPage">
+        <div class="softTxt">SSID</div>
+        <div class="mTop10"><input type="text" ng-model="basicGuestWifi.ssid" ng-change="change()"  maxlength="64"/></div>
+
+        <div class="softTxt mTop20">PASSWORD</div>
+        <div class="mTop10"><input type="text" ng-show="wpa.wpaShowKeyInUI" ng-model="wpa.key" class="mRight20" ng-change="change()" maxLength="63"/><input type="password" ng-show="!wpa.wpaShowKeyInUI" ng-model="wpa.key" class="mRight20" ng-change="change()"/><input type="checkbox" ng-model="wpa.wpaShowKeyInUI" ng-change="change();" maxLength="63"><strong>Show Password</strong></div>
+
+
+        <div class="softTxt mTop20">CONNECTED GUEST DEVICES<strong class="mLeft20">:<span ng-show="basicGuestWifi.enabled">{{guestDevices.length}}</span></strong></div>
+        <div class="softTxt italics11 mTop10" ng-show="!basicGuestWifi.enabled">Active guest devices are shown when Guest Wi-Fi is enabled</div>
+
+        <div class="mTop20" style="">
+            <button class="btn dark-btn" ng-click="saveWifiSettings()">Save</button>
+            <button class="btn dark-btn" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
+    </div>
+</div>

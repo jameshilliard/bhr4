@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="vzui">
+  <head>
+    <meta charset="utf-8">
+    <title>Verizon Router</title>
+    <link rel="stylesheet" href="../../css/app.css?v=v1.0.134"/>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css?v=v1.0.134"/>
+    <link rel="stylesheet" href="../../css/base.css?v=v1.0.134"/>
+    <link rel="stylesheet" href="../../css/wh_skin.css?v=v1.0.134"/>
+    <!--[if lte IE 8]>
+        <script>
+          document.createElement('ng-include');
+          window.onload = function() {
+            // init angular
+            angular.bootstrap(document)
+          };
+        </script>
+
+        <link rel="stylesheet" href="css/IE8.css?v=v1.0.134"/>
+      <![endif]-->
+
+      <!--[if IE 9]>
+        <link rel="stylesheet" href="css/IE9.css?v=v1.0.134"/>
+      <![endif]-->
+
+  </head>
+  <body>
+<div class="masthead" id="header">
+  <div class="navbar" id="main_navbar">
+    <div class="container_setup">
+      <a href="index.html?v=v1.0.134"><div class="brand"></div></a>
+      <div class="stripe setup">
+      <h2>Welcome to your Verizon FiOS Router!</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main_content set_up">
+<div class="alertbox">
+  <div class="alert_icon"></div><h4>You must re-connect to WiFi</h4>
+  <p>You have changed your wireless settings and so you will be disconnected from the wireless network. To re-connect your network, select <strong>"name"</strong> from your wireless network setting on your computer and enter your password <strong>"password"</strong>.</p>
+   <div class="settingsSummary">
+        <div class="surround">
+        <div class="left_col">
+          WiFi Network Name: <br>
+            WiFi Password:
+        </div>
+          <div class="right_col"><strong>network name</strong><br>
+            <strong>wifipassword</strong>
+          </div>
+<div class="clearfix"></div>
+       </div>
+        <p class="reconnectMsg">Once you have reconnected, hit the "Next" button below.</p>
+      </div>
+  <a href="#" class="btn reconnect">Next</a>
+  <div class="clearfix"></div>
+</div>
+
+
+<div class="alertbox">
+  <div class="alert_icon"></div><h4>Not Connected</h4>
+  <p>Your wireless device is not connected to your wireless network.</p>
+  <p class="bigred centerme">You must re-connect to WiFi</p>
+  
+  <p>You have changed your wireless settings and so you will be disconnected from the wireless network. To re-connect your network, select <strong>""</strong> from your wireless network setting on your computer and enter your password <strong>""</strong>.</p>
+   <div class="settingsSummary">
+        <div class="surround">
+        <div class="left_col">
+          WiFi Network Name: <br>
+            WiFi Password:
+        </div>
+          <div class="right_col"><strong>network name</strong><br>
+            <strong>wifipassword</strong>
+          </div>
+<div class="clearfix"></div>
+       </div>
+        <p class="reconnectMsg">Once you have reconnected, hit the "Next" button below.</p>
+      </div>
+  <a href="#" class="btn reconnect">Next</a>
+  <div class="clearfix"></div>
+</div>
+
+
+</div>
+ 
+  </body>
+  </html>
