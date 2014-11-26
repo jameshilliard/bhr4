@@ -124,5 +124,13 @@ public class Wireless {
 		Map mapBy = SimpleJson.getJsonObject(jsonText);
 		thisOne.putAll(mapBy);
 	}
+	
+	public Boolean getWirelessGuestEnable(){
+		Map map = maps.get(2);
+		if(map != null) 
+			return (Boolean)map.get("enabled");
+		else
+			return null;
+	}
 
 }

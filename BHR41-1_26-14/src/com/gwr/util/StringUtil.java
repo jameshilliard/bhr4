@@ -215,6 +215,11 @@ public class StringUtil {
 		System.out.println(s);
 		
 		System.out.println(MD5Hash("bhr4password"));
+		s = retrieveId("http://localhost/api/wireless/1/client", "client");
+		System.out.println(s);
+		s = retrieveLastId("http://localhost/api/wireless/1", "wireless");
+		System.out.println(s);
+
 	}
 
 }
