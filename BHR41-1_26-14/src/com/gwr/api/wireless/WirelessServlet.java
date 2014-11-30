@@ -145,6 +145,7 @@ public class WirelessServlet extends HttpServlet {
 					getClass().getSimpleName());
 			Wireless wireless = new Wireless(js);
 			wireless.replaceWep(id, in);
+			wireless.replaceSecurityTypeWhenWep(id, in);
 			finalJson = wireless.getJson();
 			key = getClass().getSimpleName();
 		} else if (uri.endsWith(WPA)) {
@@ -162,6 +163,8 @@ public class WirelessServlet extends HttpServlet {
 
 				Wireless wireless = new Wireless(js);
 				wireless.replaceWpa(id, in);
+				wireless.replaceSecurityTypeWhenWpa0(id, in);
+				wireless.replaceSecurityTypeWhenWpa1(id, in);
 				finalJson = wireless.getJson();
 				key = getClass().getSimpleName();
 			}

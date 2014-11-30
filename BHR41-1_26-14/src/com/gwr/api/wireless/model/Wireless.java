@@ -3,9 +3,15 @@ package com.gwr.api.wireless.model;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.gwr.api.wireless.WirelessServlet;
 import com.gwr.util.json.SimpleJson;
 
 public class Wireless {
+	private final static Logger logger = LoggerFactory
+			.getLogger(Wireless.class);
 
 	@SuppressWarnings("rawtypes")
 	List<Map> maps;
@@ -131,6 +137,54 @@ public class Wireless {
 			return (Boolean)map.get("enabled");
 		else
 			return null;
+	}
+	
+	public void replaceSecurityTypeWhenWpa0(String idx, String jsonText){
+		
+		if(!idx.equals("0"))
+			return;
+		Map mapBy = SimpleJson.getJsonObject(jsonText);
+		Long type = (Long)mapBy.get("encryptionAlgorithm");
+		logger.debug(type.toString());
+		if(type == 0)
+		{
+			type = new Long(2);
+		}
+		else
+		if(type == 1)
+		{
+			type = new Long(1);
+		}
+		Map security = this.getSecurity(idx);
+		security.put("type", type);
+	}
+	public void replaceSecurityTypeWhenWpa1(String idx, String jsonText){
+		
+		if(!idx.equals("1"))
+			return;
+		Map mapBy = SimpleJson.getJsonObject(jsonText);
+		Long type = (Long)mapBy.get("type");
+		logger.debug(type.toString());
+		if(type == 0)
+		{
+			type = new Long(1);
+		}
+		else
+		if(type == 1)
+		{
+			type = new Long(2);
+		}
+		Map security = this.getSecurity(idx);
+		logger.debug(security.get("type").toString());
+		security.put("type", type);
+	}
+	public void replaceSecurityTypeWhenWep(String idx, String jsonText){
+		
+		if(!idx.equals("0"))
+			return;
+		logger.debug(idx + " " + jsonText);
+		Map security = this.getSecurity(idx);
+		security.put("type", new Long(0));
 	}
 
 }
