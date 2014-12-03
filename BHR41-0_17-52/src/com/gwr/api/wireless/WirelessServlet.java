@@ -1,4 +1,4 @@
-package com.gwr.bhr4.api.wireless;
+package com.gwr.api.wireless;
 
 import java.io.IOException;
 
