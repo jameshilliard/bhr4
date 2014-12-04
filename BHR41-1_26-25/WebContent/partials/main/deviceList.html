@@ -1,0 +1,129 @@
+<div class="column1 magicCol ">
+  <div class="header1">My Network</div>
+  <div class="networkHeader0">
+  <div class="bg">
+    <div class="leftPos">Primary Network</div>
+    <div class="rightPos" ng-show="hasList0"><a ng-click="toggleList(0, 1)" ng-show="!showList0">Show More</a>
+    <a ng-click="toggleList(0, 0)" ng-show="showList0">Show Less</a></div>
+  </div>
+  </div>
+  <div class="network_box" ng-repeat="device in devices | filter:nonGuestDevice" ng-show="showDevice(0, $index)">
+    <div class="clearfix1"></div>
+    <div class="leftImgcpu">
+      <a href="#/network/device/details/{{device.id}}?from=main">
+        <div>
+          <span ng-class="device.styleName"></span>
+        </div>
+      </a>
+    </div>
+    <div class="midTxtCpu">
+      <div class="row1 bold heading OFMain">{{device.name}}</div>
+      <div class="row1 softTxt">
+        <span class="lb2-text-main" ng-switch on="device.connectionType">
+          <span ng-switch-when="0">Connection:
+            <span class="ethernet-icon"></span>
+            &nbsp;Ethernet
+          </span>
+          <span ng-switch-when="4">Connection:
+            <span class="wifi-icon"></span>
+            &nbsp;Wireless 5G
+          </span>
+          <span ng-switch-when="5">Connection:
+            <span class="wifi-icon"></span>
+            &nbsp;Wireless 2.4G
+          </span>
+          <span ng-switch-when="6">Connection:
+            <span class="wifi-icon"></span>
+            &nbsp;Wireless 2.4G
+          </span>
+          <span ng-switch-when="7">Connection:
+            <span class="wifi-icon"></span>
+            &nbsp;Wireless 5G
+          </span>
+          <span ng-switch-default>Connection:
+            <div class="coax-icon"></div>
+            &nbsp;Coax
+          </span>
+        </span>
+      </div>
+      <div class="row1 softTxt">
+        IP Address:
+        <span class="lb1-text-main">{{device.shownIPAddress}}</span>
+      </div>
+      <div class="row1 softTxt">
+        Status:
+        <span class="lb3-text-main">
+          <span ng-switch on="device.blocked">
+            <span class="black-text" ng-switch-when="true">Blocked</span>
+            <span ng-switch on="device.status" ng-switch-when="false">
+              <span class="green-text" ng-switch-when="true">Active</span>
+              <span class="red-text" ng-switch-when="false">Inactive</span>
+            </span>
+          </span>
+        </span>
+        <br/>
+      </div>
+    </div>
+  </div>
+  <div class="networkHeader1">
+  <div class="bg">
+    <div class="leftPos">Guest Network</div>
+    <div class="rightPos" ng-show="hasList1"><a ng-click="toggleList(1, 1)" ng-show="!showList1">Show More</a>
+    <a ng-click="toggleList(1, 0)" ng-show="showList1">Show Less</a></div>
+  </div>
+  </div>
+  <div class="network_box" ng-repeat="device in devices | filter:guestDevice" ng-show="showDevice(1, $index)">
+    <div class="clearfix1"></div>
+    <div class="leftImgcpu">
+      <a href="#/network/device/details/{{device.id}}?from=main">
+        <div>
+          <span ng-class="device.styleName"></span>
+        </div>
+      </a>
+    </div>
+    <div class="midTxtCpu">
+      <div class="row1 bold heading OFMain">{{device.name}}</div>
+      <div class="row1 softTxt">
+        <span class="lb2-text-main" ng-switch on="device.connectionType">
+          <span ng-switch-when="0">Connection:
+            <span class="ethernet-icon"></span>
+            &nbsp;Ethernet
+          </span>
+          <span ng-switch-when="4">Connection:
+            <span class="wifi-icon"></span>
+            &nbsp;Wireless 5G
+          </span>
+          <span ng-switch-when="5">Connection:
+            <span class="wifi-icon"></span>
+            &nbsp;Wireless 2.4G
+          </span>
+          <span ng-switch-when="6">Connection:
+            <span class="wifi-icon"></span>
+            &nbsp;Wireless 2.4G
+          </span>
+          <span ng-switch-default>Connection:
+            <div class="coax-icon"></div>
+            &nbsp;Coax
+          </span>
+        </span>
+      </div>
+      <div class="row1 softTxt">
+        IP Address:
+        <span class="lb1-text-main">{{device.shownIPAddress}}</span>
+      </div>
+      <div class="row1 softTxt">
+        Status:
+        <span class="lb3-text-main">
+          <span ng-switch on="device.blocked">
+            <span class="black-text" ng-switch-when="true">Blocked</span>
+            <span ng-switch on="device.status" ng-switch-when="false">
+              <span class="green-text" ng-switch-when="true">Active</span>
+              <span class="red-text" ng-switch-when="false">Inactive</span>
+            </span>
+          </span>
+        </span>
+        <br/>
+      </div>
+    </div>
+  </div>
+</div>

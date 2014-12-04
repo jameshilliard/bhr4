@@ -1,0 +1,28 @@
+<div focus-container>
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v={version_number}'"></div>
+    <div class="content-panel-with-header span9" >
+      <div class="header headerTab"><span class="mainTxt">Guest Wi-Fi Settings</span><div class="softTxt disabledStext italics11" ng-show="bothDisabled"><img src="img_wh/info_icon.png" class="mRight10">Guest Wi-Fi is disabled</div></div>
+
+        <ul class="nav nav-tabs wifiTab">
+            <li ng-class="{active:isActive(1)}">
+              <a ng-click="setActive(1)">Guest Devices</a>
+            </li>
+            <li ng-class="{active:isActive(2)}">
+                <a ng-click="setActive(2)">Guest Wi-Fi
+                    <img src="img_wh/guest_wi_fi_indicator_off.png" ng-show="!basicGuestWifiEnabled">
+                    <img src="img_wh/guest_wi_fi_indicator_on.png" ng-show="basicGuestWifiEnabled"></a>
+            </li>
+        </ul>
+        <div id="mainView">
+          <div ng-include src="tabsEnum[getActive()]"></div>
+        </div>
+    </div>
+
+  <!-- End: Attention -->
+  <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

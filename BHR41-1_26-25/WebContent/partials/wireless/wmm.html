@@ -1,0 +1,38 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html?v=v1.0.138'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v=v1.0.138'"></div>
+    <div class="content-panel-with-header span9">
+      <div class="header">{{wirelessName}} Wireless QoS (WMM)</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Wireless QoS (WMM):</th>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-click="enabledClick()" ng-model="qos.enabled"/>
+                Enabled
+              </label>
+            </td>
+          </tr>
+          <tr ng-show="qos.enabled">
+            <th>WMM Power Save:</th>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="qos.powerSave"/>
+                Enabled
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+        <a href="#/wireless/transmission" class="btn dark-btn">Cancel</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html?v=v1.0.138'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/parental/nav.html?v=v1.0.138'"></div>
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 0) && viewingRule == -1">
+      <div class="header">Rule Summary</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Rule Name</th>
+            <th>Description</th>
+            <th>Computer/Device</th>
+            <th>Enable Rule</th>
+            <th>View Rule</th>
+            <th>Edit Rule</th>
+            <th>Delete Rule</th>
+          </tr>
+          <tr ng-repeat="rule in rules">
+            <td>{{rule.name}}</td>
+            <td>{{rule.description}}</td>
+            <td>
+              <select size="2" ng-class="{heightAuto1: rule.hosts.length == 1, heightAuto2: rule.hosts.length == 2, heightAuto3: rule.hosts.length == 3, heightAuto4: rule.hosts.length == 4, heightAuto5: rule.hosts.length >= 5}" ng-model="rule.selected" ng-options="host for host in rule.hosts">
+              </select>
+            </td>
+            <td>
+              <input type="checkbox" ng-model="rule.enabled" ng-click="setSelected($index)">
+            </td>
+            <td>
+              <a ng-click="viewRule($index)" title="View">
+                <div class="view-icon"></div>
+              </a>
+            </td>
+            <td class="actions">
+              <a ng-click="editRule($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+            </td>
+            <td>
+              <a ng-click="deleteRule($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+        <div style="text-align:center;">
+            <button ng-click="applySettings()" class="btn">Apply</button>
+            <button class="btn dark-btn" ng-click="restSelection()">Cancel</button>
+        </div>
+    </div>
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 0) && viewingRule!=-1">
+      <div class="header">Rule Summary</div>
+      <table class="dark-table grow">
+        <tbody>
+          <tr>
+            <th>Rule Name:</th>
+            <td>{{selected.name}}</td>
+          </tr>
+          <tr>
+            <th>Description:</th>
+            <td>{{selected.description}}</td>
+          </tr>
+          <tr>
+            <th>Computer/Device:</th>
+            <td>
+              <select size="6">
+                <option ng-repeat="host in selected.hosts">{{host}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th ng-show="selected.accessType == 0">Blocked Website and Embedded Keyword:</th>
+            <th ng-show="selected.accessType == 1">Allowed Website and Embedded Keyword:</th>
+            <th ng-show="selected.accessType == 2" colspan="2">Blocking ALL Internet Access</th>
+            <td ng-show="selected.accessType != 2">
+              <select size="6">
+                <option ng-repeat="restriction in selectedRestrictions">{{restriction}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>Schedule:</th>
+            <td>{{scheduleString}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;">
+        <button ng-click="close()" class="btn dark-btn">Close</button>
+      </div>
+    </div>
+    <!-- Start: Attention -->
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 1) && !showErrorPage">
+      <div class="header">Attention</div>
+      <div>
+        <div>
+          <div align="center">
+            <p>Are you sure you want to delete this rule?<br>Click OK to Delete or Click Cancel to return back to the previous screen.</p>
+          </div>
+          <div align="center">
+            <button class="btn dark-btn" ng-click="cfmDeleteControl()">OK</button>
+            <button class="btn dark-btn" ng-click="togglePage(0)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: Attention -->
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

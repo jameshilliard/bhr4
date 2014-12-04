@@ -1,0 +1,240 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html?v=v1.0.138'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/parental/nav.html?v=v1.0.138'"></div>
+    <div ng-include src="'partials/error.html?v=v1.0.138'"></div>
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 0) && !showErrorPage">
+      <div class="header">Parental Controls</div>
+      <div>
+        <p>
+          The Router provides basic Parental Controls that allow you to create a list of website addresses and keywords embedded in website addresses that will limit the computer user's Internet access. Simply follow the 3 Steps below and click the Apply button to set up your Parental Controls.
+        </p>
+      </div>
+      <div>
+        <p> <strong>Note:</strong>
+          While these basic Parental Controls are a great way to limit access to particular sites, there are other computer software applications that provide computer Monitoring and computer Content Cleanup. Monitoring involves keeping records of the computer user's activity for later review. Content Cleanup involves scanning the actual content of websites, emails, and attachments for specific words to block or for spyware, popups, adware, etc.
+        </p>
+      </div>
+
+      <div class="steps">
+        <p> <strong><span class= "step_heading">Step 1.</span></strong> 
+          Select the Primary/Guest Network Device for this Allow or Block Rule.
+        </p>
+      </div>
+
+      <div class="select_device">
+        <div class="left">
+          <a class="what_this" href="partials/parental/deviceHelp.html?v=v1.0.138" target="blank"> <span class="help-icon"></span>What's this?</a>
+          <p class="bold">Primary Network & Guest Network Device List:</p>
+          <select class="multi_selector left" ng-model="selectedAvailable" size="6" ng-options="dev for dev in availableDevices" multiple></select>
+        </div>
+
+        <div class="right">
+          <br>
+          <p class="bold">Selected Devices:</p>
+
+          <select class="multi_selector" ng-model="selectedUsed" size="6" ng-options="dev for dev in usedDevices" multiple></select>
+        </div>
+
+        <div class="button_box">
+          <button ng-click="addDevices()" class="btn semi">Add >></button>
+          <button ng-click="removeDevices()" class="btn semi">&#60;&#60; Remove</button>
+        </div>
+
+        <div class="clearfix"></div>
+      </div>
+
+      <div>
+        <p>
+          <strong><span class= "step_heading">Step 2.</span></strong>
+          Create the Parental Control Rules and Schedules.
+        </p>
+      </div>
+
+      <div class="bold heading">
+        <p>Limit Access By:<a class="what_this" href="partials/parental/whatisthis2.html?v=v1.0.138" target="blank"> <span class="help-icon"></span>What's this?</a></p>
+      </div>
+
+      <div>
+        <label>
+          <input type="radio" ng-model="parentalControl.accessType" ng-value="0"/>
+          Block the following Websites and Embedded Keywords within a URL
+        </label>
+        <label>
+          <input type="radio" ng-model="parentalControl.accessType" ng-value="1"/>
+          Allow the following Websites and Embedded Keywords within a URL
+        </label>
+        <label>
+          <input type="radio" ng-model="parentalControl.accessType" ng-value="2"/>
+          Blocking ALL Internet Access
+        </label>
+      </div>
+
+      <div class="select_website">
+
+        <div class="left">
+          <p class="bold">Website:</p>
+          <input type="text" ng-model="website" ng-disabled="parentalControl.accessType == 2"/>
+          <p class="last">Example: www.example.com</p>
+
+          <p class="bold">Embedded keyword within a URL:</p>
+
+          <input type="text" ng-model="embeddedKeyword" ng-disabled="parentalControl.accessType == 2"/>
+
+          <p class="last">Example: "sample" within www.sample.com</p>
+
+        </div>
+
+        <div class="right">
+          <div class="button_box2">
+            <button ng-click="addControls()" class="left btn semi" ng-disabled="parentalControl.accessType == 2">Add >></button>
+            <button ng-click="removeControls()" class="left semi btn" ng-disabled="parentalControl.accessType == 2">Remove</button>
+          </div>
+
+          <select class="right multi_selector_keyword" ng-model="blocks" size="6" ng-options="block for block in blockedItems" multiple ng-disabled="parentalControl.accessType == 2"></select>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="bold heading">Create Schedule:<a class="what_this" href="partials/parental/whatisthis3.html?v=v1.0.138" target="blank"> <span class="help-icon"></span>What's this?</a></div>
+      <div class="bold heading">Days:</div>
+      <div class="days_schedule">
+        <label>
+        <input type="checkbox" name="checkbox" ng-model="days[0]"/>
+        Monday </label>
+        <label>
+          <input type="checkbox" name="checkbox" ng-model="days[1]"/>
+          Tuesday
+        </label>
+        <label>
+          <input type="checkbox" name="checkbox" ng-model="days[2]"/>
+          Wednesday
+        </label>
+        <label>
+          <input type="checkbox" name="checkbox" ng-model="days[3]"/>
+          Thursday
+        </label>
+        <label>
+          <input type="checkbox" name="checkbox" ng-model="days[4]"/>
+          Friday
+        </label>
+        <label>
+          <input type="checkbox" name="checkbox" ng-model="days[5]"/>
+          Saturday
+        </label>
+        <label>
+          <input type="checkbox" name="checkbox" ng-model="days[6]"/>
+          Sunday
+        </label>
+      </div>
+
+      <div class="bold heading">Times:</div>
+      <div class="times">
+
+        <label>
+          <input type="radio" ng-model="parentalControl.schedule.activeDuring" ng-value="true"/>
+          Rule will be Active at the Scheduled Time
+        </label>
+        <label>
+          <input type="radio" ng-model="parentalControl.schedule.activeDuring" ng-value="false"/>
+          Rule will be Inactive at the Scheduled Time
+        </label>
+      </div>
+
+      <div class="start_time">
+        <p class="heading bold">Start Time:</p>
+
+        <select ng-model="startHour">
+          <option ng-repeat="n in [1,12] | makeRange">{{changeDisplayNum(n)}}</option>
+        </select>
+        <span class="bold_time">:</span>
+        <select ng-model="startMinute">
+          <option value="0">00</option>
+          <option value="1">15</option>
+          <option value="2">30</option>
+          <option value="3">45</option>
+        </select>
+
+        <span>
+          <input type="radio" ng-model="startTime" ng-value="0"/>
+          AM
+        </span>
+        /
+        <span>
+          <input type="radio" ng-model="startTime" ng-value="1"/>
+          PM
+        </span>
+        <p class="heading bold">End Time:</p>
+
+        <select ng-model="endHour">
+          <option ng-repeat="n in [1,12] | makeRange">{{changeDisplayNum(n)}}</option>
+        </select>
+        <span class="bold_time">:</span>
+        <select ng-model="endMinute">
+          <option value="0">00</option>
+          <option value="1">15</option>
+          <option value="2">30</option>
+          <option value="3">45</option>
+        </select>
+
+        <span>
+          <input type="radio" ng-model="endTime" ng-value="0"/>
+          AM
+        </span>
+        /
+        <span>
+          <input type="radio" ng-model="endTime" ng-value="1"/>
+          PM
+        </span>
+      </div>
+
+      <div class="bold heading">Create Rule Name:<a class="what_this" href="partials/parental/whatisthis4.html?v=v1.0.138" target="blank"> <span class="help-icon"></span>What's this?</a></div>
+      <p>Create your rule name and description</p>
+
+      <table>
+        <tbody>
+          <tr>
+            <td class="bold">Rule Name:</td>
+            <td>
+              <input class="rule_name" type="text" ng-model="parentalControl.name"/>
+            </td>
+          </tr>
+          <tr>
+            <td class="bold">Description:</td>
+            <td>
+              <input class="rule_name" type="text" ng-model="parentalControl.description"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="step_three">
+        <span class= "step_heading">Step 3.</span>
+        <span class="softTxt">Click the Apply button to save and apply your settings.</span>
+      </div>
+      <div style="text-align:center;">
+        <button ng-click="applySettings()" class="btn">Apply</button>
+      </div>
+    </div>
+
+    <!-- Start: Attention -->
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 1) && !showErrorPage">
+      <div class="header">Attention</div>
+      <div>
+        <div>
+          <div align="center">
+            <p>Caution: Enabling Parental Control requires extra processing power to provide the <br>required inspection for your network and will contribute slight performance impacts.<br>Press Apply to confirm.</p>
+          </div>
+          <div align="center">
+            <button class="btn dark-btn" ng-click="cfmApplySettings()">Apply</button>
+            <button class="btn dark-btn" ng-click="togglePage(0)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: Attention -->
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

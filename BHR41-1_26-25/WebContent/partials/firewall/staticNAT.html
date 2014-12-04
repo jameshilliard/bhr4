@@ -1,0 +1,156 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+  <div ng-include src="'partials/header.html?v=v1.0.138'"></div>
+  <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/firewall/nav.html?v=v1.0.138'"></div>
+      <div ng-include src="'partials/error.html?v=v1.0.138'"></div>
+      <!-- START: Static NAT -->
+      <div class="content-panel-with-header span9" ng-show="0 == pageToShow && !showErrorPage">
+        <div class="header">Static NAT</div>
+        <div>Static IP Mapping Table</div>
+
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Networked Computer / Device</th>
+              <th>Public IP Address</th>
+              <th>Status</th>
+              <th>Port Forwarding</th>
+              <th>Action</th>
+            </tr>
+            <tr ng-repeat="stNat in staticNAT">
+              <td ng-show="!stNat.readOnly"><input type="checkbox" ng-model="enabled[$index]"><a href="" ng-click="editRule($index)">{{stNat.id}}</a></td>
+              <td ng-show="stNat.readOnly">{{stNat.id}}</td>
+              <td>{{stNat.host}}</td>
+              <td>{{stNat.publicIp}}</td>
+              <td>
+                <span ng-show="stNat.active">Active</span>
+                <span ng-show="!stNat.active">Disabled</span>
+              </td>
+              <td>
+                <div ng-show="stNat.portForwarding && stNat.active">Enabled</div>
+                <div ng-show="!stNat.portForwarding || !stNat.active">Disabled</div>
+              </td>
+              <td class="actions">
+                <a ng-show="!stNat.readOnly && stNat.serviceType == 0" ng-click="editRule($index)" title="Edit">
+                  <div class="edit-icon"></div>
+                </a>
+                <a ng-show="!stNat.readOnly" ng-click="removeRule($index)" title="Remove">
+                  <div class="remove-icon"></div>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7">
+                <button class="btn dark-btn" ng-click="togglePage(1)">Add</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <button class="btn dark-btn" ng-click="save()">Apply</button>
+          <a href="#/firewall" class="btn dark-btn">Cancel</a>
+          <button class="btn dark-btn" ng-click="refresh()" ng-show="false">Refresh</button>
+          <button class="btn dark-btn" ng-click="refresh()" ng-show="false">Resolve Now</button>
+        </div>
+      </div>
+      <!-- END: Static NAT -->
+
+      <!-- START: Add NAT/NAPT Rule -->
+      <div class="content-panel-with-header span9" ng-show="1 == pageToShow && !showErrorPage">
+        <div class="header">{{pageName}} NAT/NAPT Rule</div>
+
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <td>Local Host:</td>
+              <td colspan="2">
+                <select ng-model="statNat.localHost">
+                  <option value="-1">Specify Address</option>
+                  <option ng-repeat="device in devices" value="{{device.ipAddress}}">{{device.ipAddress}} - {{device.name}}</option>
+                </select>
+                <div ng-show="-1 == statNat.localHost">
+                  <input type="text" ng-model="statNat.host">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Public IP Address:</td>
+              <td colspan="2">
+                <input type="text" class="input-ip ipInput" ng-model="statNat.publicIp[0]" maxlength="3"/>
+                <span style="vertical-align:bottom;">.</span>
+                <input type="text" class="input-ip ipInput" ng-model="statNat.publicIp[1]" maxlength="3"/>
+                <span style="vertical-align:bottom;">.</span>
+                <input type="text" class="input-ip ipInput" ng-model="statNat.publicIp[2]" maxlength="3"/>
+                <span style="vertical-align:bottom;">.</span>
+                <input type="text" class="input-ip ipInput" ng-model="statNat.publicIp[3]" maxlength="3"/>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <label class="checkbox">
+                  <input type="checkbox" ng-model="statNat.portForwarding"/>
+                  Enable Port Forwarding For Static NAT
+                </label>
+              </td>
+            </tr>
+
+            <tr ng-show="statNat.portForwarding">
+              <td>Protocol</td>
+              <td colspan="2">
+                <select ng-model="prot" ng-show="statNat.services.length == 0" ng-change="ruleChanged()">
+                  <option value="-2">Any</option>
+                  <option value="-1">User Defined</option>
+                  <option ng-repeat="pf in pfRules | filter:filterFn" value="{{pf.id}}">{{pf.displayLabel}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr ng-show="statNat.services.length != 0 && statNat.portForwarding">
+              <td>Name</td>
+              <td>Ports</td>
+              <td>Action</td>
+            </tr>
+            <tr ng-repeat="serv in statNat.services" ng-show="statNat.portForwarding">
+              <td>{{serv.displayName}}</td>
+              <td>
+                <div ng-repeat="part in printProtArr[$index]">{{part}}</div>
+              </td>
+              <td class="actions">
+                <a ng-click="editService($index)" title="Edit" ng-show="serv.type == 1 || serv.serviceType != 0">
+                  <div class="edit-icon"></div>
+                </a>
+                <a ng-click="removeService($index)" title="Remove">
+                  <div class="remove-icon"></div>
+                </a>
+              </td>
+            </tr>
+            <tr ng-show="statNat.services.length != 0 && statNat.portForwarding">
+              <td colspan="3">
+                <select ng-model="prot" ng-change="ruleChanged()">
+                  <option value="-2">Add...</option>
+                  <option value="-1">User Defined</option>
+                  <option ng-repeat="pf in pfRules | filter:filterFn" value="{{pf.id}}">{{pf.displayLabel}}</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="text-align: center;">
+          <button class="btn dark-btn" ng-click="saveRule()">Apply</button>
+          <button class="btn dark-btn" ng-click="cancelRule()">Cancel</button>
+        </div>
+      </div>
+      <!-- END: Add NAT/NAPT Rule -->
+
+      <!-- Start: Service -->
+      <div class="content-panel-with-header span9" ng-show="(3 == pageToShow || 4 == pageToShow) && !showErrorPage">
+        <div ng-include src="'partials/firewall/service.html?v=v1.0.138'"></div>
+      </div>
+      <!-- End: Service -->
+<div class="clearfix"></div>
+    </div>
+  </div>
+</div>

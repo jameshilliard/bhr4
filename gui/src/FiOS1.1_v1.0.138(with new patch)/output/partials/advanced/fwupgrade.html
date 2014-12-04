@@ -1,0 +1,117 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+<div ng-show="page != 3">
+  <div ng-include src="'partials/header.html?v=v1.0.138'"></div>
+  <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/advanced/nav.html?v=v1.0.138'"></div>
+      <div ng-include src="'partials/error.html?v=v1.0.138'"></div>
+      <div class="content-panel-with-header span9" ng-show="page == 0">
+        <div class="header">Firmware Upgrade</div>
+        <div class="shaded_area bottom">
+          <div class="bold upgrade_intro">Upgrade From a Computer in the Network</div>
+          <div class="computer-image upgrade"></div>
+          <p>
+            Select an updated Wireless Broadband router firmware file from a computer's hard drive or CD on the network.
+          </p>
+          <div>
+            <button ng-click="fileUpgradePage()" class="btn">Upgrade Now</button>
+          </div>
+
+          <div class="centerme">
+            <a class="btn dark-btn" href="#/advanced">Cancel</a>
+          </div>
+        </div>
+      </div>
+      <div class="content-panel-with-header span9" ng-show="page == 1 && !showErrorPage">
+        <div class="header">Upgrade From a Computer in the Network</div>
+
+        <div>
+          <p>Attention</p>
+        </div>
+
+        <p>Uploading the firmware upgrade file may take a few minutes.</p>
+        <p>
+          Interrupting the upload process may result in an inoperable device. Please wait until a completion message appears before rebooting.
+        </p>
+        <br>
+        <p class="centerme">
+          Browse to locate the file, then press OK to begin the firmware upgrade process.
+        </p>
+        <br>
+        <div class="centerme">
+          <form action="api/upgrade_firmware" enctype="multipart/form-data" target="hidden_upload" method="post">
+            <iframe id='hidden_upload' name='hidden_upload' src='' 
+                    onLoad='uploadDone()' style='width:0;height:0;border:0px solid #fff'></iframe>
+            <input type="file" name="firmware" ng-model="inputfile" ng-click="chooseFile()">
+            <div>
+              <br>
+              <input type="submit" value="OK" class="btn dark-btn" id="submitting" ng-click="submittingFile()" ng-blur="setFocus()">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="content-panel-with-header span9" ng-show="page == 2">
+        <div class="header">Firmware Upgrade</div>
+
+        <p>A new firmware was successfully uploaded to Wireless Broadband Router.</p>
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <th>Current Version:</th>
+              <td>{{stats.version}}</td>
+            </tr>
+            <tr>
+              <th>New Version:</th>
+              <td>{{stats.standbyVersion}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <p class="centerme">
+          Do you want to apply the firmware update and reboot the gateway?
+        </p>
+        <br>
+        <div class="centerme">
+          <button ng-click="applyFirmware()" class="btn">Apply</button>
+          <button ng-click="cancelFirmwareUpdate()" class="btn">Cancel</button>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<div ng-show="page == 3">
+  <div class="masthead" id="header">
+    <div class="navbar" id="main_navbar">
+      <div class="header centerer">
+        <a href="/index.html?v=v1.0.138">
+          <div class="brand"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="centerer">
+    <div id="content" class="plainlower">
+      <div class="content-panel-with-header span9">
+        <div>
+          <div>
+            <p>Please wait, system is now being upgraded...</p>
+          </div>
+          <p>
+            Attention! If the page does not refresh automatically in a minute, please press the Login button.
+          </p>
+          <div class="preloader_fake">
+            <div class="preloader_fake_bg" set-width></div>
+          </div>
+          <div class="login_button">
+            <a href="" class="btn dark-btn" ng-show="!restarting">Login</a>
+            <a href="#/login" class="btn dark-btn" ng-show="restarting">Login</a>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+</div>

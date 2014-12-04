@@ -1,0 +1,22 @@
+/* IE8 */
+
+.dark-table tr {
+    border-bottom: thin solid #E0E0E0;
+}
+
+.dark-table tr.hideLineDarkTable{
+	border-bottom: none;
+}
+
+select, input[type="text"], input[type="number"], input[type="password"] {
+    border: thin solid #cccccc; padding-bottom:7px; padding-top:1px;
+}
+
+select {
+    border: thin solid #cccccc; padding-top:3px; padding-bottom:3px;
+}
+
+.input-ip { padding: 2px; width: 45px;}
+
+ button.wpstoggle{width:120px}
+ button.dmztoggle{width:120px}

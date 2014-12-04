@@ -1,0 +1,129 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+  <div ng-include src="'partials/header.html?v=v1.0.138'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v=v1.0.138'"></div>
+
+    <div class="content-panel-with-header span9" ng-show="!adding && !showErrorPage">
+      <div class="header">DHCP Connections</div>
+      <table class="dark-table smallfont">
+        <tbody>
+          <tr>
+            <th>Host Name</th>
+            <th>IP Address</th>
+            <th>Physical Address</th>
+            <th>Lease Type</th>
+            <th>Connection Name</th>
+            <th>Status</th>
+            <th>Expires In</th>
+            <th>Action</th>
+          </tr>
+          <tr ng-repeat="device in devices">
+            <td>
+              <a href="" ng-click="editConnection($index, true)">{{device.name}}</a>
+            </td>
+            <td>{{device.ipAddress}}</td>
+            <td>{{device.mac}}</td>
+            <td ng-switch on="device.staticIp">
+              <div ng-switch-when="false">Dynamic</div>
+              <div ng-switch-default>Static</div>
+            </td>
+            <td>
+              <a href="#/network/connections/0?from=connlist">{{conn.displayName}}</a>
+            </td>
+            <td>
+              <span ng-show="device.staticIp || device.leaseExpires > 0" class="green-text">Active</span>
+              <span ng-show="!device.staticIp && device.leaseExpires <= 0">Expired</span>
+            </td>
+            <td>
+              <span ng-show="!device.staticIp && device.leaseExpires > 0">{{device.leaseExpires}} minutes</span>
+              <span ng-show="device.staticIp">Never</span>
+            </td>
+            <td class="actions">
+              <a ng-click="doPingTest($index)" title="Test">
+                <div class="search-icon"></div>
+              </a>
+              <a ng-click="editConnection($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="deleteConnection(device.id)" title="Remove" ng-show="device.staticIp || device.leaseExpires <= 0">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button ng-click="addStaticConnection()" class="btn add_connect">Add Static Connection</button>
+
+      <div style="text-align: center;">
+        <span>Press the Refresh button to update the data.</span>
+      </div>
+      <div style="text-align: center;">
+        <a class="btn dark-btn" href="#/advanced/dhcp">Close</a>
+        <button class="btn dark-btn" ng-click="refresh()">Refresh</button>
+      </div>
+    </div>
+
+    <div class="content-panel-with-header span9" ng-show="adding && !showErrorPage">
+      <div class="header">DHCP Connection Settings</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>Host Name:</td>
+            <td ng-show="showSettings">
+              <input type="text" ng-model="name"/>
+            </td>
+            <td ng-show="!showSettings">{{name}}</td>
+          </tr>
+          <tr>
+            <td>IP Address:</td>
+            <td ng-show="showSettings">
+              <input type="text" class="input-ip ipInput" ng-model="ipAddress[0]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="ipAddress[1]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="ipAddress[2]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="ipAddress[3]" maxlength="3"/>
+            </td>
+            <td ng-show="!showSettings">{{ipAdd}}</td>
+          </tr>
+          <tr>
+            <td>MAC Address:</td>
+            <td ng-show="showSettings">
+              <input type="text" class="input-mac" ng-model="macAddress[0]" maxLength="2"/>
+              <span style="vertical-align:center;">:</span>
+              <input type="text" class="input-mac" ng-model="macAddress[1]" maxLength="2"/>
+              <span style="vertical-align:center;">:</span>
+              <input type="text" class="input-mac" ng-model="macAddress[2]" maxLength="2"/>
+              <span style="vertical-align:center;">:</span>
+              <input type="text" class="input-mac" ng-model="macAddress[3]" maxLength="2"/>
+              <span style="vertical-align:center;">:</span>
+              <input type="text" class="input-mac" ng-model="macAddress[4]" maxLength="2"/>
+              <span style="vertical-align:center;">:</span>
+              <input type="text" class="input-mac" ng-model="macAddress[5]" maxLength="2"/>
+            </td>
+            <td ng-show="!showSettings">{{macAdd}}</td>
+          </tr>
+          <tr ng-show="editing">
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-model="useStaticIp"/>
+                Static Lease Type
+              </label>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="saveStaticConnection()">Apply</button>
+        <button class="btn dark-btn" ng-click="cancelStaticConnection()">Cancel</button>
+      </div>
+    </div>
+    <div ng-include src="'partials/error.html?v=v1.0.138'"></div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+  
+</div>
