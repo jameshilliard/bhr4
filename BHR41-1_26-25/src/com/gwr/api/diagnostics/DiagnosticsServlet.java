@@ -28,28 +28,30 @@ public class DiagnosticsServlet extends HttpServlet {
 	private final static Logger logger = LoggerFactory
 			.getLogger(DiagnosticsServlet.class);
 
-
-	@Override
+    private static String pingCount = "pingCount";
+    private static String pingCountSave = "pingCountSave";
+    private static String destinationSave = "destinationSave";
+    @Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		Long pingCount = (Long)request.getSession().getAttribute("pingCount");
+		Long pingCountTemp = (Long)request.getSession().getAttribute(pingCount);
 		// ping test call by post before
-		if(pingCount != null)
+		if(pingCountTemp != null)
 		{
-			pingCount++;
-			request.getSession().setAttribute("pingCount", pingCount);
+			pingCountTemp++;
+			request.getSession().setAttribute(pingCount, pingCountTemp);
 
-			Long pingCountSave = (Long)request.getSession().getAttribute("pingCountSave");
-			String destinationSave = (String)request.getSession().getAttribute("destinationSave");
+			Long pingCountSaveTemp = (Long)request.getSession().getAttribute(pingCountSave);
+			String destinationSaveTemp = (String)request.getSession().getAttribute(destinationSave);
 			Boolean running;
-			if(pingCount == pingCountSave){
+			if(pingCountTemp.equals(pingCountSaveTemp)){
 				//System.out.println(pingCount);
 				//replaceFields = "{\"running\":false, \"received\":" + pingCount +  ", \"transmitted\":" + pingCount + ", \"destination:\"" + destinationSave + "}";
 				running = new Boolean(false);
-				request.getSession().removeAttribute("pingCount");
-		        request.getSession().removeAttribute("pingCountSave");
-		        request.getSession().removeAttribute("destinationSave");
+				request.getSession().removeAttribute(pingCount);
+		        request.getSession().removeAttribute(pingCountSave);
+		        request.getSession().removeAttribute(destinationSave);
 			}
 			else
 			{
@@ -60,9 +62,10 @@ public class DiagnosticsServlet extends HttpServlet {
 			String currentJson = JsonProperties.getDiagnosticsOKJSON();
 			//String currentJson = (String)request.getSession().getAttribute(getClass().getSimpleName());
 			Map thisOne = SimpleJson.getJsonObject(currentJson);
-			thisOne.put("transmitted", pingCount);
-			thisOne.put("received", pingCount);
-			thisOne.put("destination", destinationSave);
+			thisOne.put("transmitted", pingCountTemp);
+			thisOne.put("received", pingCountTemp);
+			thisOne.put("destination", destinationSaveTemp);
+			thisOne.put("count", pingCountSaveTemp);
 			thisOne.put("running", running);
 		
 
@@ -90,11 +93,11 @@ public class DiagnosticsServlet extends HttpServlet {
 		request.getSession().setAttribute(getClass().getSimpleName(), finalJson);
 		
 		Map inMap = SimpleJson.getJsonObject(in);
-		Long pingCount = (Long) inMap.get("count");
+		Long pingCountTemp = (Long) inMap.get("count");
 		String destination = (String) inMap.get("destination");
-		request.getSession().setAttribute("pingCount", new Long(0));
-		request.getSession().setAttribute("pingCountSave", pingCount);
-		request.getSession().setAttribute("destinationSave", destination);
+		request.getSession().setAttribute(pingCount, new Long(0));
+		request.getSession().setAttribute(pingCountSave, pingCountTemp);
+		request.getSession().setAttribute(destinationSave, destination);
 
 
 	}
