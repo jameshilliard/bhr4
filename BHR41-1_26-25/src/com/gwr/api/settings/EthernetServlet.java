@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gwr.api.settings.model.Ethernet;
 import com.gwr.util.ServletRequestUtilities;
 
 /**
@@ -34,8 +35,16 @@ public class EthernetServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		ServletRequestUtilities.handlePutRequest(getClass().getSimpleName(),
-				request, response);
+		//ServletRequestUtilities.handlePutRequest(getClass().getSimpleName(),
+		//		request, response);
+		String js = (String) request.getSession().getAttribute(
+				getClass().getSimpleName());
+		String in = ServletRequestUtilities.getJSONFromPUTRequest(request);
+		Ethernet ethernet = new Ethernet(js);
+		ethernet.update(in);
+		request.getSession().setAttribute(getClass().getSimpleName(), ethernet.getJson());
+		ServletRequestUtilities.sendJSONResponse("", response);	
+		
 	}
 
 }
