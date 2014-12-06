@@ -1,6 +1,7 @@
 package com.gwr.api.settings;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ntp.TimeStamp;
 
+import com.gwr.util.NTPClient;
 import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.json.SimpleJson;
 
@@ -30,16 +33,29 @@ public class DateTimeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-//		String outJson = (String) request.getSession()
-//				.getAttribute(getClass().getSimpleName());
-//		
-//		TimeStamp ts = new TimeStamp(new Date());
-//		String newdate = "{\"localTime\":" + ts.getSeconds() + "}";
-//		String outJson1 = SimpleJson.replaceJsonFields(outJson, newdate);
-//		ServletRequestUtilities.sendJSONResponse(outJson1, response);
+		String dts = "";
+		try {
+			dts = String.valueOf(NTPClient.getNTPTime());
+		} catch (Exception e) {
+		}
+		if (StringUtils.isNotEmpty(dts)) {
+			String second = dts.substring(0, dts.length() - 3);
+			String outJson = (String) request.getSession().getAttribute(
+					getClass().getSimpleName());
 
-		ServletRequestUtilities.handleGetRequest(getClass().getSimpleName(),
-				request, response);
+			String newdate = "{\"localTime\":" + second + "}";
+			String outJson1 = SimpleJson.replaceJsonFields(outJson, newdate);
+			SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd HH:mm:ss yyyy");
+			Date d = new Date();
+			String newStatus = "Got time update from server. Last update: " + sdf.format(d);
+			String newstatusjson = "{\"status\":\"" + newStatus + "\"}";
+			String outJson2 = SimpleJson.replaceJsonFields(outJson1, newstatusjson);
+		
+			ServletRequestUtilities.sendJSONResponse(outJson2, response);
+		} else {
+			ServletRequestUtilities.handleGetRequest(
+					getClass().getSimpleName(), request, response);
+		}
 	}
 
 	@Override
