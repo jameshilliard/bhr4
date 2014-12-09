@@ -10,11 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gwr.util.ServletRequestUtilities;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/firewall/accesscontrol/*")
 public class AccessControlServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

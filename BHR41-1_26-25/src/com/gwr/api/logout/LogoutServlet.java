@@ -16,11 +16,6 @@ import com.gwr.api.login.LoginServlet;
 import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.StringUtil;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/logout")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

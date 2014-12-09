@@ -17,11 +17,6 @@ import com.gwr.util.NTPClient;
 import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.json.SimpleJson;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/settings/datetime")
 public class DateTimeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

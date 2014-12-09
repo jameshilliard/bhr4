@@ -20,11 +20,6 @@ import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.StringUtil;
 import com.gwr.util.json.SimpleJson;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/wireless/*")
 public class WirelessServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

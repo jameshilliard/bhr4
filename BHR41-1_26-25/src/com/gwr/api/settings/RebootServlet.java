@@ -15,11 +15,6 @@ import org.slf4j.LoggerFactory;
 import com.gwr.api.logout.LogoutServlet;
 import com.gwr.util.ServletRequestUtilities;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/settings/reboot")
 public class RebootServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

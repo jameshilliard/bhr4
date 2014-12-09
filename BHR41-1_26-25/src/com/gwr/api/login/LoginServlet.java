@@ -18,11 +18,6 @@ import com.gwr.session.SessionLoader;
 import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.json.SimpleJson;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

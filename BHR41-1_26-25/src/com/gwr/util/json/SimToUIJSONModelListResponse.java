@@ -2,13 +2,6 @@ package com.gwr.util.json;
 
 import java.util.List;
 
-/**
- * This is the request that comes from the interface to the board.
- * 
- * 
- * @author jerry skidmore
- * 
- */
 public class SimToUIJSONModelListResponse extends JSONUtilities {
 
 	private List<JsonDataModel> modelList;

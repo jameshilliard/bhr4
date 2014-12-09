@@ -25,8 +25,6 @@ import com.gwr.util.StringUtil;
  * 
  * NOTES: This required changes to BOTH rest.js and util.js
  * 
- * @author jerry skidmore
- * 
  */
 @WebServlet("/api/settings/log/*")
 public class LogServlet extends HttpServlet {

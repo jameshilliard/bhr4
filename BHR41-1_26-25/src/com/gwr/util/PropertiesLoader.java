@@ -8,7 +8,6 @@ import java.util.Properties;
 /**
  * Reads in SDHL properties configuration file
  * 
- * @author jerry skidmore
  *
  */
 public class PropertiesLoader {

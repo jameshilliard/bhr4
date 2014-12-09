@@ -14,11 +14,6 @@ import com.gwr.api.dhcp.model.DHCPClients;
 import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.StringUtil;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/dhcp/*")
 public class DHCPServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

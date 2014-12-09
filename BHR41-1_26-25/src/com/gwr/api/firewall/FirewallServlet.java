@@ -14,11 +14,6 @@ import org.slf4j.LoggerFactory;
 import com.gwr.api.login.LoginServlet;
 import com.gwr.util.ServletRequestUtilities;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/firewall")
 public class FirewallServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

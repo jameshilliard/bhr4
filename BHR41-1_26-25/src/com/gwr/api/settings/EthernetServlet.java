@@ -11,11 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.gwr.api.settings.model.Ethernet;
 import com.gwr.util.ServletRequestUtilities;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/settings/ethernet")
 public class EthernetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

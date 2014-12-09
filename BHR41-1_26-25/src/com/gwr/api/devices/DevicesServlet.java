@@ -17,11 +17,6 @@ import com.gwr.api.wireless.model.Wireless;
 import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.StringUtil;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 @WebServlet("/api/devices/*")
 public class DevicesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

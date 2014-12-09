@@ -48,11 +48,6 @@ import com.gwr.util.json.SimToUIJSONModelResponse;
 import com.gwr.util.json.UIToSimModelListRequest;
 import com.gwr.util.json.UIToSimModelRequest;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
 public class SessionLoader {
 	protected final static Logger logger = LoggerFactory
 			.getLogger(SessionLoader.class);

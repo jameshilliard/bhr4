@@ -8,8 +8,6 @@ import java.util.Map;
  * that each model can extend.
  * 
  * The extended Models tend to provide convenience methods to extract the expected data.
- * 
- * @author jerry skidmore
  *
  */
 public class JsonDataModel {

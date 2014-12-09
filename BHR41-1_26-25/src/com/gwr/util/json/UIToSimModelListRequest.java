@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * This is the request that comes from the interface to the board.
- * 
- * 
- * @author jerry skidmore
- *
- */
 public class UIToSimModelListRequest extends JSONUtilities {
 
 	protected String json;
