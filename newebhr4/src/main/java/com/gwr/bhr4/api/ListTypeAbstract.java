@@ -39,6 +39,7 @@ public abstract class ListTypeAbstract {
 
 		JSONListDto dto = new JSONListDto(all);
 		dto.replaceFieldsByIndex(idName, id, inStr);
+		request.getSession().setAttribute(servletName, dto.getJson());
 
 	}
 	

@@ -1,4 +1,4 @@
-package com.gwr.api.settings;
+package com.gwr.bhr4.api.settings;
 
 import java.io.IOException;
 
@@ -12,41 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gwr.bhr4.api.NonListTypeAbstract;
-import com.gwr.util.ServletRequestUtilities;
 
 @Controller
-@RequestMapping("/api/settings/datetime")
-public class DateTimeServlet extends NonListTypeAbstract {
-	public DateTimeServlet() {
+@RequestMapping("/api/settings/ipv6")
+public class IPV6Servlet extends NonListTypeAbstract {
+	public IPV6Servlet() {
 		servletName = this.getClass().getSimpleName();
-	}
-
-}
-@WebServlet("/api/settings/ipv6")
-public class IPV6Servlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * 
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
-		ServletRequestUtilities.handleGetRequest(getClass().getSimpleName(),
-				request, response);
-
-	}
-
-	/**
-	 * 
-	 */
-	@Override
-	protected void doPut(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
-		ServletRequestUtilities.handlePutRequest(getClass().getSimpleName(),
-				request, response);
 	}
 
 }

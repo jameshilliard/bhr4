@@ -8,8 +8,6 @@ import com.gwr.bhr4.api.ListTypeAbstract;
 @Controller
 @RequestMapping("/api/settings/routes/")
 public class RoutesServlet extends ListTypeAbstract{
-
-
 	public RoutesServlet(){
 		servletName = this.getClass().getSimpleName();
 		idName = "id";

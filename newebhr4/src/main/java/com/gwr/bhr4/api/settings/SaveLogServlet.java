@@ -29,8 +29,8 @@ import com.gwr.util.StringUtil;
  * 
  */
 @Controller
-@RequestMapping("/api/settings/savelog/")
-public class SaveLogServlet extends HttpServlet {
+@RequestMapping("/api/settings/savelog")
+public class SaveLogServlet {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String get(HttpServletRequest request) {

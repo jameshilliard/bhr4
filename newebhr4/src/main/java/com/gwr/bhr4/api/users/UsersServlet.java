@@ -1,127 +1,85 @@
-package com.gwr.api.users;
+package com.gwr.bhr4.api.users;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.gwr.api.login.LoginServlet;
-import com.gwr.api.users.model.User;
-import com.gwr.api.wireless.model.Wireless;
-import com.gwr.util.GlobalConstants;
-import com.gwr.util.HttpSessionUtil;
-import com.gwr.util.JsonProperties;
-import com.gwr.util.ServletRequestUtilities;
-import com.gwr.util.StringUtil;
-import com.gwr.util.json.SimpleJson;
+import com.gwr.bhr4.api.dhcp.model.DHCPClients;
+import com.gwr.bhr4.api.users.model.User;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
-@WebServlet("/api/users/*")
-public class UsersServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private final static Logger logger = LoggerFactory
-			.getLogger(UsersServlet.class);
-	private static String serviceName = "users";
+@Controller
+@RequestMapping("/api/user")
+public class UsersServlet {
 
-	/**
-	 * 
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	String servletName = getClass().getSimpleName();
+	String idName = "id";
 
-		String json = "";
-		String id = StringUtil.retrieveLastId(request.getRequestURI(),
-				serviceName);
-		String js = (String) request.getSession().getAttribute(
-				getClass().getSimpleName());
-
-		if (StringUtils.isNotEmpty(id)) {
-			User users = new User(js);
-			json = users.getUserJsonByIndex(id);
-		} else {
-			json = js;
-		}
-		ServletRequestUtilities.sendJSONResponse(json, response);
+	@RequestMapping(method = RequestMethod.GET)
+	public String getAll(HttpServletRequest request) {
+		String all = (String) request.getSession().getAttribute(servletName);
+		return all;
 
 	}
 
-	// {"users":[{"emailNotificationAddress":"","fullName":"Administrator","id":0,"securityNotifyLevel":0,"systemNotifyLevel":0,"password":"test"}]}
-	@Override
-	protected void doPut(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	public String getOneUser(@PathVariable String id, HttpServletRequest request) {
 
-		String id = StringUtil.retrieveLastId(request.getRequestURI(),
-				serviceName);
-		String in = ServletRequestUtilities.getJSONFromPUTRequest(request);
-		String js = (String) request.getSession().getAttribute(
-				getClass().getSimpleName());
-		if (StringUtils.isNotEmpty(id)) {
-			User users = new User(js);
-			Map map = SimpleJson.getJsonObject(in);
-			List<Map> maps = (List<Map>) map.get("users");
-			for (Map p : maps) {
-				Long id1 = (Long) p.get("id");
-				users.replaceUser(id1.toString(), p);
-			}
-			request.getSession().setAttribute(getClass().getSimpleName(),
-					users.getJson());
-			ServletRequestUtilities.sendJSONResponse(in, response);
-		}
-		else
-		{
-			String finalJson= HttpSessionUtil.replaceAttributes(getClass().getSimpleName(), in, request);
+		String js = (String) request.getSession().getAttribute(servletName);
+		User user = new User(js);
 
-			request.getSession().setAttribute(getClass().getSimpleName(),
-					finalJson);
-			ServletRequestUtilities.sendJSONResponse(finalJson, response);
-		}
+		return user.getUserJsonByIndex(id);
+
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String in = ServletRequestUtilities.getJSONFromPUTRequest(request);
-
-		String js = (String) request.getSession().getAttribute(
-				getClass().getSimpleName());
-		User users = new User(js);
-
-		users.addUser(in);
-
-		request.getSession().setAttribute(getClass().getSimpleName(),
-				users.getJson());
-		ServletRequestUtilities.sendJSONResponse(users.getJson(), response);
+	@RequestMapping(method = RequestMethod.PUT)
+	public void updateAll(@RequestBody String inStr, HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(servletName);
+		User user = new User(js);
+		user.replaceAll(inStr);
+		request.getSession().setAttribute(servletName, user.getJson());
 	}
 
-	@Override
-	protected void doDelete(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	// 
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	public void updateOneUser(@RequestBody String inStr, @PathVariable String id,
+			HttpServletRequest request) {
 
-		String js = (String) request.getSession().getAttribute(
-				getClass().getSimpleName());
-		String id = StringUtil.retrieveLastId(request.getRequestURI(),
-				serviceName);
-		User users = new User(js);
+		String js = (String) request.getSession().getAttribute(servletName);
+		User user = new User(js);
+		user.replaceUser(id, inStr);
 
-		if (StringUtils.isNotEmpty(id)) {
-			users.deleteUserByIndex(id);
-		}
-		request.getSession().setAttribute(getClass().getSimpleName(),
-				users.getJson());
-		ServletRequestUtilities.sendJSONResponse(users.getJson(), response);
+		request.getSession().setAttribute(servletName, user.getJson());
+
+	}
+
+	// add one
+	@RequestMapping( method = RequestMethod.POST)
+	public void addOneUser(@RequestBody String inStr,	HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(servletName);
+		User user = new User(js);
+		user.addUser(inStr);
+
+		request.getSession().setAttribute(servletName, user.getJson());
+	}
+
+	@RequestMapping( method = RequestMethod.DELETE)
+	public void deleteOneUser(@PathVariable String id,	HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(servletName);
+		User user = new User(js);
+		user.deleteUserByIndex(id);
+		request.getSession().setAttribute(servletName, user.getJson());
 	}
 }

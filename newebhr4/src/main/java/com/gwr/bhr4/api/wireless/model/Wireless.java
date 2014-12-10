@@ -1,26 +1,26 @@
-package com.gwr.api.wireless.model;
+package com.gwr.bhr4.api.wireless.model;
 
-import java.util.List;
 import java.util.Map;
 
-import com.gwr.util.json.SimpleJson;
+import com.gwr.bhr4.api.ModelAbstract;
+import com.gwr.bhr4.dto.JSONDto;
+import com.gwr.bhr4.dto.JSONListDto;
 
-public class Wireless {
+public class Wireless extends ModelAbstract {
 
-	@SuppressWarnings("rawtypes")
-	List<Map> maps;
+	JSONListDto jSONListDto;
 
 	public Wireless(String jsontext) {
-		maps = SimpleJson.getJsonObjects(jsontext);
+		jSONListDto = new JSONListDto(jsontext);
 	}
 	
 	public String getJson(){
-		return SimpleJson.toJsonText(maps);
+		return jSONListDto.getJson();
 	}
 
 	@SuppressWarnings("rawtypes")
 	public Map getByIndex(String idx) {
-		for (Map p : maps) {
+		for (Map p : jSONListDto.getMapList()) {
 			String id = "" + p.get("id");
 			if (idx.equals(id))
 				return p;
@@ -32,7 +32,7 @@ public class Wireless {
 	public String getJsonByIndex(String idx) {
 		
 		Map p = getByIndex(idx);
-		return SimpleJson.toJsonText(p);
+		return this.unmarshallJson(p);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -52,7 +52,7 @@ public class Wireless {
 	@SuppressWarnings("rawtypes")
 	public String getWepJson(String idx) {
 		Map wep = (Map) getWep(idx);
-		return SimpleJson.toJsonText(wep);
+		return this.unmarshallJson(wep);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -67,7 +67,7 @@ public class Wireless {
 	@SuppressWarnings("rawtypes")
 	public String getWpaJson(String idx) {
 		Map wpa = (Map) getWpa(idx);
-		return SimpleJson.toJsonText(wpa);
+		return this.unmarshallJson(wpa);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -78,7 +78,7 @@ public class Wireless {
 
 	@SuppressWarnings({ "rawtypes" })
 	public void replaceWep(String idx, String jsonText) {
-		Map mapBy = SimpleJson.getJsonObject(jsonText);
+		Map mapBy = this.marshallJson(jsonText);
 		replaceWep(idx, mapBy);
 	}
 
@@ -91,14 +91,14 @@ public class Wireless {
 
 	@SuppressWarnings({ "rawtypes" })
 	public void replaceWpa(String idx, String jsonText) {
-		Map mapBy = SimpleJson.getJsonObject(jsonText);
+		Map mapBy = this.marshallJson(jsonText);
 		replaceWpa(idx, mapBy);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void replaceByIndex(String idx, String jsonText) {
 		Map thisOne = getByIndex(idx);
-		Map mapBy = SimpleJson.getJsonObject(jsonText);
+		Map mapBy = this.marshallJson(jsonText);
 		thisOne.putAll(mapBy);
 	}
 

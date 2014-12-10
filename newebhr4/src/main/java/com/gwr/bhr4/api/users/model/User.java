@@ -1,29 +1,33 @@
-package com.gwr.api.users.model;
+package com.gwr.bhr4.api.users.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.gwr.util.json.JsonDataModel;
-import com.gwr.util.json.SimpleJson;
+import com.gwr.bhr4.api.ModelAbstract;
+import com.gwr.bhr4.dto.JSONDto;
 
-public class User {
+public class User extends ModelAbstract {
 
-	@SuppressWarnings("rawtypes")
-	Map userMap;
+	JSONDto jsonDto;
 
 	public User(String jsontext) {
-		userMap = SimpleJson.getJsonObject(jsontext);
+		jsonDto = new JSONDto(jsontext);
 	}
 
 	public String getJson() {
-		return SimpleJson.toJsonText(userMap);
+		return jsonDto.getJson();
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void replaceAll(String inJson){
+		Map p = this.marshallJson(inJson);
+		jsonDto.getMap().putAll(p);
+		
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Map getUserByIndex(String idx) {
-		List<Map> users = (List<Map>) userMap.get("users");
+	public Map getUserMapByIndex(String idx) {
+		List<Map> users = (List<Map>) jsonDto.getMap().get("users");
 		for (Map p : users) {
 			String id = "" + p.get("id");
 			if (idx.equals(id))
@@ -32,91 +36,48 @@ public class User {
 		return null;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void deleteUserByIndex(String idx) {
-		List<Map> users = (List<Map>) userMap.get("users");
-		List<Map> newUsers = new ArrayList<Map>();
-		for (Map p : users) {
-			String id = "" + p.get("id");
-			if (!idx.equals(id))
-				newUsers.add(p);
-		}
-
-		userMap.put("users", newUsers);
+	public String getUserJsonByIndex(String idx) {
+		Map p = getUserMapByIndex(idx);
+		if (p == null)
+			return "";
+		return this.unmarshallJson(p);
 	}
 
-// the version to add element into first available slot
-//	@SuppressWarnings({ "rawtypes", "unchecked" })
-//	public void addUser(String jsonText) {
-//		List<Map> users = (List<Map>) userMap.get("users");
-//		// find the next id
-//		int nextId = 1;
-//		while (true) {
-//			boolean found = false;
-//			for (Map p : users) {
-//				String id = "" + nextId;
-//				String thisid = "" + p.get("id");
-//				if (thisid.equals(id)) {
-//					found = true;
-//					break;
-//				}
-//			}
-//			if (found) {
-//				nextId++;
-//			} else {
-//				break;
-//			}
-//		}
-//		Map oneUser = SimpleJson.getJsonObject(jsonText);
-//		oneUser.put("id", "" + nextId);
-//		users.add(oneUser);
-//	}
-	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addUser(String jsonText) {
-		List<Map> users = (List<Map>) userMap.get("users");
+		List<Map> users = (List<Map>) jsonDto.getMap().get("users");
 		// find the next id
 		long nextId = getNextIDInList("id", users);
-		
-		Map oneUser = SimpleJson.getJsonObject(jsonText);
+
+		Map oneUser = this.marshallJson(jsonText);
 		oneUser.put("id", nextId);
 		users.add(oneUser);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	private long getNextIDInList(String idString, List<Map> modelList) {
-
-		// if original array is empty, start with 1
-		if (modelList == null || modelList.isEmpty())
-			return 1;
-
-		long maxIDInList = 0;
-		for (Map model : modelList) {
-			Long lid = (Long)model.get(idString);
-			if (lid > maxIDInList) {
-				maxIDInList = lid;
-			}
-		}
-
-		return (maxIDInList + 1);
-	}
-
-	@SuppressWarnings("rawtypes")
-	public String getUserJsonByIndex(String idx) {
-		Map one = (Map) getUserByIndex(idx);
-		return SimpleJson.toJsonText(one);
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void replaceUser(String idx, Map mapBy) {
-		Map thisOne = getUserByIndex(idx);
+		Map thisOne = getUserMapByIndex(idx);
 		thisOne.putAll(mapBy);
 	}
 
 	@SuppressWarnings("rawtypes")
-	public String replaceUser(String idx, String mapByJson) {
-		Map mapBy = SimpleJson.getJsonObject(mapByJson);
+	public void replaceUser(String idx, String mapByJson) {
+		Map mapBy = this.marshallJson(mapByJson);
 		replaceUser(idx, mapBy);
-		return getUserJsonByIndex(idx);
 	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void deleteUserByIndex(String idx) {
+		List<Map> users = (List<Map>) jsonDto.getMap().get("users");
+		Map toBeDeleted = null;
+		for (Map p : users) {
+			String id = "" + p.get("id");
+			if (idx.equals(id)) {
+				toBeDeleted = p;
+			}
+		}
+
+		users.remove(toBeDeleted);
+	}
+
 }
