@@ -17,6 +17,10 @@ public class Wireless extends ModelAbstract {
 	public String getJson(){
 		return jSONListDto.getJson();
 	}
+	
+	public void replaceAll(String jsonText){
+		jSONListDto = new JSONListDto(jsonText);
+	}
 
 	@SuppressWarnings("rawtypes")
 	public Map getByIndex(String idx) {

@@ -1,183 +1,130 @@
-package com.gwr.api.wireless;
+package com.gwr.bhr4.api.wireless;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.gwr.api.wireless.model.Wireless;
-import com.gwr.util.GlobalConstants;
-import com.gwr.util.HttpSessionUtil;
-import com.gwr.util.JsonProperties;
-import com.gwr.util.ServletRequestUtilities;
-import com.gwr.util.StringUtil;
-import com.gwr.util.json.SimpleJson;
+import com.gwr.bhr4.api.OtherTypeAbstract;
+import com.gwr.bhr4.api.wireless.model.Wireless;
 
-/**
- * 
- * @author jerry skidmore
- * 
- */
-@WebServlet("/api/wireless/*")
-public class WirelessServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static String serviceName = "wireless";
-	private static String idName = "id";
-
-	private static String TRANSMISSION = "transmission";
-	private static String QOS = "qos";
-	private static String WEP = "wep";
-	private static String WPA = "wpa";
-	private static String MACFILTER = "macfilter";
-	private static String WPS = "wps";
-
-	public static String TRAKEY = "wireless." + TRANSMISSION;
-	public static String QOSKEY = "wireless." + QOS;
-	public static String MACKEY = "wireless." + MACFILTER;
-	public static String WPSKEY = "wireless." + WPS;
+@Controller
+@RequestMapping("/api/wireless")
+public class WirelessServlet extends OtherTypeAbstract{
 
 	private final static Logger logger = LoggerFactory
 			.getLogger(WirelessServlet.class);
+	
+	public static String TRAKEY = "wireless.transmission";
+	public static String QOSKEY = "wireless.qos";
+	public static String MACKEY = "wireless.macfilter";
+	public static String WPSKEY = "wireless.wps";
 
-	/**
-	 * 
-	 */
-	@Override
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	String servletName = getClass().getSimpleName();
 
-		String uri = request.getRequestURI();
-		String json = "";
-		logger.info("Wireless get: " + uri);
+	
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public String getWireless(HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(servletName);
 
-		if (uri.endsWith(TRANSMISSION)) {
-			String id = TRAKEY + StringUtil.retrieveId(uri, TRANSMISSION);
-			String def = JsonProperties.getWirelessTransmissionJSON(id);
-			json = HttpSessionUtil.getSessionAttribute(request, id, def);
-		} else if (uri.endsWith(QOS)) {
-			String id = QOSKEY + StringUtil.retrieveId(uri, QOS);
-			String def = JsonProperties.getWirelessQosJSON(id);
-			json = HttpSessionUtil.getSessionAttribute(request, id, def);
-		} else if (uri.endsWith(WEP)) {
-			String id = StringUtil.retrieveId(uri, WEP);
-			String js = (String) request.getSession().getAttribute(
-					getClass().getSimpleName());
-			Wireless wireless = new Wireless(js);
-			json = wireless.getWepJson(id);
-		} else if (uri.endsWith(WPA)) {
-			String id = StringUtil.retrieveId(uri, WPA);
-			String js = (String) request.getSession().getAttribute(
-					getClass().getSimpleName());
-			Wireless wireless = new Wireless(js);
-			json = wireless.getWpaJson(id);
-		} else if (uri.endsWith(MACFILTER)) {
-			String id = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
-			String def = JsonProperties.getWirelessMacfilterJSON();
-			json = HttpSessionUtil.getSessionAttribute(request, id, def);
-		} else if (uri.endsWith(WPS)) {
-			String id = WPSKEY + StringUtil.retrieveId(uri, WPS);
-			String def = JsonProperties.getWirelessWpsJSON();
-			json = HttpSessionUtil.getSessionAttribute(request, id, def);
-		} else {
-			 json = ServletRequestUtilities.getMapFromJSONArrayByID(idName,
-			 null, request.getContextPath() + "/api/wireless",
-			 getClass().getSimpleName(), request, response);
-		}
-		ServletRequestUtilities.sendJSONResponse(json, response);
+		return js;
+
+	}
+	@RequestMapping(method = RequestMethod.PUT)
+	public void updateWireless(@RequestBody String inStr, HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(servletName);
+		Wireless wireless = new Wireless(js);
+		wireless.replaceAll(inStr);
+		request.getSession().setAttribute(servletName, wireless.getJson());
 	}
 
-	/**
-	 * 
-	 */
-	@Override
-	protected void doPut(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String uri = request.getRequestURI();
-		String key = getClass().getSimpleName();
-
-		String in = ServletRequestUtilities.getJSONFromPUTRequest(request);
-		logger.info("Wireless put: " + uri);
-		logger.info(in);
-		String finalJson = in;
-		String returnJson = in;
-
-		if (uri.endsWith(TRANSMISSION)) {
-			key = TRAKEY + StringUtil.retrieveId(uri, TRANSMISSION);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
-			returnJson = finalJson;
-		} else if (uri.endsWith(QOS)) {
-			key = QOSKEY + StringUtil.retrieveId(uri, QOS);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
-			returnJson = finalJson;
-		} else if (uri.endsWith(WEP)) {
-			String id = StringUtil.retrieveId(uri, WEP);
-			String js = (String) request.getSession().getAttribute(
-					getClass().getSimpleName());
-			Wireless wireless = new Wireless(js);
-			wireless.replaceWep(id, in);
-			finalJson = wireless.getJson();
-		} else if (uri.endsWith(WPA)) {
-			String id = StringUtil.retrieveId(uri, WPA);
-			String js = (String) request.getSession().getAttribute(
-					getClass().getSimpleName());
-			Wireless wireless = new Wireless(js);
-			wireless.replaceWpa(id, in);
-			finalJson = wireless.getJson();
-		} else if (uri.endsWith(MACFILTER)) {
-			key = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
-			returnJson = finalJson;
-		} else if (uri.endsWith(WPS)) {
-			key = WPSKEY + StringUtil.retrieveId(uri, WPS);
-			finalJson= HttpSessionUtil.replaceAttributes(key, in, request);
-			returnJson = finalJson;
-		} else {
-			String id = StringUtil.retrieveLastId(request.getRequestURI(),
-					serviceName);
-			if (StringUtils.isNotEmpty(id)) {
-				String js = (String) request.getSession().getAttribute(
-						getClass().getSimpleName());
-				Wireless wireless = new Wireless(js);
-				wireless.replaceByIndex(id, in);
-				finalJson = wireless.getJson();
-				// return this
-				returnJson = wireless.getJsonByIndex(id);
-			}
-
-		}
-
-		request.getSession().setAttribute(key, finalJson);
-		//logger.debug("Wirelss put return: " + returnJson);
-		ServletRequestUtilities.sendJSONResponse(returnJson, response);
+	
+	@RequestMapping(value = "/{id}/transmission", method = RequestMethod.GET)
+	public String getTransmission(@PathVariable String id, HttpServletRequest request) {
+		return getAttribute(request, TRAKEY + id);
+	}
+	@RequestMapping(value = "/{id}/transmission", method = RequestMethod.PUT)
+	public void updateTransmission(@RequestBody String inStr, @PathVariable String id, HttpServletRequest request) {
+		String key = TRAKEY + id;
+		this.replaceAttribute(request, key, inStr);
 	}
 
-	// only api/wireless/:id/macfilter
-	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@RequestMapping(value = "/{id}/qos", method = RequestMethod.GET)
+	public String getQos(@PathVariable String id, HttpServletRequest request) {
+		return getAttribute(request, QOSKEY + id);
 
-		String uri = request.getRequestURI();
-		logger.info("Wireless put: " + uri);
-		if (uri.endsWith(MACFILTER)) {
-			String key = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
-			ServletRequestUtilities.addToJSONArrayByID(idName, key, request, response);
-		}
+	}
+	@RequestMapping(value = "/{id}/qos", method = RequestMethod.PUT)
+	public void updateQos(@RequestBody String inStr, @PathVariable String id, HttpServletRequest request) {
+		String key = QOSKEY + id;
+		this.replaceAttribute(request, key, inStr);
+
+	}
+	@RequestMapping(value = "/{id}/wep", method = RequestMethod.GET)
+	public String getWep(@PathVariable String id, HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(
+				getClass().getSimpleName());
+		Wireless wireless = new Wireless(js);
+		String json = wireless.getWepJson(id);
+		return json;
+
+	}
+	@RequestMapping(value = "/{id}/wep", method = RequestMethod.PUT)
+	public void updateWep(@RequestBody String inStr, @PathVariable String id, HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(
+				getClass().getSimpleName());
+		Wireless wireless = new Wireless(js);
+		wireless.replaceWep(id, inStr);
+	}
+	@RequestMapping(value = "/{id}/wpa", method = RequestMethod.GET)
+	public String getWpa(@PathVariable String id, HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(
+				getClass().getSimpleName());
+		Wireless wireless = new Wireless(js);
+		String json = wireless.getWpaJson(id);
+		return json;
+
+	}
+	@RequestMapping(value = "/{id}/wpa", method = RequestMethod.PUT)
+	public void updateWpa(@RequestBody String inStr, @PathVariable String id, HttpServletRequest request) {
+		String js = (String) request.getSession().getAttribute(
+				getClass().getSimpleName());
+		Wireless wireless = new Wireless(js);
+		wireless.replaceWpa(id, inStr);
+
+
+	}
+	@RequestMapping(value = "/{id}/wps", method = RequestMethod.GET)
+	public String getWps(@PathVariable String id, HttpServletRequest request) {
+
+		return getAttribute(request, WPSKEY + id);
+	}
+	@RequestMapping(value = "/{id}/wps", method = RequestMethod.PUT)
+	public void updateWps(@RequestBody String inStr, @PathVariable String id, HttpServletRequest request) {
+		String key = WPSKEY + id;
+		String finalJson = this.replaceAttribute(request, key, inStr);
+
 	}
 
-	// only api/wireless/:id/macfilter
-	@Override
-	protected void doDelete(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-
-		ServletRequestUtilities.deleteFromJSONArrayByID(idName, getClass()
-				.getSimpleName(), request, response);
+	@RequestMapping(value = "/{id}/macfilter", method = RequestMethod.GET)
+	public String getMacfilter(@PathVariable String id, HttpServletRequest request) {
+		return getAttribute(request, MACKEY + id);
+	}
+	@RequestMapping(value = "/{id}/macfilter", method = RequestMethod.POST)
+	public void addMacfilter(@RequestBody String inStr, @PathVariable String id, HttpServletRequest request) {
 	}
 
-}
+	@RequestMapping(value = "/{id}/macfilter", method = RequestMethod.PUT)
+	public void updateMacfilter(@RequestBody String inStr, @PathVariable String id, HttpServletRequest request) {
+	}
+	@RequestMapping(value = "/{id}/macfilter", method = RequestMethod.DELETE)
+	public void addMacfilter(@PathVariable String id, HttpServletRequest request) {
+	}
+
+}	
