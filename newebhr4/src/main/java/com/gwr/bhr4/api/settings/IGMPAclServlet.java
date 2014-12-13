@@ -13,5 +13,3 @@ public class IGMPAclServlet extends NonListTypeAbstract {
 	}
 
 }
-
-}

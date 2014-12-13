@@ -9,7 +9,7 @@
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>
-            com.gwr.session.LoginFilter
+            com.gwr.bhr4.session.LoginFilter
         </filter-class>
   </filter>
   <filter-mapping>
