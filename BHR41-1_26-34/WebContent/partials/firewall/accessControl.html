@@ -1,0 +1,283 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+  <div ng-include src="'partials/header.html?v=v1.0.149'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/firewall/nav.html?v=v1.0.149'"></div>
+    <div ng-include src="'partials/error.html?v=v1.0.149'"></div>
+    <!-- Start: Access Controll main -->
+    <div class="content-panel-with-header span9" ng-show="!showAdd && pageToShow == 0">
+      <div class="header">Access Control</div>
+      <div ng-show="!showAllow">Block access to the Internet services from within the LAN.</div>
+      <div ng-show="showAllow">Block or allow access to the Internet services from within the LAN.</div>
+
+      <table class="dark-table">
+        <tbody>
+          <tr ng-show="showAllow"><th colspan="5">Blocked</th></tr>
+          <tr>
+            <th colspan="2">Networked Computer/Device</th>
+            <th>Network Address</th>
+            <th>Protocols</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr ng-repeat="control in accessControl track by $index" ng-show="control.blockRule">
+            <td>
+              <input type="checkbox" ng-model="active[$index]">
+            </td>
+            <td>
+              <a ng-click="editAccessControl($index)" title="Edit" href="javascript:void(0)">
+                <p ng-repeat="val in control.displayText track by $index">{{val}}</p></a>
+            </td>
+            <td>
+              <div ng-repeat="part in printAddArr[$index] track by $index">{{part}}</div>
+            </td>
+            <td>
+              <div ng-repeat="part in printProtArr[$index] track by $index">{{part}}</div>
+            </td>
+            <td ng-switch on="control.schedActive" ng-show="control.active == true">
+              <span ng-switch-when="Active">Active</span>
+              <span ng-switch-default>Inactive</span>
+            </td>
+            <td ng-show="control.active != true">
+              <span>Disabled</span>
+            </td>
+            <td class="actions">
+              <a ng-click="editAccessControl($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeAccessControl($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6">
+              <button class="btn dark-btn" ng-click="toggleMain(true)">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table ng-show="showAllow" class="dark-table">
+        <tbody>
+          <tr><th colspan="5">Allowed</th></tr>
+          <tr>
+            <th colspan="2">Networked Computer/Device</th>
+            <th>Network Address</th>
+            <th>Protocols</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr ng-repeat="control in accessControl track by $index" ng-show="!control.blockRule">
+            <td>
+              <input type="checkbox" ng-model="active[$index]">
+            </td>
+            <td>
+              <a ng-click="editAccessControl($index)" title="Edit" href="javascript:void(0)">
+                <p ng-repeat="val in control.displayText track by $index" class="OFMain">{{val}}</p></a>
+            </td>
+            <td>
+              <div ng-repeat="part in printAddArr[$index] track by $index">{{part}}</div>
+            </td>
+            <td>
+              <div ng-repeat="part in printProtArr[$index] track by $index">{{part}}</div>
+            </td>
+            <td ng-switch on="control.schedActive" ng-show="control.active == true">
+              <span ng-switch-when="Active">Active</span>
+              <span ng-switch-default>Inactive</span>
+            </td>
+            <td ng-show="control.active != true">
+              <span>Disabled</span>
+            </td>
+            <td class="actions">
+              <a ng-click="editAccessControl($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeAccessControl($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6">
+              <button class="btn dark-btn" ng-click="toggleMain(false)">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+        <button class="btn dark-btn" ng-click="cancel()">Cancel</button>
+        <a class="btn dark-btn" ng-click="resolveNow()" ng-show="false">Resolve Now</a>
+        <a class="btn dark-btn" ng-click="refresh()" ng-show="false">Refresh</a>
+      </div>
+    </div>
+    <!-- End: Access Controll main -->
+
+    <!-- Start: Add Access Control Rule -->
+    <div class="content-panel-with-header span9" ng-show="showAdd && pageToShow == 0 && !isSame" >
+      <div class="header">{{pageTitle}} Access Control Rule</div>
+
+      <table class="dark-table">
+        <tbody>
+
+          <!-- Network Objects -->
+          <tr>
+            <td>Networked Computer / Device</td>
+            <td colspan="2">
+              <select ng-model="netObj" ng-change="netObjChanged()" ng-show="networkObjects.length == 0">
+                <option value="-2">Any</option>
+                <option value="-1">User Defined</option>
+                <option ng-repeat="netObject in netObjsArr" value="{{$index}}">{{netObject.deviceDisplayName}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr ng-show="0 < networkObjects.length">
+            <td>Name</td>
+            <td>Address</td>
+            <td>Action</td>
+          </tr>
+          <tr ng-repeat="obj in networkObjects">
+            <td>{{obj.name}}</td>
+            <td>
+              <div ng-repeat="part in printAddArr[$index]">{{part}}</div>
+            </td>
+            <td class="actions">
+              <a ng-click="editNetworkObj($index)" ng-show="obj.type == 1" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeNetworkObj($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+          <tr ng-show="0 < networkObjects.length">
+            <td colspan="3">
+              <select ng-model="netObj" ng-change="netObjChanged()">
+                <option value="-2">Add...</option>
+                <option value="-1">User Defined</option>
+                <option ng-repeat="netObject in netObjsArr | filter:filterDevice" value="{{$index}}">{{netObject.deviceDisplayName}}</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Services(Protocols) -->
+          <tr>
+            <td>Protocol</td>
+            <td colspan="2">
+              <select ng-model="prot" ng-change="protocolChange()" ng-show="services.length == 0">
+                <option value="-2">Any</option>
+                <option value="-1">User Defined</option>
+                <option ng-repeat="pf in pfRules | filter:filterFn" value="{{pf.id}}">{{pf.displayLabel}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr ng-show="0 < services.length">
+            <td>Name</td>
+            <td>Ports</td>
+            <td>Action</td>
+          </tr>
+          <tr ng-repeat="serv in services">
+            <td>{{serv.displayName}}</td>
+            <td>
+              <div ng-repeat="part in printProtArr[$index]">{{part}}</div>
+            </td>
+            <td class="actions">
+              <a ng-click="editService($index)" ng-show="serv.type == 1 || serv.serviceType != 0" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeService($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+          <tr ng-show="0 < services.length">
+            <td colspan="3">
+              <select ng-model="prot" ng-change="protocolChange()">
+                <option value="-2">Add...</option>
+                <option value="-1">User Defined</option>
+                <option ng-repeat="pf in pfRules | filter:filterFn" value="{{pf.id}}">{{pf.displayLabel}}</option>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Schedule -->
+          <tr>
+            <td>When should this rule occur?</td>
+            <td colspan="2">
+              <select ng-model="sched" ng-change="scheduleChange()" ng-show="sched != -1">
+                <option value="-2">Always</option>
+                <option value="-1">User Defined</option>
+                <option ng-repeat="n in [0,schedArrLen] | makeRange">{{schedArr[n].name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr ng-show="sched == -1">
+            <td>Rule Name</td>
+            <td>Settings</td>
+            <td>Action</td>
+          </tr>
+          <tr ng-show="sched == -1">
+            <td>{{schedule.name}}</td>
+            <td>
+              <div ng-repeat="part in printSchedArr">{{part}}</div>
+            </td>
+            <td class="actions">
+              <a ng-click="editRuleScheduler()" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeRuleScheduler()" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="applyMain()">Apply</button>
+        <a class="btn dark-btn" ng-click="cancelMain()">Cancel</a>
+      </div>
+    </div>
+    <!-- End: Add Access Control Rule -->
+
+    <!-- Start: Service -->
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 3 || pageToShow == 4)" ng-class="(showErrorPage) ? 'cross-browser-change' : ''">
+      <div ng-include src="'partials/firewall/service.html?v=v1.0.149'"></div>
+    </div>
+    <!-- End: Service -->
+
+    <!-- Start: Network Object -->
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 1 || pageToShow == 2) && !showErrorPage">
+      <div ng-include src="'partials/firewall/networkObj.html?v=v1.0.149'"></div>
+    </div>
+    <!-- End: Network Object -->
+
+    <!-- Start: Scheduler -->
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 5 || pageToShow == 6 || pageToShow == 7) && !showErrorPage">
+      <div ng-include src="'partials/firewall/scheduler.html?v=v1.0.149'"></div>
+    </div>
+    <!-- End: Scheduler -->
+
+    <!-- Start: Attention -->
+    <div class="content-panel-with-header span9" ng-show="(pageToShow == 8) && !showErrorPage">
+      <div class="header">{{pageTitle}} Access Control Rule</div>
+      <div>
+        <div>
+          <div align="center">
+            <p>Duplicate Access Control Rule: An identical rule already exists in the system.<br>Press Apply to confirm.</p>
+          </div>
+          <div align="center">
+            <button class="btn dark-btn" ng-click="createAccessControl(null)">Apply</button>
+            <button class="btn dark-btn" ng-click="togglePage(0)">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: Attention -->
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

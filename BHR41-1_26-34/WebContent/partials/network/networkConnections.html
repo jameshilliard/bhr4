@@ -1,0 +1,35 @@
+<div ng-show="!rebootingPage">
+  <div ng-include src="'partials/header.html?v=v1.0.149'"></div>
+    <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/network/nav.html?v=v1.0.149'"></div>
+      <div ng-include src="'partials/network/connectionsList.html?v=v1.0.149'"></div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
+<div ng-show="rebootingPage">
+  <div class="masthead" id="header">
+    <div class="navbar" id="main_navbar">
+      <div class="header centerer">
+        <a href="/index.html?v=v1.0.149">
+          <div class="brand"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="centerer">
+    <div id="content" class="plainlower">
+      <div>
+        <p>Your router is currently rebooting. Please wait.</p>
+      </div>
+      <p>
+        Attention! If the page does not refresh automatically in a minute, please press the Login button.
+      </p>
+      <div>
+        <a href="" class="btn dark-btn" ng-show="!restarting">Login</a>
+        <a href="#/login" class="btn dark-btn" ng-show="restarting">Login</a>
+      </div>
+    </div>
+  </div>
+</div>

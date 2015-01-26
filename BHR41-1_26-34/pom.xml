@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gwr</groupId>
-	<artifactId>BHR41-1_26-29</artifactId>
+	<artifactId>BHR41-1_26-34</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<build>
-		<finalName>BHR41-1_26-29</finalName>
+		<finalName>BHR41-1_26-34</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>

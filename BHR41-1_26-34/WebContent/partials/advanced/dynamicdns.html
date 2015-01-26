@@ -1,0 +1,74 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+    <div ng-include src="'partials/header.html?v=v1.0.149'"></div>
+    <div class="centerer">
+        <div id="content">
+            <div ng-include src="'partials/advanced/nav.html?v=v1.0.149'"></div>
+            <div ng-include src="'partials/error.html?v=v1.0.149'"></div>
+            <div class="content-panel-with-header span9" ng-show="(pageToShow == 0) && !showAddEdit  && !showErrorPage">
+                <div class="header">Dynamic DNS</div>
+                <div>Setup Dynamic DNS (Domain Name Server)</div>
+                <div>Dynamic DNS is a dynamic IP Address to be aliased to a static hostname,
+                    allowing a computer on your network to be more easily accessible from the Internet</div>
+                <table class="dark-table">
+                    <tbody>
+                    <tr>
+                        <th>Host Name</th>
+                        <th>Status</th>
+                        <th>Last Update</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr ng-repeat="ddnsObj in ddnsObjects">
+
+                        <td><div class="OFMain">{{ddnsObj.hostname}}</div></td>
+                        <td ng-show="false == ddnsObj.hyperLink">{{getTitle(ddnsObj.status)}}</td>
+                        <td ng-show="true == ddnsObj.hyperLink"><a href="" ng-click="show(ddnsObj)">{{getTitle(ddnsObj.status)}}</a></td>
+                        <td>{{ddnsObj.lastUpdate}}</td>
+                        <td class="actions">
+                            <a ng-click="editDDNSObj($index)" title="Edit">
+                                <div class="edit-icon"></div>
+                            </a>
+                            <a ng-click="removeDDNSEntry($index)" title="Remove">
+                                <div class="remove-icon"></div>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <button class="btn dark-btn" ng-click="addDDNS()">Add</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div align="center">
+                    <a href="#/advanced" class="btn dark-btn">Close</a>
+                    <button class="btn dark-btn" ng-click="refreshDDNS()">Refresh</button>
+                </div>
+            </div>
+            <!-- END: DDNS Object main -->
+
+            <!-- Start: Edit/Add DynamicDNS -->
+            <div class="content-panel-with-header span9" ng-show="(pageToShow == 0) && showAddEdit && !showErrorPage">
+                <div ng-include src="'partials/advanced/dynamicDnsEdit.html?v=v1.0.149'"></div>
+            </div>
+            <!-- Start: Attention -->
+            <div class="content-panel-with-header span9" ng-show="(pageToShow == 1) && !showErrorPage">
+                <div class="header">Attention</div>
+                <div>
+                    <div>
+                        <div align="center">
+                            <p>Are you sure you want to delete this Dynamic DNS setting?<br>Click Delete to Delete or Click Cancel to return back to the previous screen.</p>
+                        </div>
+                        <div align="center">
+                            <button class="btn dark-btn" ng-click="cfmDeleteControl()">Delete</button>
+                            <button class="btn dark-btn" ng-click="toggleWarningPage(0)">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End: Attention -->
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

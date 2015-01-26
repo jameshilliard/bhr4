@@ -1,0 +1,270 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+  <div ng-include src="'partials/header.html?v=v1.0.149'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/wireless/nav.html?v=v1.0.149'"></div>
+    <div class="content-panel-with-header span9" ng-show="!confirmed">
+      <div class="header">Warning</div>
+      <p>Any changes made on this page may affect your router's wireless performance. Do not proceed forward unless you have been instructed to do so by your ISP support personnel.</p>
+    
+      <div class="centerme"><p>Do you want to proceed?</p></div>
+      <div class="centerme">
+        <button class="btn dark-btn" ng-click="isConfirmed()">Yes</button>
+        <a href="#/wireless/advanced" class="btn dark-btn">No</a>
+      </div>
+    </div>
+    <div class="span9" ng-show="!showErrorPage && confirmed">
+      <div class="content-panel-with-header">
+        <div class="header">2.4 GHz Advanced Wireless Options</div>
+        <table class="dark-table">
+          <tbody>
+            <tr>   
+              <th>Transmission Rate:</th>
+              <td>Auto</td>
+            </tr>
+            <tr>
+              <th>Channel Width:</th>
+              <td>
+                {{trans1.channelWidth}}
+              </td>
+            </tr>
+            <tr>
+              <th>Transmit Power:</th>
+              <td>
+                <div class="pairedItems clearfix">
+                <input type="text" class="input-mini data" ng-model="trans1.power" maxlength="3"/>
+                <p class="info">%</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>CTS Protection Mode:</th>
+              <td>
+                <select ng-model="trans1.ctsProtection">
+                  <option value="1">None</option>
+                  <option value="2">Auto</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>CTS Protection Type:</th>
+              <td>
+                <select ng-model="trans1.ctsProtectionType">
+                  <option value="1">cts-only</option>
+                  <option value="2">rts_cts</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>Frame Burst - Max Number:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans1.frameBurstMax" maxlength="3"/>
+              </td>
+            </tr>
+            <tr>
+              <th>Frame Burst - Burst Time:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans1.frameBurstTime" maxlength="4"/>
+              </td>
+            </tr>
+            <tr>
+              <th>Beacon Interval:</th>
+              <td>
+                <div class="pairedItems clearfix">
+                 <input type="text" class="input-mini data" ng-model="trans1.beaconInterval" maxlength="4"/>
+                <p class="info">ms</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>DTIM Interval:</th>
+              <td>
+                <div class="pairedItems clearfix">
+                <input type="text" class="input-mini data" ng-model="trans1.dtimInterval" maxlength="3"/>
+                <p class="info">ms</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>Fragmentation Threshold:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans1.fragmentationThreshold" maxlength="4"/>
+              </td>
+            </tr>
+            <tr>
+              <th>RTS Threshold:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans1.rtsThreshold" maxlength="4"/>
+              </td>
+            </tr>
+            <tr>
+              <th>MSDU Aggregation:</th>
+              <td>
+                <label class="radio">
+                  <input type="radio" ng-model="trans1.msduAggregation" ng-value="true" ng-click="trans1.mpduAggregation = false"/>
+                  Enable
+                </label>
+                <label class="radio">
+                  <input type="radio" ng-model="trans1.msduAggregation" ng-value="false"/>
+                  Disable
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th>MPDU Aggregation:</th>
+              <td>
+                <label class="radio">
+                  <input type="radio" ng-model="trans1.mpduAggregation" ng-value="true" ng-click="trans1.msduAggregation = false"/>
+                  Enable
+                </label>
+                <label class="radio">
+                  <input type="radio" ng-model="trans1.mpduAggregation" ng-value="false"/>
+                  Disable
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th>802.11n Guard Interval:</th>
+              <td>Dynamic</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#/wireless/wmm/0">2.4 GHz WMM Settings</a>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="content-panel-with-header">
+        <div class="header">5.0 GHz Advanced Wireless Options</div>
+        <table class="dark-table">
+          <tbody>
+            <tr>
+              <th>Transmission Rate:</th>
+              <td>Auto</td>
+            </tr>
+            <tr>
+              <th>Channel Width:</th>
+              <td>
+                {{trans2.channelWidth}}
+              </td>
+            </tr>
+            <tr>
+              <th>Transmit Power:</th>
+              <td>
+                <div class="pairedItems clearfix">
+                <input type="text" class="input-mini data" ng-model="trans2.power" maxlength="3"/>
+                <p class="info">%</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>CTS Protection Mode:</th>
+              <td>
+                <select ng-model="trans2.ctsProtection">
+                  <option value="1">None</option>
+                  <option value="2">Auto</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>CTS Protection Type:</th>
+              <td>
+                <select ng-model="trans2.ctsProtectionType">
+                  <option value="1">cts-only</option>
+                  <option value="2">rts_cts</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>Frame Burst - Max Number:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans2.frameBurstMax" maxlength="3"/>
+              </td>
+            </tr>
+            <tr>
+              <th>Frame Burst - Burst Time:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans2.frameBurstTime" maxlength="4"/>
+              </td>
+            </tr>
+            <tr>
+              <th>Beacon Interval:</th>
+              <td>
+                <div class="pairedItems clearfix">
+                <input type="text" class="input-mini data" ng-model="trans2.beaconInterval" maxlength="4"/>
+                <p class="info">ms</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>DTIM Interval:</th>
+              <td>
+                <div class="pairedItems">
+                <input type="text" class="input-mini data" ng-model="trans2.dtimInterval" maxlength="3"/>
+                <p class="units_label info">ms</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>Fragmentation Threshold:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans2.fragmentationThreshold" maxlength="4"/>
+              </td>
+            </tr>
+            <tr>
+              <th>RTS Threshold:</th>
+              <td>
+                <input type="text" class="input-mini" ng-model="trans2.rtsThreshold" maxlength="4"/>
+              </td>
+            </tr>
+            <tr>
+              <th>MSDU Aggregation:</th>
+              <td>
+                <label class="radio">
+                  <input type="radio" ng-model="trans2.msduAggregation" ng-value="true" ng-click="trans2.mpduAggregation = false"/>
+                  Enable
+                </label>
+                <label class="radio">
+                  <input type="radio" ng-model="trans2.msduAggregation" ng-value="false"/>
+                  Disable
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th>MPDU Aggregation:</th>
+              <td>
+                <label class="radio">
+                  <input type="radio" ng-model="trans2.mpduAggregation" ng-value="true" ng-click="trans2.msduAggregation = false"/>
+                  Enable
+                </label>
+                <label class="radio">
+                  <input type="radio" ng-model="trans2.mpduAggregation" ng-value="false"/>
+                  Disable
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th>802.11n Guard Interval:</th>
+              <td>Dynamic</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#/wireless/wmm/1">5.0 GHz WMM Settings</a>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="text-align: center">
+          <a href="#/wireless/advanced" class="btn dark-btn">Back</a>
+          <button class="btn dark-btn" ng-click="save()">Apply</button>
+        </div>
+      </div>
+    </div>
+    <div ng-include src="'partials/error.html?v=v1.0.149'"></div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

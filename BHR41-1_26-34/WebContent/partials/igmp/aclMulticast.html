@@ -1,0 +1,126 @@
+<div>
+  <div ng-include src="'partials/header.html?v=v1.0.149'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/igmp/nav.html?v=v1.0.149'"></div>
+    <div ng-include src="'partials/error.html?v=v1.0.149'"></div>
+    <div class="content-panel-with-header span9" ng-show="!editing">
+      <div class="header">ACL Multicast Filtering</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-click="whiteListClicked()" ng-model="acl.whiteListEnabled"/>
+                Whitelist Enabled
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="checkbox">
+                <input type="checkbox" ng-click="blackListClicked()" ng-model="acl.blackListEnabled"/>
+                Blacklist Enabled
+              </label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bold">Whitelist Access Control List</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Multicast Address</th>
+            <th>Subnet Mask</th>
+            <th>Action</th>
+          </tr>
+          <tr ng-repeat="dev in acl.whiteList">
+            <td>{{dev.ip}}</td>
+            <td>{{dev.netmask}}</td>
+            <td class="actions">
+              <a ng-click="editWhiteList($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeWhiteList($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <button ng-click="addWhitelist()" class="btn dark-btn">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bold">Blacklist Access Control List</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>Multicast Address</th>
+            <th>Subnet Mask</th>
+            <th>Action</th>
+          </tr>
+          <tr ng-repeat="dev in acl.blackList">
+            <td>{{dev.ip}}</td>
+            <td>{{dev.netmask}}</td>
+            <td class="actions">
+              <a ng-click="editBlackList($index)" title="Edit">
+                <div class="edit-icon"></div>
+              </a>
+              <a ng-click="removeBlackList($index)" title="Remove">
+                <div class="remove-icon"></div>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <button ng-click="addBlacklist()" class="btn dark-btn">Add</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button ng-click="save()" class="btn dark-btn">Apply</button>
+        <a href="#/advanced" class="btn dark-btn">Cancel</a>
+      </div>
+    </div>
+    <div class="content-panel-with-header span9" ng-show="editing && !showErrorPage">
+      <div class="header">Multicast Address</div>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <td>Multicast Address:</td>
+            <td>
+              <input type="text" class="input-ip ipInput" ng-model="multicast[0]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="multicast[1]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="multicast[2]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="multicast[3]" maxlength="3"/>
+            </td>
+          </tr>
+          <tr>
+            <td>Subnet Mask:</td>
+            <td>
+              <input type="text" class="input-ip ipInput" ng-model="netmask[0]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="netmask[1]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="netmask[2]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="netmask[3]" maxlength="3"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button ng-click="saveAddress()" class="btn dark-btn">Apply</button>
+        <button ng-click="cancel()" class="btn dark-btn">Cancel</button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>
