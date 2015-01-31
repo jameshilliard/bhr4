@@ -184,6 +184,8 @@ public class WirelessServlet extends HttpServlet {
 					returnJson = wireless.getJsonByListIndex(id);
 				} else {
 					wireless.replaceByIndex(id, in);
+					if(id.equals("0"))
+						wireless.changeGuessOnOffWhenWireless0OnOff();
 					finalJson = wireless.getJson();
 					// return this
 					returnJson = wireless.getJsonByIndex(id);

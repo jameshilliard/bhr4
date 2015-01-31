@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gwr.api.devices.DevicesServlet;
+import com.gwr.api.devices.model.Devices;
 import com.gwr.util.JsonProperties;
 import com.gwr.util.ServletRequestUtilities;
 import com.gwr.util.json.SimpleJson;
@@ -23,70 +24,85 @@ public class DiagnosticsServlet extends HttpServlet {
 	private final static Logger logger = LoggerFactory
 			.getLogger(DiagnosticsServlet.class);
 
-    private static String pingCount = "pingCount";
-    private static String pingCountSave = "pingCountSave";
-    private static String destinationSave = "destinationSave";
-    @Override
+	private static String pingCount = "diagnostics.pingCount";
+	private static String pingCountSave = "diagnostics.pingCountSave";
+	private static String destinationSave = "diagnostics.destinationSave";
+	private static String active = "diagnostics.active";
+
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		Long pingCountTemp = (Long)request.getSession().getAttribute(pingCount);
+		Long pingCountTemp = (Long) request.getSession()
+				.getAttribute(pingCount);
 		// ping test call by post before
-		if(pingCountTemp != null)
-		{
+		if (pingCountTemp != null) {
 			pingCountTemp++;
 			request.getSession().setAttribute(pingCount, pingCountTemp);
 
-			Long pingCountSaveTemp = (Long)request.getSession().getAttribute(pingCountSave);
-			String destinationSaveTemp = (String)request.getSession().getAttribute(destinationSave);
+			Long pingCountSaveTemp = (Long) request.getSession().getAttribute(
+					pingCountSave);
+			String destinationSaveTemp = (String) request.getSession()
+					.getAttribute(destinationSave);
+			Boolean activeb = (Boolean) request.getSession().getAttribute(
+					active);
 			Boolean running;
-			if(pingCountTemp.equals(pingCountSaveTemp)){
-				//System.out.println(pingCount);
-				//replaceFields = "{\"running\":false, \"received\":" + pingCount +  ", \"transmitted\":" + pingCount + ", \"destination:\"" + destinationSave + "}";
+			if (pingCountTemp.equals(pingCountSaveTemp)) {
+				// System.out.println(pingCount);
+				// replaceFields = "{\"running\":false, \"received\":" +
+				// pingCount + ", \"transmitted\":" + pingCount +
+				// ", \"destination:\"" + destinationSave + "}";
 				running = new Boolean(false);
 				request.getSession().removeAttribute(pingCount);
-		        request.getSession().removeAttribute(pingCountSave);
-		        request.getSession().removeAttribute(destinationSave);
-			}
-			else
-			{
+				request.getSession().removeAttribute(pingCountSave);
+				request.getSession().removeAttribute(destinationSave);
+				request.getSession().removeAttribute(active);
+			} else {
 				running = new Boolean(true);
-				//replaceFields = "{\"running\":true, \"received\":" + pingCount +  ", \"transmitted\":" + pingCount + ", \"destination\":" + destinationSave + "}";
+				// replaceFields = "{\"running\":true, \"received\":" +
+				// pingCount + ", \"transmitted\":" + pingCount +
+				// ", \"destination\":" + destinationSave + "}";
 			}
-			//logger.debug(replaceFields);
+			// logger.debug(replaceFields);
 			String currentJson = JsonProperties.getDiagnosticsOKJSON();
-			//String currentJson = (String)request.getSession().getAttribute(getClass().getSimpleName());
+			// String currentJson =
+			// (String)request.getSession().getAttribute(getClass().getSimpleName());
 			Map thisOne = SimpleJson.getJsonObject(currentJson);
 			thisOne.put("transmitted", pingCountTemp);
-			thisOne.put("received", pingCountTemp);
+			if (activeb) {
+				thisOne.put("received", pingCountTemp);
+			} else {
+				thisOne.put("received", new Long(0));
+			}
 			thisOne.put("destination", destinationSaveTemp);
 			thisOne.put("count", pingCountSaveTemp);
 			thisOne.put("running", running);
-		
 
-	        String finalJson = SimpleJson.toJsonText(thisOne);
-			ServletRequestUtilities.sendJSONResponse(finalJson, response);	
+			String finalJson = SimpleJson.toJsonText(thisOne);
+			ServletRequestUtilities.sendJSONResponse(finalJson, response);
 			return;
 		}
 		ServletRequestUtilities.handleGetRequest(getClass().getSimpleName(),
 				request, response);
-		
+
 	}
-	
+
 	// {"destination":"192.168.1.7","count":4}
 	// simulate ping 4 times
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		//String outJson = JsonProperties.getDiagnosticsOKJSON();
-		String currentJson = (String)request.getSession().getAttribute(getClass().getSimpleName());
+		// String outJson = JsonProperties.getDiagnosticsOKJSON();
+		String currentJson = (String) request.getSession().getAttribute(
+				getClass().getSimpleName());
 		String in = ServletRequestUtilities.getJSONFromPUTRequest(request);
 
-        String finalJson = SimpleJson.replaceJsonFields(currentJson, in);
-        
-		request.getSession().setAttribute(getClass().getSimpleName(), finalJson);
-		
+		String finalJson = SimpleJson.replaceJsonFields(currentJson, in);
+
+		request.getSession()
+				.setAttribute(getClass().getSimpleName(), finalJson);
+
 		Map inMap = SimpleJson.getJsonObject(in);
 		Long pingCountTemp = (Long) inMap.get("count");
 		String destination = (String) inMap.get("destination");
@@ -94,10 +110,15 @@ public class DiagnosticsServlet extends HttpServlet {
 		request.getSession().setAttribute(pingCountSave, pingCountTemp);
 		request.getSession().setAttribute(destinationSave, destination);
 
+		String jsstr = (String) request.getSession().getAttribute(
+				DevicesServlet.class.getSimpleName());
+		Devices devices = new Devices(jsstr);
+
+		Boolean deviceActive = devices.getDeviceStatus(destination);
+		request.getSession().setAttribute(active, deviceActive);
 
 	}
 
-	
 	@Override
 	protected void doDelete(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

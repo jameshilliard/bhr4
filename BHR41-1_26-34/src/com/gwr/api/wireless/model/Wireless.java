@@ -186,5 +186,15 @@ public class Wireless {
 		Map security = this.getSecurity(idx);
 		security.put("type", new Long(0));
 	}
+	
+	
+	public void changeGuessOnOffWhenWireless0OnOff(){
+		Map map = maps.get(0);
+		Map map1 = maps.get(2);
+		Boolean b1 = (Boolean)map.get("radioEnabled");
+		logger.debug(b1 +"");
+		map1.put("enabled", b1);
+	}
+	
 
 }

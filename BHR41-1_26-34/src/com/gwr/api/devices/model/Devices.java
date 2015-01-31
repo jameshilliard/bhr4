@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.gwr.api.devices.DevicesServlet;
 import com.gwr.util.json.SimpleJson;
 
 public class Devices {
 
+	private final static Logger logger = LoggerFactory
+			.getLogger(Devices.class);
 	@SuppressWarnings("rawtypes")
 	List<Map> maps;
 
@@ -50,4 +56,22 @@ public class Devices {
 		maps = newMaps;
 	}
 
+	public Boolean getDeviceStatus(String ipaddr){
+		
+		Boolean b = false;
+		Map pone = null;
+		for (Map p : maps) {
+			String ip = (String)p.get("ipAddress");
+			if(ip.equals(ipaddr)){
+				pone = p;
+				break;
+			}
+		}
+		
+		if(pone != null){
+			b = (Boolean)pone.get("status");
+			//logger.debug(b+ "");
+			}
+		return b;
+	}
 }
