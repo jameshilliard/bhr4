@@ -1,0 +1,96 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+<div ng-show="!completed">
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v={version_number}'"></div>
+    <div ng-include src="'partials/error.html?v={version_number}'"></div>
+
+    <!-- Config File -->
+    <div class="content-panel-with-header span9" ng-show="!loadFile">
+      <div class="header">Configuration File</div>
+      <div class="config_file">
+        <p>
+          Use the Router's Configuration File feature to view, save, and load configuration files, which are used to backup and restore the Router's current configuration
+        </p>
+
+        <p>
+          To Save the Router's current configuration in your hard drive, click the "Save Configuration File" button.
+        </p>
+        <div class="centerme">
+          <a href="api/settings/configfile.bin" class="btn dark-btn">Save Configuration File</a>
+        </div>
+
+      </div>
+
+      <p>
+        To Load a previously saved configuration file, click the "Load Configuration File" button.
+      </p>
+
+      <p>
+        NOTE: Loading a previously saved configuration file, will overwrite the current configuration of the router.
+      </p>
+      <div class="centerme">
+        <button class="btn dark-btn" ng-click="toggleShow(0)">Load Configuration File</button>
+      </div>
+
+      <div class="centerme config_close">
+        <a href="#/advanced" class="btn dark-btn">Close</a>
+      </div>
+
+    </div>
+
+    <!--
+    <div ng-show="completed">Config file upload complete.  Router is now rebooting.</div>
+    -->
+
+    <!-- Load Config File -->
+    <div class="content-panel-with-header span9" ng-show="loadFile && !showErrorPage">
+      <div class="header">Load Configuration File</div>
+      <div ng-show="loadFile">
+        Browse to locate file, then press Apply to begin the configuration file uploading process.
+      </div>
+      <div ng-show="loadFile">
+        <form id="submitForm" action="api/settings/configfile" enctype="multipart/form-data" target="hidden_upload" method="post">
+          <iframe id='hidden_upload' name='hidden_upload' src='' 
+                    onLoad='uploadDone()' style='width:0;height:0;border:0px solid #fff'></iframe>
+          <div class="load_config">
+            <input type="file" name="configfile" ng-model="inputFile" ng-click="loadConfig()"/>
+          </div>
+          <div class="centerme">
+            <input type="submit" value="Apply" class="btn dark-btn taller" id="submitting" ng-click="submittingFile()" ng-blur="setFocus()"/>
+            <a ng-click="toggleShow()" class="btn dark-btn">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>
+<div ng-show="completed">
+  <div class="masthead" id="header">
+    <div class="navbar" id="main_navbar">
+      <div class="header centerer">
+        <a href="/index.html?v={version_number}">
+          <div class="brand"></div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="centerer">
+    <div id="content" class="plainlower">
+      <div>
+        <p>Your router is currently rebooting. Please wait.</p>
+      </div>
+      <p>
+        Attention! If the page does not refresh automatically in a minute, please press the Login button.
+      </p>
+      <div>
+        <a href="" class="btn dark-btn" ng-show="!restarting">Login</a>
+        <a href="#/login" class="btn dark-btn" ng-show="restarting">Login</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

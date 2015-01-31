@@ -1,0 +1,106 @@
+<div id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container run-focus="runFocus">
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+  <div id="content">
+    <div ng-include src="'partials/advanced/nav.html?v={version_number}'"></div>
+    <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+      <div class="header">DHCP Settings for {{connection.name}}</div>
+      <p class="bold">Service</p>
+      <table class="dark-table">
+        <tbody>
+          <tr>
+            <th>IP Address Distribution:</th>
+            <td>
+              <select ng-model="dhcpSettings.mode" ng-change="selectOpt()">
+                <option value="0">Disabled</option>
+                <option value="2">DHCP Server</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="bold" ng-show="dhcpSettings.mode==2">DHCP Server</p>
+      <table class="dark-table">
+        <tbody>
+          <tr ng-show="dhcpSettings.mode==2">
+            <th>Start IP Address:</th>
+            <td>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[0]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[1]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[2]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpStartIpAddress[3]" maxlength="3"/>
+            </td>
+          </tr>
+          <tr ng-show="dhcpSettings.mode==2">
+            <th>End IP Address:</th>
+            <td>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[0]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[1]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[2]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpEndIpAddress[3]" maxlength="3"/>
+            </td>
+          </tr>
+          <tr ng-show="dhcpSettings.mode==2">
+            <th>WINS Server:</th>
+            <td>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[0]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[1]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[2]" maxlength="3"/>
+              <span style="vertical-align:bottom;">.</span>
+              <input type="text" class="input-ip ipInput" ng-model="dhcpWinsServer[3]" maxlength="3"/>
+            </td>
+          </tr>
+          <tr ng-show="dhcpSettings.mode==2">
+            <th>Lease Time in Minutes:</th>
+            <td>
+              <input type="number" class="input-mini" ng-model="dhcpSettings.leaseTime"/>
+            </td>  
+          </tr>
+          <tr ng-show="false">
+            <td>
+              <label class="checkbox" style="display: block;">
+                <input type="checkbox" ng-model="dhcpSettings.provideHostName"/>
+                Provide Host Name If Not Specified by Client
+              </label>
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="bold" ng-show="dhcpSettings.mode==2">
+        IP Address Distribution According to DHCP Option 60 (Vendor Class Identifier)
+      </p>
+      <table class="dark-table" ng-show="dhcpSettings.mode==2">
+        <tbody>
+          <tr>
+            <th>Vendor Class ID</th>
+            <th>IP Address</th>
+            <th>MAC Address</th>
+            <th>QoS</th>
+          </tr>
+          <tr ng-repeat="dev in dhcpOptions">
+            <td>{{dev.option}}</td>
+            <td>{{dev.ip}}</td>
+            <td>{{dev.mac}}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="text-align: center;">
+        <button class="btn dark-btn" ng-click="save()">Apply</button>
+        <a class="btn dark-btn" href="#/advanced/dhcp">Cancel</a>
+      </div>
+    </div>
+    <div ng-include src="'partials/error.html?v={version_number}'"></div>
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</div>

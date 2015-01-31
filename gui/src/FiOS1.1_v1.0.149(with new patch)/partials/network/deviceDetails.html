@@ -1,0 +1,119 @@
+<div  id="keyContainer" ng-keyup="keyPress($event)" tabindex="1" focus-container>
+  <div ng-include src="'partials/header.html?v={version_number}'"></div>
+  <div class="centerer">
+    <div id="content">
+      <div ng-include src="'partials/network/nav.html?v={version_number}'"></div>
+      <div class="content-panel-with-header span9" ng-show="!showErrorPage">
+        <div class="header">Device Information</div>
+        <table class="dark-table">
+          <tr>
+            <th>Host:</th>
+            <td>{{device.name}}</td>
+          </tr>
+          <tr>
+            <th>IP Address:</th>
+            <td>{{device.shownIPAddress}}</td>
+          </tr>
+          <tr>
+            <th>Subnet Mask:</th>
+            <td>{{subnetMask}}</td>
+          </tr>
+          <tr>
+            <th>MAC Address:</th>
+            <td>{{device.mac}}</td>
+          </tr>
+          <tr>
+            <th>Connection Type:</th>
+	        <td ng-switch on="device.connectionType">
+	          <div ng-switch-when="0">
+	            <div class="ethernet-icon"></div>
+	            Ethernet
+	          </div>
+	          <div ng-switch-when="4">
+	            <div class="wifi-icon"></div>
+	            Wireless 5G
+	          </div>
+	          <div ng-switch-when="5">
+	            <div class="wifi-icon"></div>
+	            Wireless 2.4G
+	          </div>
+	          <div ng-switch-when="6">
+	            <div class="wifi-icon"></div>
+	            Wireless 2.4G
+	          </div>
+	          <div ng-switch-when="7">
+	            <div class="wifi-icon"></div>
+	            Wireless 5G
+	          </div>
+	          <div ng-switch-default>
+	            <div class="coax-icon"></div>
+	            Coax
+	          </div>
+	        </td>
+	      </tr>
+          <tr ng-show="device.connectionType == 5 || device.connectionType == 4 || device.connectionType == 7">
+            <th>Frequency:</th>
+            <td>{{device.frequency}}</td>
+          </tr>
+          <tr ng-show="device.connectionType == 5 || device.connectionType == 4 || device.connectionType == 7">
+            <th>Protocol Supported:</th>
+            <td>{{device.wifiMode}}</td>
+          </tr>
+          <tr ng-show="device.connectionType == 5 || device.connectionType == 4 || device.connectionType == 7">
+            <th>Radio Configuration (T x R : S):</th>
+            <td>{{device.transceiver}}</td>
+          </tr>
+          <tr ng-show="device.connectionType == 5 || device.connectionType == 4 || device.connectionType == 7">
+            <th>PHY Rate / Modulation Rate:</th>
+            <td>{{device.modulationRate}}</td>
+          </tr>
+          <tr ng-show="device.connectionType == 5 || device.connectionType == 4 || device.connectionType == 7">
+            <th>RSSI:</th>
+            <td>{{device.rssi}}</td>
+          </tr>
+          <tr ng-show="device.connectionType == 5 || device.connectionType == 4 || device.connectionType == 7">
+            <th>SNR:</th>
+            <td>{{device.snr}}</td>
+          </tr>
+          <tr>
+            <th>Network Connection:</th>
+            <td ng-show="device.connectionType == 1">
+              <a href="#/network/connections/1?from=dev_{{device.id}}">Bridge</a>
+            </td>
+            <td ng-show="device.connectionType != 1">
+              <a href="#/network/connections/0?from=dev_{{device.id}}">Bridge</a>
+            </td>
+          </tr>
+          <tr>
+            <th>Lease Type:</th>
+            <td class="softTxt" ng-switch on="device.staticIp">
+              <div ng-switch-when="false">Dynamic</div>
+              <div ng-switch-default>Static</div>
+            </td>
+          </tr>
+          <tr>
+            <th>Port Forwarding Services:</th>
+            <td>
+              <div ng-repeat="pf in forwards">{{pf}}</div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              To test if this device is connected to your broad band home router, click the 'Test Connectivity' button.
+            </td>
+          </tr>
+          <tr>
+            <th>Ping Test:</th>
+            <td>
+              <button class="dark-btn btn" ng-click="pingTest()">Test Connectivity</button>
+            </td>
+          </tr>
+        </table>
+        <div style="text-align: center;">
+          <a href="{{close}}" class="btn dark-btn">Close</a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
