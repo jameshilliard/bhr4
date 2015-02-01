@@ -193,6 +193,7 @@ public class Wireless {
 		Map map1 = maps.get(2);
 		Boolean b1 = (Boolean)map.get("radioEnabled");
 		logger.debug(b1 +"");
+		//if(b1 == false)
 		map1.put("enabled", b1);
 	}
 	
