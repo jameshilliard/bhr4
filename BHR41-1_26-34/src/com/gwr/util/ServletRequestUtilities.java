@@ -127,7 +127,7 @@ public class ServletRequestUtilities {
 			HttpServletResponse response) {
 
 		logger.info("Delete " + request.getRequestURI());
-		int id = Integer.parseInt(request.getRequestURI().substring(
+		long id = Long.parseLong(request.getRequestURI().substring(
 				request.getRequestURI().lastIndexOf("/") + 1));
 
 		UIToSimModelListRequest req = new UIToSimModelListRequest(
