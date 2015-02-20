@@ -181,8 +181,8 @@ public class Wireless {
 	}
 
 	public void changeGuessOnOffWhenWireless0OnOff() {
-		Map map = maps.get(0);
-		Map map1 = maps.get(2);
+		Map map = maps.get(0); //
+		Map map1 = maps.get(2); // no index id in this array, so use map index
 		Boolean b1 = (Boolean) map.get("radioEnabled");
 		logger.debug(b1 + "");
 		// if(b1 == false)
@@ -190,7 +190,7 @@ public class Wireless {
 	}
 
 	public Boolean getRadioEnabled(String id) {
-		Map map = maps.get(0);
+		Map map = getByIndex(id);
 		Boolean b1 = (Boolean) map.get("radioEnabled");
 		return b1;
 	}
