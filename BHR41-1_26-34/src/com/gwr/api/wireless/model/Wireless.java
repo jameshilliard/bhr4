@@ -19,8 +19,8 @@ public class Wireless {
 	public Wireless(String jsontext) {
 		maps = SimpleJson.getJsonObjects(jsontext);
 	}
-	
-	public String getJson(){
+
+	public String getJson() {
 		return SimpleJson.toJsonText(maps);
 	}
 
@@ -33,14 +33,14 @@ public class Wireless {
 		}
 		return null;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public String getJsonByIndex(String idx) {
-		
+
 		Map p = getByIndex(idx);
 		return SimpleJson.toJsonText(p);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public Map getSecurity(String idx) {
 		Map wireless = this.getByIndex(idx);
@@ -100,7 +100,7 @@ public class Wireless {
 		Map mapBy = SimpleJson.getJsonObject(jsonText);
 		replaceWpa(idx, mapBy);
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void replaceByIndex(String idx, String jsonText) {
 		Map thisOne = getByIndex(idx);
@@ -108,94 +108,90 @@ public class Wireless {
 		thisOne.putAll(mapBy);
 	}
 
-	
 	@SuppressWarnings("rawtypes")
 	public Map getByListIndex(String idx) {
 		int id = Integer.parseInt(idx);
-		if(maps.size() > id)
+		if (maps.size() > id)
 			return maps.get(id);
 		return null;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public String getJsonByListIndex(String idx) {
-		
+
 		Map p = getByListIndex(idx);
 		return SimpleJson.toJsonText(p);
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void replaceByListIndex(String idx, String jsonText) {
 		Map thisOne = getByListIndex(idx);
 		Map mapBy = SimpleJson.getJsonObject(jsonText);
 		thisOne.putAll(mapBy);
 	}
-	
-	public Boolean getWirelessGuestEnable(){
+
+	public Boolean getWirelessGuestEnable() {
 		Map map = maps.get(2);
-		if(map != null) 
-			return (Boolean)map.get("enabled");
+		if (map != null)
+			return (Boolean) map.get("enabled");
 		else
 			return null;
 	}
-	
-	public void replaceSecurityTypeWhenWpa0(String idx, String jsonText){
-		
-		if(!idx.equals("0"))
+
+	public void replaceSecurityTypeWhenWpa0(String idx, String jsonText) {
+
+		if (!idx.equals("0"))
 			return;
 		Map mapBy = SimpleJson.getJsonObject(jsonText);
-		Long type = (Long)mapBy.get("encryptionAlgorithm");
+		Long type = (Long) mapBy.get("encryptionAlgorithm");
 		logger.debug(type.toString());
-		if(type == 0)
-		{
+		if (type == 0) {
 			type = new Long(2);
-		}
-		else
-		if(type == 1)
-		{
+		} else if (type == 1) {
 			type = new Long(1);
 		}
 		Map security = this.getSecurity(idx);
 		security.put("type", type);
 	}
-	public void replaceSecurityTypeWhenWpa1(String idx, String jsonText){
-		
-		if(!idx.equals("1"))
+
+	public void replaceSecurityTypeWhenWpa1(String idx, String jsonText) {
+
+		if (!idx.equals("1"))
 			return;
 		Map mapBy = SimpleJson.getJsonObject(jsonText);
-		Long type = (Long)mapBy.get("type");
+		Long type = (Long) mapBy.get("type");
 		logger.debug(type.toString());
-		if(type == 0)
-		{
+		if (type == 0) {
 			type = new Long(1);
-		}
-		else
-		if(type == 1)
-		{
+		} else if (type == 1) {
 			type = new Long(2);
 		}
 		Map security = this.getSecurity(idx);
 		logger.debug(security.get("type").toString());
 		security.put("type", type);
 	}
-	public void replaceSecurityTypeWhenWep(String idx, String jsonText){
-		
-		if(!idx.equals("0"))
+
+	public void replaceSecurityTypeWhenWep(String idx, String jsonText) {
+
+		if (!idx.equals("0"))
 			return;
 		logger.debug(idx + " " + jsonText);
 		Map security = this.getSecurity(idx);
 		security.put("type", new Long(0));
 	}
-	
-	
-	public void changeGuessOnOffWhenWireless0OnOff(){
+
+	public void changeGuessOnOffWhenWireless0OnOff() {
 		Map map = maps.get(0);
 		Map map1 = maps.get(2);
-		Boolean b1 = (Boolean)map.get("radioEnabled");
-		logger.debug(b1 +"");
-		//if(b1 == false)
+		Boolean b1 = (Boolean) map.get("radioEnabled");
+		logger.debug(b1 + "");
+		// if(b1 == false)
 		map1.put("enabled", b1);
 	}
-	
 
+	public Boolean getRadioEnabled(String id) {
+		Map map = maps.get(0);
+		Boolean b1 = (Boolean) map.get("radioEnabled");
+		return b1;
+	}
 }

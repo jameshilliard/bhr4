@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gwr.api.devices.DevicesServlet;
+import com.gwr.api.devices.model.Devices;
 import com.gwr.api.wireless.model.Wireless;
 import com.gwr.util.GlobalConstants;
 import com.gwr.util.HttpSessionUtil;
@@ -81,10 +83,10 @@ public class WirelessServlet extends HttpServlet {
 		} else if (uri.endsWith(MACFILTER)) {
 			String id = MACKEY + StringUtil.retrieveId(uri, MACFILTER);
 			String def;
-			if(id.equals("0"))
-			  def = JsonProperties.getWirelessMacfilter0JSON();
+			if (id.equals("0"))
+				def = JsonProperties.getWirelessMacfilter0JSON();
 			else
-			  def = JsonProperties.getWirelessMacfilter1JSON();	
+				def = JsonProperties.getWirelessMacfilter1JSON();
 			json = HttpSessionUtil.getSessionAttribute(request, id, def);
 		} else if (uri.endsWith(WPS)) {
 			String id = WPSKEY + StringUtil.retrieveId(uri, WPS);
@@ -184,8 +186,25 @@ public class WirelessServlet extends HttpServlet {
 					returnJson = wireless.getJsonByListIndex(id);
 				} else {
 					wireless.replaceByIndex(id, in);
-					if(id.equals("0"))
+					if (id.equals("0")) {
 						wireless.changeGuessOnOffWhenWireless0OnOff();
+					}
+					Long ctype = new Long(5);
+
+					if (id.equals("1"))
+						ctype = new Long(4);
+					// change devices if wireless 2.4 or 5G change
+					Boolean b = wireless.getRadioEnabled(id);
+					String devicejs = (String) request.getSession()
+							.getAttribute(DevicesServlet.class.getSimpleName());
+					Devices devices = new Devices(devicejs);
+					devices.changeDeviceStatusByWirelessType(ctype, b);
+					// write back to session
+					request.getSession().setAttribute(
+							DevicesServlet.class.getSimpleName(),
+							devices.getJson());
+
+					
 					finalJson = wireless.getJson();
 					// return this
 					returnJson = wireless.getJsonByIndex(id);

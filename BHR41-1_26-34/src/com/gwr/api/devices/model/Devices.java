@@ -74,4 +74,16 @@ public class Devices {
 			}
 		return b;
 	}
+
+	public void changeDeviceStatusByWirelessType(Long type, Boolean status){
+		
+		for (Map p : maps) {
+			Long t = (Long)p.get("connectionType");
+			if(t.equals(type)){
+				p.put("status", status);
+			}
+		}
+		
+	}
+
 }

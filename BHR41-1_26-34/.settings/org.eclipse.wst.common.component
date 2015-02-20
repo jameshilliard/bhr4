@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="BHR41-1_26-35">
+    <wb-module deploy-name="BHR41-1_26-38">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/BHR41-1_26-35/build/classes"/>
-        <property name="context-root" value="BHR41-1_26-35"/>
+        <property name="java-output-path" value="/BHR41-1_26-38/build/classes"/>
+        <property name="context-root" value="BHR41-1_26-38"/>
     </wb-module>
 </project-modules>
